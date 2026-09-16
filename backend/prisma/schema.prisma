@@ -4,4 +4,448 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// =====================================================
+// ENUMS
+// =====================================================
+
+enum UserRole {
+  CANDIDATE
+  TALENT_ACQUISITION
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum JobStatus {
+  DRAFT
+  ACTIVE
+  CLOSED
+}
+
+enum EmploymentType {
+  FULL_TIME
+  PART_TIME
+  CONTRACT
+  INTERNSHIP
+}
+
+enum ApplicationStatus {
+  SUBMITTED
+  ASSESSMENT_COMPLETED
+  UNDER_REVIEW
+  INTERVIEW
+  FINAL_DECISION
+  REJECTED
+}
+
+enum AssessmentStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum AttemptStatus {
+  IN_PROGRESS
+  COMPLETED
+  EXPIRED
+  ABANDONED
+}
+
+enum ActivityType {
+  APPLICATION_SUBMITTED
+  ASSESSMENT_STARTED
+  ASSESSMENT_COMPLETED
+  APPLICATION_STATUS_CHANGED
+  CANDIDATE_SHORTLISTED
+  CANDIDATE_REJECTED
+  INTERVIEW_SCHEDULED
+}
+
+// =====================================================
+// USER
+// =====================================================
+
+model User {
+  id           String     @id @default(cuid())
+  email        String     @unique
+  passwordHash String
+  role         UserRole
+  status       UserStatus @default(ACTIVE)
+
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  lastLoginAt DateTime?
+
+  candidateProfile   CandidateProfile?
+  applications       Application[]
+  assessmentAttempts AssessmentAttempt[]
+  activityLogs       ActivityLog[]
+
+  @@index([role])
+  @@index([status])
+  @@map("users")
+}
+
+// =====================================================
+// CANDIDATE PROFILE
+// =====================================================
+
+model CandidateProfile {
+  id     String @id @default(cuid())
+  userId String @unique
+
+  firstName String
+  lastName  String?
+
+  phone    String?
+  address  String?
+  city     String?
+  province String?
+
+  birthDate DateTime?
+
+  education  String?
+  experience String?
+  skills     String?
+
+  resumeUrl       String?
+  profilePhotoUrl String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("candidate_profiles")
+}
+
+// =====================================================
+// JOB
+// =====================================================
+
+model Job {
+  id String @id @default(cuid())
+
+  title          String
+  slug           String         @unique
+  department     String
+  location       String
+  employmentType EmploymentType
+  experience     String?
+
+  description      String?
+  responsibilities String?
+  requirements     String?
+
+  status JobStatus @default(DRAFT)
+
+  publishedAt DateTime?
+  closedAt    DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  applications Application[]
+  competencies JobCompetency[]
+
+  @@index([status])
+  @@index([department])
+  @@index([location])
+  @@map("jobs")
+}
+
+// =====================================================
+// APPLICATION
+// =====================================================
+
+model Application {
+  id String @id @default(cuid())
+
+  userId String
+  jobId  String
+
+  status ApplicationStatus @default(SUBMITTED)
+
+  appliedAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  job Job @relation(fields: [jobId], references: [id], onDelete: Cascade)
+
+  stageHistory       ApplicationStageHistory[]
+  assessmentAttempts AssessmentAttempt[]
+
+  @@unique([userId, jobId])
+  @@index([status])
+  @@index([jobId])
+  @@map("applications")
+}
+
+// =====================================================
+// APPLICATION STAGE HISTORY
+// =====================================================
+
+model ApplicationStageHistory {
+  id String @id @default(cuid())
+
+  applicationId String
+
+  fromStatus ApplicationStatus?
+  toStatus   ApplicationStatus
+
+  note String?
+
+  createdAt DateTime @default(now())
+
+  application Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+
+  @@index([applicationId])
+  @@index([createdAt])
+  @@map("application_stage_history")
+}
+
+// =====================================================
+// COMPETENCY
+// =====================================================
+
+model Competency {
+  id String @id @default(cuid())
+
+  name        String  @unique
+  description String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  jobMappings        JobCompetency[]
+  assessmentMappings AssessmentCompetency[]
+  challenges         Challenge[]
+
+  @@map("competencies")
+}
+
+// =====================================================
+// JOB ↔ COMPETENCY
+// =====================================================
+
+model JobCompetency {
+  id String @id @default(cuid())
+
+  jobId        String
+  competencyId String
+
+  weight Float @default(1)
+
+  job        Job        @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  competency Competency @relation(fields: [competencyId], references: [id], onDelete: Cascade)
+
+  @@unique([jobId, competencyId])
+  @@map("job_competencies")
+}
+
+// =====================================================
+// ASSESSMENT
+// =====================================================
+
+model Assessment {
+  id String @id @default(cuid())
+
+  name      String
+  objective String?
+
+  status AssessmentStatus @default(DRAFT)
+
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  publishedAt DateTime?
+
+  competencies AssessmentCompetency[]
+  challenges   Challenge[]
+  attempts     AssessmentAttempt[]
+
+  @@index([status])
+  @@map("assessments")
+}
+
+// =====================================================
+// ASSESSMENT ↔ COMPETENCY
+// =====================================================
+
+model AssessmentCompetency {
+  id String @id @default(cuid())
+
+  assessmentId String
+  competencyId String
+
+  weight Float @default(1)
+
+  assessment Assessment @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
+  competency Competency @relation(fields: [competencyId], references: [id], onDelete: Cascade)
+
+  @@unique([assessmentId, competencyId])
+  @@map("assessment_competencies")
+}
+
+// =====================================================
+// CHALLENGE
+// =====================================================
+
+model Challenge {
+  id String @id @default(cuid())
+
+  assessmentId String
+  competencyId String
+
+  name     String
+  scenario String
+  question String
+
+  order  Int
+  weight Float @default(1)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  assessment Assessment @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
+  competency Competency @relation(fields: [competencyId], references: [id], onDelete: Cascade)
+
+  options   ChallengeOption[]
+  responses AssessmentResponse[]
+
+  @@index([assessmentId, order])
+  @@index([competencyId])
+  @@map("challenges")
+}
+
+// =====================================================
+// CHALLENGE OPTION
+// =====================================================
+
+model ChallengeOption {
+  id String @id @default(cuid())
+
+  challengeId String
+
+  label String
+  value String?
+
+  score Float @default(0)
+
+  behavioralIndicator String?
+
+  createdAt DateTime @default(now())
+
+  challenge Challenge @relation(fields: [challengeId], references: [id], onDelete: Cascade)
+
+  responses AssessmentResponse[]
+
+  @@index([challengeId])
+  @@map("challenge_options")
+}
+
+// =====================================================
+// ASSESSMENT ATTEMPT
+// =====================================================
+
+model AssessmentAttempt {
+  id String @id @default(cuid())
+
+  userId        String
+  assessmentId  String
+  applicationId String
+
+  status AttemptStatus @default(IN_PROGRESS)
+
+  startedAt   DateTime  @default(now())
+  completedAt DateTime?
+  expiresAt   DateTime?
+
+  user        User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  assessment  Assessment  @relation(fields: [assessmentId], references: [id], onDelete: Cascade)
+  application Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+
+  responses AssessmentResponse[]
+  result    AssessmentResult?
+
+  @@index([userId])
+  @@index([assessmentId])
+  @@index([applicationId])
+  @@map("assessment_attempts")
+}
+
+// =====================================================
+// ASSESSMENT RESPONSE
+// =====================================================
+
+model AssessmentResponse {
+  id String @id @default(cuid())
+
+  attemptId   String
+  challengeId String
+  optionId    String
+
+  score Float @default(0)
+
+  answeredAt DateTime @default(now())
+
+  attempt   AssessmentAttempt @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+  challenge Challenge         @relation(fields: [challengeId], references: [id], onDelete: Cascade)
+  option    ChallengeOption   @relation(fields: [optionId], references: [id], onDelete: Cascade)
+
+  @@unique([attemptId, challengeId])
+  @@index([attemptId])
+  @@map("assessment_responses")
+}
+
+// =====================================================
+// ASSESSMENT RESULT
+// =====================================================
+
+model AssessmentResult {
+  id String @id @default(cuid())
+
+  attemptId String @unique
+
+  overallScore Float
+
+  behavioralSummary String?
+
+  completedAt DateTime @default(now())
+
+  competencyScores Json?
+
+  attempt AssessmentAttempt @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+
+  @@map("assessment_results")
+}
+
+// =====================================================
+// ACTIVITY LOG
+// =====================================================
+
+model ActivityLog {
+  id String @id @default(cuid())
+
+  userId String?
+  type   ActivityType
+
+  entityType String?
+  entityId   String?
+
+  description String?
+
+  createdAt DateTime @default(now())
+
+  user User? @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([userId])
+  @@index([entityType, entityId])
+  @@index([createdAt])
+  @@map("activity_logs")
 }
