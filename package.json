@@ -1,0 +1,10 @@
+{
+  "name": "talentquest-gamification",
+  "version": "1.0.0",
+  "private": true,
+  "description": "EIGER Talent Quest - Gamified Talent Acquisition Platform",
+  "scripts": {
+    "frontend": "npm --prefix frontend run dev",
+    "backend": "npm --prefix backend run dev"
+  }
+}
