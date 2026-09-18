@@ -3,6 +3,7 @@ import cors from "cors";
 import helmet from "helmet";
 import dotenv from "dotenv";
 import authRoutes from "./routes/auth.routes";
+import jobRoutes from "./routes/job.routes";
 
 dotenv.config();
 
@@ -27,6 +28,7 @@ app.get("/api/health", (_req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
+app.use("/api/jobs", jobRoutes);
 
 const PORT = process.env.PORT || 5000;
 
