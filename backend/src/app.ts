@@ -4,6 +4,7 @@ import helmet from "helmet";
 import dotenv from "dotenv";
 import authRoutes from "./routes/auth.routes";
 import jobRoutes from "./routes/job.routes";
+import applicationRoutes from "./routes/application.routes";
 
 dotenv.config();
 
@@ -29,6 +30,7 @@ app.get("/api/health", (_req, res) => {
 
 app.use("/api/auth", authRoutes);
 app.use("/api/jobs", jobRoutes);
+app.use("/api/applications", applicationRoutes);
 
 const PORT = process.env.PORT || 5000;
 
