@@ -1,5 +1,6 @@
 import {
   AssessmentStatus,
+  Prisma,
 } from "@prisma/client";
 
 import * as assessmentRepository from "../repositories/assessment.repository";
@@ -16,9 +17,64 @@ interface UpdateAssessmentInput {
   status?: AssessmentStatus;
 }
 
-export const getAssessmentById = async (
-  id: string
-) => {
+/**
+ * Sanitize assessment data untuk Candidate.
+ *
+ * Candidate hanya boleh melihat informasi yang dibutuhkan
+ * untuk mengerjakan assessment.
+ *
+ * score dan behavioralIndicator TIDAK dikirim ke Candidate.
+ */
+const sanitizeAssessmentForCandidate = (assessment: any) => {
+  return {
+    id: assessment.id,
+    name: assessment.name,
+    objective: assessment.objective,
+    status: assessment.status,
+    publishedAt: assessment.publishedAt,
+
+    competencies: assessment.competencies.map((item: any) => ({
+      id: item.id,
+      competencyId: item.competencyId,
+      weight: item.weight,
+
+      competency: {
+        id: item.competency.id,
+        name: item.competency.name,
+        description: item.competency.description,
+      },
+    })),
+
+    challenges: assessment.challenges.map((challenge: any) => ({
+      id: challenge.id,
+      name: challenge.name,
+      scenario: challenge.scenario,
+      question: challenge.question,
+      order: challenge.order,
+      weight: challenge.weight,
+
+      options: challenge.options.map((option: any) => ({
+        id: option.id,
+        label: option.label,
+        value: option.value,
+      })),
+    })),
+  };
+};
+
+/**
+ * GET all assessments
+ * Digunakan oleh Talent Acquisition.
+ */
+export const getAssessments = async () => {
+  return assessmentRepository.findAllAssessments();
+};
+
+/**
+ * GET assessment by ID
+ * Digunakan oleh Talent Acquisition.
+ */
+export const getAssessmentById = async (id: string) => {
   const assessment =
     await assessmentRepository.findAssessmentById(id);
 
@@ -29,6 +85,13 @@ export const getAssessmentById = async (
   return assessment;
 };
 
+/**
+ * GET published assessment by ID
+ * Digunakan oleh Candidate.
+ *
+ * Data disanitasi agar score dan behavioralIndicator
+ * tidak dapat dilihat oleh Candidate.
+ */
 export const getPublishedAssessmentById = async (
   id: string
 ) => {
@@ -41,24 +104,32 @@ export const getPublishedAssessmentById = async (
     throw new Error("ASSESSMENT_NOT_FOUND");
   }
 
-  return assessment;
+  return sanitizeAssessmentForCandidate(assessment);
 };
 
-export const getAllAssessments = async () => {
-  return assessmentRepository.findAllAssessments();
-};
-
+/**
+ * CREATE assessment
+ * Hanya Talent Acquisition.
+ */
 export const createAssessment = async (
   input: CreateAssessmentInput
 ) => {
-  return assessmentRepository.createAssessment({
+  const data: Prisma.AssessmentCreateInput = {
     name: input.name,
     objective: input.objective,
-    status:
-      input.status ?? AssessmentStatus.DRAFT,
-  });
+    status: input.status ?? AssessmentStatus.DRAFT,
+  };
+
+  const assessment =
+    await assessmentRepository.createAssessment(data);
+
+  return assessment;
 };
 
+/**
+ * UPDATE assessment
+ * Hanya Talent Acquisition.
+ */
 export const updateAssessment = async (
   id: string,
   input: UpdateAssessmentInput
@@ -70,24 +141,37 @@ export const updateAssessment = async (
     throw new Error("ASSESSMENT_NOT_FOUND");
   }
 
-  return assessmentRepository.updateAssessment(
-    id,
-    {
-      ...(input.name !== undefined && {
-        name: input.name,
-      }),
+  const data: Prisma.AssessmentUpdateInput = {};
 
-      ...(input.objective !== undefined && {
-        objective: input.objective,
-      }),
+  if (input.name !== undefined) {
+    data.name = input.name;
+  }
 
-      ...(input.status !== undefined && {
-        status: input.status,
-      }),
+  if (input.objective !== undefined) {
+    data.objective = input.objective;
+  }
+
+  if (input.status !== undefined) {
+    data.status = input.status;
+
+    if (input.status === AssessmentStatus.PUBLISHED) {
+      data.publishedAt = new Date();
     }
-  );
+  }
+
+  const assessment =
+    await assessmentRepository.updateAssessment(
+      id,
+      data
+    );
+
+  return assessment;
 };
 
+/**
+ * UPDATE assessment status
+ * Hanya Talent Acquisition.
+ */
 export const updateAssessmentStatus = async (
   id: string,
   status: AssessmentStatus
@@ -99,20 +183,32 @@ export const updateAssessmentStatus = async (
     throw new Error("ASSESSMENT_NOT_FOUND");
   }
 
-  return assessmentRepository.updateAssessment(
-    id,
-    {
-      status,
-      ...(status === AssessmentStatus.PUBLISHED && {
-        publishedAt: new Date(),
-      }),
-    }
-  );
+  const data: Prisma.AssessmentUpdateInput = {
+    status,
+  };
+
+  if (status === AssessmentStatus.PUBLISHED) {
+    data.publishedAt = new Date();
+  }
+
+  if (status !== AssessmentStatus.PUBLISHED) {
+    data.publishedAt = null;
+  }
+
+  const assessment =
+    await assessmentRepository.updateAssessment(
+      id,
+      data
+    );
+
+  return assessment;
 };
 
-export const deleteAssessment = async (
-  id: string
-) => {
+/**
+ * DELETE assessment
+ * Hanya Talent Acquisition.
+ */
+export const deleteAssessment = async (id: string) => {
   const existingAssessment =
     await assessmentRepository.findAssessmentById(id);
 
@@ -120,5 +216,10 @@ export const deleteAssessment = async (
     throw new Error("ASSESSMENT_NOT_FOUND");
   }
 
-  return assessmentRepository.deleteAssessment(id);
+  await assessmentRepository.deleteAssessment(id);
+
+  return {
+    id,
+    message: "Assessment deleted successfully",
+  };
 };
