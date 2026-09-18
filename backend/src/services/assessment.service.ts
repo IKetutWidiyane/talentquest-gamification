@@ -15,7 +15,7 @@ interface UpdateAssessmentInput {
   name?: string;
   objective?: string;
   status?: AssessmentStatus;
-}
+};
 
 /**
  * Sanitize assessment data untuk Candidate.
@@ -66,7 +66,7 @@ const sanitizeAssessmentForCandidate = (assessment: any) => {
  * GET all assessments
  * Digunakan oleh Talent Acquisition.
  */
-export const getAssessments = async () => {
+export const getAllAssessments = async () => {
   return assessmentRepository.findAllAssessments();
 };
 
