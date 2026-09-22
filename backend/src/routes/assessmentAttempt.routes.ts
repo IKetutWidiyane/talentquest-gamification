@@ -1,10 +1,12 @@
 import { Router } from "express";
+
 import { UserRole } from "@prisma/client";
 
 import {
   startAssessment,
   getAttempt,
   submitResponse,
+  completeAssessment,
 } from "../controllers/assessmentAttempt.controller";
 
 import {
@@ -32,6 +34,12 @@ router.post(
   "/:id/responses",
   authorize(UserRole.CANDIDATE),
   submitResponse
+);
+
+router.post(
+  "/:id/complete",
+  authorize(UserRole.CANDIDATE),
+  completeAssessment
 );
 
 export default router;

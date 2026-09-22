@@ -6,6 +6,7 @@ import {
 } from "../validators/assessmentAttempt.validator";
 
 import * as attemptService from "../services/assessmentAttempt.service";
+import * as assessmentAttemptService from "../services/assessmentAttempt.service";
 
 export const startAssessment = async (
   req: Request,
@@ -287,6 +288,57 @@ export const submitResponse = async (
     res.status(500).json({
       success: false,
       message: "Failed to submit response",
+    });
+  }
+};
+export const completeAssessment = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    if (!req.user) {
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized",
+      });
+    }
+
+    const attemptId = String(req.params.id);
+
+    const result =
+      await assessmentAttemptService.completeAssessment(
+        attemptId,
+        req.user.userId
+      );
+
+    return res.status(200).json({
+      success: true,
+      message:
+        "Assessment completed successfully",
+      data: result,
+    });
+  } catch (error: any) {
+    console.error(
+      "Complete assessment error:",
+      error
+    );
+
+    const errorStatusMap: Record<
+      string,
+      number
+    > = {
+      ATTEMPT_NOT_FOUND: 404,
+      FORBIDDEN: 403,
+      ATTEMPT_NOT_ACTIVE: 409,
+      ALL_CHALLENGES_NOT_ANSWERED: 400,
+    };
+
+    const status =
+      errorStatusMap[error.message] ?? 500;
+
+    return res.status(status).json({
+      success: false,
+      message: error.message,
     });
   }
 };
