@@ -43,7 +43,8 @@ export const getCandidateAssessmentResult = async (
       location: application.job.location,
       employmentType:
         application.job.employmentType,
-      experience: application.job.experience,
+      experience:
+        application.job.experience,
     },
 
     assessment: {

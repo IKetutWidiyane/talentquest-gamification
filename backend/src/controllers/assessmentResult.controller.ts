@@ -1,74 +1,49 @@
-import * as assessmentResultRepository from "../repositories/assessmentResult.repository";
+import { Request, Response } from "express";
+
+import * as assessmentResultService from "../services/assessmentResult.service";
 
 export const getCandidateAssessmentResult = async (
-  applicationId: string
+  req: Request,
+  res: Response
 ) => {
-  const application =
-    await assessmentResultRepository.findApplicationAssessmentResult(
-      applicationId
+  try {
+    if (!req.user) {
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized",
+      });
+    }
+
+    const applicationId = String(
+      req.params.applicationId
     );
 
-  if (!application) {
-    throw new Error("APPLICATION_NOT_FOUND");
-  }
+    const result =
+      await assessmentResultService.getCandidateAssessmentResult(
+        applicationId
+      );
 
-  const attempt =
-    application.assessmentAttempts[0];
-
-  if (!attempt || !attempt.result) {
-    throw new Error(
-      "ASSESSMENT_RESULT_NOT_FOUND"
+    return res.status(200).json({
+      success: true,
+      data: result,
+    });
+  } catch (error: any) {
+    console.error(
+      "Get candidate assessment result error:",
+      error
     );
+
+    const errorStatusMap: Record<string, number> = {
+      APPLICATION_NOT_FOUND: 404,
+      ASSESSMENT_RESULT_NOT_FOUND: 404,
+    };
+
+    const status =
+      errorStatusMap[error.message] ?? 500;
+
+    return res.status(status).json({
+      success: false,
+      message: error.message,
+    });
   }
-
-  return {
-    application: {
-      id: application.id,
-      status: application.status,
-      appliedAt: application.appliedAt,
-    },
-
-    candidate: {
-      id: application.user.id,
-      email: application.user.email,
-
-      profile:
-        application.user.candidateProfile,
-    },
-
-    job: {
-      id: application.job.id,
-      title: application.job.title,
-      slug: application.job.slug,
-      department: application.job.department,
-      location: application.job.location,
-      employmentType:
-        application.job.employmentType,
-      experience: application.job.experience,
-    },
-
-    assessment: {
-      id: attempt.assessment.id,
-      name: attempt.assessment.name,
-      objective:
-        attempt.assessment.objective,
-    },
-
-    result: {
-      id: attempt.result.id,
-      attemptId: attempt.id,
-
-      overallScore:
-        attempt.result.overallScore,
-
-      behavioralSummary:
-        attempt.result.behavioralSummary,
-
-      competencyScores:
-        attempt.result.competencyScores,
-
-      completedAt:
-        attempt.result.completedAt,
-    },
-  };
 };
