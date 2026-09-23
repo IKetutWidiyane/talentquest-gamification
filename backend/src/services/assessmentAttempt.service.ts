@@ -600,3 +600,58 @@ export const completeAssessment = async (
     },
   };
 };
+export const getAssessmentResult = async (
+  attemptId: string,
+  userId: string
+) => {
+  const result =
+    await attemptRepository.findResultByAttemptId(
+      attemptId
+    );
+
+  if (!result) {
+    throw new Error("RESULT_NOT_FOUND");
+  }
+
+  if (result.attempt.userId !== userId) {
+    throw new Error("FORBIDDEN");
+  }
+
+  if (
+    result.attempt.status !== AttemptStatus.COMPLETED
+  ) {
+    throw new Error("ATTEMPT_NOT_COMPLETED");
+  }
+
+  return {
+    attemptId: result.attemptId,
+
+    assessment: {
+      id: result.attempt.assessment.id,
+      name: result.attempt.assessment.name,
+      objective: result.attempt.assessment.objective,
+    },
+
+    application: {
+      id: result.attempt.application.id,
+      status: result.attempt.application.status,
+
+      job: {
+        id: result.attempt.application.job.id,
+        title: result.attempt.application.job.title,
+        slug: result.attempt.application.job.slug,
+      },
+    },
+
+    overallScore: result.overallScore,
+
+    behavioralSummary:
+      result.behavioralSummary,
+
+    competencyScores:
+      result.competencyScores,
+
+    completedAt:
+      result.completedAt,
+  };
+};

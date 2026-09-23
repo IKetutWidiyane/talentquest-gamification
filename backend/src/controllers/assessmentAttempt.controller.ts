@@ -342,3 +342,48 @@ export const completeAssessment = async (
     });
   }
 };
+export const getAssessmentResult = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    if (!req.user) {
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized",
+      });
+    }
+
+    const attemptId = String(req.params.id);
+
+    const result =
+      await assessmentAttemptService.getAssessmentResult(
+        attemptId,
+        req.user.userId
+      );
+
+    return res.status(200).json({
+      success: true,
+      data: result,
+    });
+  } catch (error: any) {
+    console.error(
+      "Get assessment result error:",
+      error
+    );
+
+    const errorStatusMap: Record<string, number> = {
+      RESULT_NOT_FOUND: 404,
+      FORBIDDEN: 403,
+      ATTEMPT_NOT_COMPLETED: 409,
+    };
+
+    const status =
+      errorStatusMap[error.message] ?? 500;
+
+    return res.status(status).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};

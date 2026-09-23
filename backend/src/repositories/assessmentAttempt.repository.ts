@@ -230,3 +230,26 @@ export const createResult = async (
     data,
   });
 };
+export const findResultByAttemptId = async (
+  attemptId: string
+) => {
+  return prisma.assessmentResult.findUnique({
+    where: {
+      attemptId,
+    },
+
+    include: {
+      attempt: {
+        include: {
+          assessment: true,
+
+          application: {
+            include: {
+              job: true,
+            },
+          },
+        },
+      },
+    },
+  });
+};

@@ -7,6 +7,7 @@ import {
   getAttempt,
   submitResponse,
   completeAssessment,
+  getAssessmentResult,
 } from "../controllers/assessmentAttempt.controller";
 
 import {
@@ -22,6 +23,12 @@ router.post(
   "/",
   authorize(UserRole.CANDIDATE),
   startAssessment
+);
+
+router.get(
+  "/:id/result",
+  authorize(UserRole.CANDIDATE),
+  getAssessmentResult
 );
 
 router.get(
