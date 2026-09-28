@@ -8,6 +8,7 @@ import applicationRoutes from "./routes/application.routes";
 import assessmentRoutes from "./routes/assessment.routes";
 import asssessmentAttemptRoutes from "./routes/assessmentAttempt.routes";
 import assessmentResultRoutes from "./routes/assessmentResult.routes";
+import candidateRoutes from "./routes/candidate.routes";
 
 dotenv.config();
 
@@ -37,6 +38,7 @@ app.use("/api/applications", applicationRoutes);
 app.use("/api/assessments", assessmentRoutes);
 app.use("/api/assessment-attempts", asssessmentAttemptRoutes);
 app.use("/api/assessment-results", assessmentResultRoutes);
+app.use("/api/candidates", candidateRoutes);
 
 const PORT = process.env.PORT || 5000;
 
