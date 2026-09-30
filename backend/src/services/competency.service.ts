@@ -22,7 +22,6 @@ export const getCompetencyById = async (
 export const createCompetency = async (data: {
   name: string;
   description?: string;
-  behavioralIndicators?: string;
 }) => {
   return competencyRepository.createCompetency(data);
 };
@@ -32,13 +31,10 @@ export const updateCompetency = async (
   data: {
     name?: string;
     description?: string;
-    behavioralIndicators?: string;
   }
 ) => {
   const existing =
-    await competencyRepository.findCompetencyById(
-      competencyId
-    );
+    await competencyRepository.findCompetencyById(competencyId);
 
   if (!existing) {
     throw new Error("COMPETENCY_NOT_FOUND");
@@ -63,8 +59,8 @@ export const deleteCompetency = async (
   }
 
   if (
-    existing._count.jobCompetencies > 0 ||
-    existing._count.assessmentCompetencies > 0 ||
+    existing._count.jobMappings > 0 ||
+    existing._count.assessmentMappings > 0 ||
     existing._count.challenges > 0
   ) {
     throw new Error("COMPETENCY_IN_USE");

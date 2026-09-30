@@ -5,12 +5,13 @@ export const findAllCompetencies = async () => {
     include: {
       _count: {
         select: {
-          jobCompetencies: true,
-          assessmentCompetencies: true,
+          jobMappings: true,
+          assessmentMappings: true,
           challenges: true,
         },
       },
     },
+
     orderBy: {
       name: "asc",
     },
@@ -24,11 +25,12 @@ export const findCompetencyById = async (
     where: {
       id: competencyId,
     },
+
     include: {
       _count: {
         select: {
-          jobCompetencies: true,
-          assessmentCompetencies: true,
+          jobMappings: true,
+          assessmentMappings: true,
           challenges: true,
         },
       },
@@ -39,7 +41,6 @@ export const findCompetencyById = async (
 export const createCompetency = async (data: {
   name: string;
   description?: string;
-  behavioralIndicators?: string;
 }) => {
   return prisma.competency.create({
     data,
@@ -51,7 +52,6 @@ export const updateCompetency = async (
   data: {
     name?: string;
     description?: string;
-    behavioralIndicators?: string;
   }
 ) => {
   return prisma.competency.update({
