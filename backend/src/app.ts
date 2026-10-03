@@ -12,6 +12,7 @@ import candidateRoutes from "./routes/candidate.routes";
 import candidateProfileRoutes from "./routes/candidateProfile.routes";
 import competencyRoutes from "./routes/competency.routes";
 import challengeRoutes from "./routes/challenge.routes";
+import userRoutes from "./routes/user.routes";
 
 dotenv.config();
 
@@ -41,6 +42,7 @@ app.use("/api/applications", applicationRoutes);
 app.use("/api/assessments", assessmentRoutes);
 app.use("/api/competencies", competencyRoutes);
 app.use("/api/challenges", challengeRoutes);
+app.use("/api/users", userRoutes);
 app.use("/api/assessment-attempts", asssessmentAttemptRoutes);
 app.use("/api/assessment-results", assessmentResultRoutes);
 app.use("/api/candidates/profile",candidateProfileRoutes);
