@@ -66,6 +66,12 @@ enum ActivityType {
   INTERVIEW_SCHEDULED
 }
 
+enum TalentPoolStatus {
+  ACTIVE
+  HIRED
+  INACTIVE
+}
+
 // =====================================================
 // USER
 // =====================================================
@@ -85,6 +91,8 @@ model User {
   applications       Application[]
   assessmentAttempts AssessmentAttempt[]
   activityLogs       ActivityLog[]
+
+  talentPoolEntries TalentPool[] @relation("TalentPoolAddedBy")
 
   @@index([role])
   @@index([status])
@@ -121,7 +129,38 @@ model CandidateProfile {
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  talentPool TalentPool?
+
   @@map("candidate_profiles")
+}
+
+// =====================================================
+// TALENT POOL
+// =====================================================
+
+model TalentPool {
+  id String @id @default(cuid())
+
+  candidateProfileId String
+  addedByUserId      String
+
+  status TalentPoolStatus @default(ACTIVE)
+
+  notes String?
+  tags  String?
+
+  addedAt   DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  candidateProfile CandidateProfile @relation(fields: [candidateProfileId], references: [id], onDelete: Cascade)
+
+  addedBy User @relation("TalentPoolAddedBy", fields: [addedByUserId], references: [id], onDelete: Cascade)
+
+  @@unique([candidateProfileId])
+  @@index([status])
+  @@index([addedByUserId])
+  @@index([addedAt])
+  @@map("talent_pool")
 }
 
 // =====================================================
