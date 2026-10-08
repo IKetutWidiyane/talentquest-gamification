@@ -8,6 +8,7 @@ import {
 
 import {
   getDashboardAnalytics,
+  getApplicationAnalytics,
 } from "../controllers/analytics.controller";
 
 const router = Router();
@@ -18,6 +19,11 @@ router.use(authorize(UserRole.TALENT_ACQUISITION));
 router.get(
   "/dashboard",
   getDashboardAnalytics
+);
+
+router.get(
+  "/applications",
+  getApplicationAnalytics
 );
 
 export default router;

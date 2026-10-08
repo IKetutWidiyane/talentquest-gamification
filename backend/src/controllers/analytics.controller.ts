@@ -23,3 +23,26 @@ export const getDashboardAnalytics = async (
     });
   }
 };
+
+export const getApplicationAnalytics = async (
+  _req: Request,
+  res: Response
+) => {
+  try {
+    const analytics =
+      await analyticsService.getApplicationAnalytics();
+
+    return res.status(200).json({
+      success: true,
+      message: "Application analytics retrieved successfully",
+      data: analytics,
+    });
+  } catch (error) {
+    console.error("Get application analytics error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Failed to retrieve application analytics",
+    });
+  }
+};

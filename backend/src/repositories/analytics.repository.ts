@@ -140,3 +140,66 @@ export const getDashboardAnalytics = async () => {
     assessments: assessmentStats,
   };
 };
+
+export const getApplicationAnalytics = async () => {
+  const [
+    totalApplications,
+    submitted,
+    assessmentCompleted,
+    underReview,
+    interview,
+    finalDecision,
+    rejected,
+  ] = await Promise.all([
+    prisma.application.count(),
+
+    prisma.application.count({
+      where: {
+        status: "SUBMITTED",
+      },
+    }),
+
+    prisma.application.count({
+      where: {
+        status: "ASSESSMENT_COMPLETED",
+      },
+    }),
+
+    prisma.application.count({
+      where: {
+        status: "UNDER_REVIEW",
+      },
+    }),
+
+    prisma.application.count({
+      where: {
+        status: "INTERVIEW",
+      },
+    }),
+
+    prisma.application.count({
+      where: {
+        status: "FINAL_DECISION",
+      },
+    }),
+
+    prisma.application.count({
+      where: {
+        status: "REJECTED",
+      },
+    }),
+  ]);
+
+  return {
+    totalApplications,
+
+    byStatus: {
+      submitted,
+      assessmentCompleted,
+      underReview,
+      interview,
+      finalDecision,
+      rejected,
+    },
+  };
+};
