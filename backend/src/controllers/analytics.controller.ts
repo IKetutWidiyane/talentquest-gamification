@@ -95,3 +95,26 @@ export const getAssessmentAnalytics = async (
   }
 };
 
+
+export const getTalentPoolAnalytics = async (
+  _req: Request,
+  res: Response
+) => {
+  try {
+    const analytics =
+      await analyticsService.getTalentPoolAnalytics();
+
+    return res.status(200).json({
+      success: true,
+      message: "Talent pool analytics retrieved successfully",
+      data: analytics,
+    });
+  } catch (error) {
+    console.error("Get talent pool analytics error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Failed to retrieve talent pool analytics",
+    });
+  }
+};

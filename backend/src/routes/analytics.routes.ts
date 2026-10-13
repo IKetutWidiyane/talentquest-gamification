@@ -11,6 +11,7 @@ import {
   getApplicationAnalytics,
   getRecruitmentAnalytics,
   getAssessmentAnalytics,
+  getTalentPoolAnalytics,
 } from "../controllers/analytics.controller";
 
 const router = Router();
@@ -36,6 +37,11 @@ router.get(
 router.get(
   "/assessments",
   getAssessmentAnalytics
+);
+
+router.get(
+  "/talent-pool",
+  getTalentPoolAnalytics
 );
 
 export default router;

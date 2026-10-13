@@ -364,3 +364,42 @@ export const getAssessmentAnalytics = async () => {
     averageScore: averageScore._avg.overallScore ?? 0,
   };
 };
+
+
+export const getTalentPoolAnalytics = async () => {
+  const [
+    totalCandidates,
+    activeCandidates,
+    hiredCandidates,
+    inactiveCandidates,
+  ] = await Promise.all([
+    prisma.talentPool.count(),
+
+    prisma.talentPool.count({
+      where: {
+        status: "ACTIVE",
+      },
+    }),
+
+    prisma.talentPool.count({
+      where: {
+        status: "HIRED",
+      },
+    }),
+
+    prisma.talentPool.count({
+      where: {
+        status: "INACTIVE",
+      },
+    }),
+  ]);
+
+  return {
+    totalCandidates,
+    byStatus: {
+      active: activeCandidates,
+      hired: hiredCandidates,
+      inactive: inactiveCandidates,
+    },
+  };
+};

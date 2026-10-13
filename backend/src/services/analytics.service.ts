@@ -17,3 +17,8 @@ export const getRecruitmentAnalytics = async () => {
 export const getAssessmentAnalytics = async () => {
   return analyticsRepository.getAssessmentAnalytics();
 };
+
+
+export const getTalentPoolAnalytics = async () => {
+  return analyticsRepository.getTalentPoolAnalytics();
+};
