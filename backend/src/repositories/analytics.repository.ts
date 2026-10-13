@@ -203,3 +203,95 @@ export const getApplicationAnalytics = async () => {
     },
   };
 };
+
+export const getRecruitmentAnalytics = async () => {
+  const [
+    totalJobs,
+    activeJobs,
+    draftJobs,
+    closedJobs,
+    totalApplications,
+    applicationStatus,
+  ] = await Promise.all([
+    prisma.job.count(),
+
+    prisma.job.count({
+      where: {
+        status: "ACTIVE",
+      },
+    }),
+
+    prisma.job.count({
+      where: {
+        status: "DRAFT",
+      },
+    }),
+
+    prisma.job.count({
+      where: {
+        status: "CLOSED",
+      },
+    }),
+
+    prisma.application.count(),
+
+    prisma.application.groupBy({
+      by: ["status"],
+      _count: {
+        _all: true,
+      },
+    }),
+  ]);
+
+  const applicationsByStatus = {
+    submitted: 0,
+    assessmentCompleted: 0,
+    underReview: 0,
+    interview: 0,
+    finalDecision: 0,
+    rejected: 0,
+  };
+
+  for (const item of applicationStatus) {
+    const count = item._count._all;
+
+    switch (item.status) {
+      case "SUBMITTED":
+        applicationsByStatus.submitted = count;
+        break;
+
+      case "ASSESSMENT_COMPLETED":
+        applicationsByStatus.assessmentCompleted = count;
+        break;
+
+      case "UNDER_REVIEW":
+        applicationsByStatus.underReview = count;
+        break;
+
+      case "INTERVIEW":
+        applicationsByStatus.interview = count;
+        break;
+
+      case "FINAL_DECISION":
+        applicationsByStatus.finalDecision = count;
+        break;
+
+      case "REJECTED":
+        applicationsByStatus.rejected = count;
+        break;
+    }
+  }
+
+  return {
+    jobs: {
+      total: totalJobs,
+      active: activeJobs,
+      draft: draftJobs,
+      closed: closedJobs,
+    },
+    applications: {
+      total: totalApplications,
+      byStatus: applicationsByStatus,
+    },
+  };
+};

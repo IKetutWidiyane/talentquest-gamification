@@ -7,3 +7,8 @@ export const getDashboardAnalytics = async () => {
 export const getApplicationAnalytics = async () => {
   return analyticsRepository.getApplicationAnalytics();
 };
+
+
+export const getRecruitmentAnalytics = async () => {
+  return analyticsRepository.getRecruitmentAnalytics();
+};
