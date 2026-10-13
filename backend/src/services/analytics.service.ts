@@ -12,3 +12,8 @@ export const getApplicationAnalytics = async () => {
 export const getRecruitmentAnalytics = async () => {
   return analyticsRepository.getRecruitmentAnalytics();
 };
+
+
+export const getAssessmentAnalytics = async () => {
+  return analyticsRepository.getAssessmentAnalytics();
+};

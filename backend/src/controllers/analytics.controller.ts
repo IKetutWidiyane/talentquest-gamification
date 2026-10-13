@@ -70,3 +70,28 @@ export const getRecruitmentAnalytics = async (
     });
   }
 };
+
+
+export const getAssessmentAnalytics = async (
+  _req: Request,
+  res: Response
+) => {
+  try {
+    const analytics =
+      await analyticsService.getAssessmentAnalytics();
+
+    return res.status(200).json({
+      success: true,
+      message: "Assessment analytics retrieved successfully",
+      data: analytics,
+    });
+  } catch (error) {
+    console.error("Get assessment analytics error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Failed to retrieve assessment analytics",
+    });
+  }
+};
+

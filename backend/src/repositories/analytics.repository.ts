@@ -295,3 +295,72 @@ export const getRecruitmentAnalytics = async () => {
     },
   };
 };
+
+
+export const getAssessmentAnalytics = async () => {
+  const [
+    totalAssessments,
+    draftAssessments,
+    publishedAssessments,
+    totalAttempts,
+    inProgressAttempts,
+    completedAttempts,
+    expiredAttempts,
+    averageScore,
+  ] = await Promise.all([
+    prisma.assessment.count(),
+
+    prisma.assessment.count({
+      where: {
+        status: "DRAFT",
+      },
+    }),
+
+    prisma.assessment.count({
+      where: {
+        status: "PUBLISHED",
+      },
+    }),
+
+    prisma.assessmentAttempt.count(),
+
+    prisma.assessmentAttempt.count({
+      where: {
+        status: "IN_PROGRESS",
+      },
+    }),
+
+    prisma.assessmentAttempt.count({
+      where: {
+        status: "COMPLETED",
+      },
+    }),
+
+    prisma.assessmentAttempt.count({
+      where: {
+        status: "EXPIRED",
+      },
+    }),
+
+    prisma.assessmentResult.aggregate({
+      _avg: {
+        overallScore: true,
+      },
+    }),
+  ]);
+
+  return {
+    assessments: {
+      total: totalAssessments,
+      draft: draftAssessments,
+      published: publishedAssessments,
+    },
+    attempts: {
+      total: totalAttempts,
+      inProgress: inProgressAttempts,
+      completed: completedAttempts,
+      expired: expiredAttempts,
+    },
+    averageScore: averageScore._avg.overallScore ?? 0,
+  };
+};
