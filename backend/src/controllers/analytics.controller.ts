@@ -46,3 +46,27 @@ export const getApplicationAnalytics = async (
     });
   }
 };
+
+
+export const getRecruitmentAnalytics = async (
+  _req: Request,
+  res: Response
+) => {
+  try {
+    const analytics =
+      await analyticsService.getRecruitmentAnalytics();
+
+    return res.status(200).json({
+      success: true,
+      message: "Recruitment analytics retrieved successfully",
+      data: analytics,
+    });
+  } catch (error) {
+    console.error("Get recruitment analytics error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Failed to retrieve recruitment analytics",
+    });
+  }
+};

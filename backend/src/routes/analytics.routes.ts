@@ -9,6 +9,7 @@ import {
 import {
   getDashboardAnalytics,
   getApplicationAnalytics,
+  getRecruitmentAnalytics,
 } from "../controllers/analytics.controller";
 
 const router = Router();
@@ -24,6 +25,11 @@ router.get(
 router.get(
   "/applications",
   getApplicationAnalytics
+);
+
+router.get(
+  "/recruitment",
+  getRecruitmentAnalytics
 );
 
 export default router;
