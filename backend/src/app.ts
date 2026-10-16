@@ -15,6 +15,7 @@ import challengeRoutes from "./routes/challenge.routes";
 import userRoutes from "./routes/user.routes";
 import talentPoolRoutes from "./routes/talentPool.routes";
 import analyticsRoutes from "./routes/analytics.routes";
+import { notFoundHandler, errorHandler } from "./middlewares/error.middleware";
 
 
 dotenv.config();
@@ -52,6 +53,10 @@ app.use("/api/assessment-attempts", asssessmentAttemptRoutes);
 app.use("/api/assessment-results", assessmentResultRoutes);
 app.use("/api/candidates/profile",candidateProfileRoutes);
 app.use("/api/candidates", candidateRoutes);
+
+
+app.use(notFoundHandler);
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
