@@ -9,26 +9,30 @@ import {
   UserRound,
 } from "lucide-react";
 
-const navigationItems = [
+export const candidateNavigationItems = [
   {
     label: "Jobs",
     href: "/candidate/jobs",
     icon: BriefcaseBusiness,
+    description: "Temukan lowongan yang sesuai dengan kamu",
   },
   {
     label: "Talent Quest",
     href: "/candidate/talent-quest",
     icon: Trophy,
+    description: "Ikuti tantangan dan tunjukkan potensimu",
   },
   {
     label: "My Applications",
     href: "/candidate/applications",
     icon: ClipboardList,
+    description: "Pantau status lamaran kamu",
   },
   {
     label: "Profile",
     href: "/candidate/profile",
     icon: UserRound,
+    description: "Kelola data dan profil kamu",
   },
 ];
 
@@ -46,54 +50,62 @@ export default function CandidateNavigation({
   }
 
   return (
-    <nav aria-label="Candidate navigation" className="space-y-1.5">
-      <p className="mb-3 px-3 text-[10px] font-bold uppercase tracking-[0.18em] text-slate-400">
-        Candidate Menu
+    <nav aria-label="Candidate navigation">
+      <p className="mb-3 px-3 text-[11px] font-semibold uppercase tracking-wider text-slate-400">
+        Menu
       </p>
 
-      {navigationItems.map((item) => {
-        const Icon = item.icon;
-        const active = isActive(item.href);
+      <ul className="space-y-1">
+        {candidateNavigationItems.map((item) => {
+          const Icon = item.icon;
+          const active = isActive(item.href);
+          const isQuest = item.label === "Talent Quest";
 
-        return (
-          <Link
-            key={item.href}
-            href={item.href}
-            aria-current={active ? "page" : undefined}
-            onClick={onNavigate}
-            className={`group flex min-h-11 items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold transition-colors ${
-              active
-                ? "bg-[#0B1B3D] text-white shadow-sm"
-                : "text-slate-600 hover:bg-slate-100 hover:text-[#0B1B3D]"
-            }`}
-          >
-            <Icon
-              size={19}
-              strokeWidth={active ? 2.2 : 1.8}
-              aria-hidden="true"
-              className={
-                active
-                  ? "text-[#F59E0B]"
-                  : "text-slate-400 group-hover:text-[#0B1B3D]"
-              }
-            />
-
-            <span>{item.label}</span>
-
-            {item.label === "Talent Quest" && (
-              <span
-                className={`ml-auto rounded-md px-1.5 py-0.5 text-[9px] font-bold uppercase ${
+          return (
+            <li key={item.href}>
+              <Link
+                href={item.href}
+                aria-current={active ? "page" : undefined}
+                onClick={onNavigate}
+                className={`group relative flex h-11 items-center gap-3 rounded-lg px-3 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D97706] focus-visible:ring-offset-2 ${
                   active
-                    ? "bg-[#F59E0B] text-[#0B1B3D]"
-                    : "bg-amber-50 text-amber-700"
+                    ? "bg-slate-100 text-[#0B1B3D]"
+                    : "text-slate-600 hover:bg-slate-50 hover:text-[#0B1B3D]"
                 }`}
               >
-                Quest
-              </span>
-            )}
-          </Link>
-        );
-      })}
+                {/* Penanda aktif */}
+                <span
+                  aria-hidden="true"
+                  className={`absolute left-0 top-1/2 h-5 w-[3px] -translate-y-1/2 rounded-r-full bg-[#F59E0B] transition-opacity ${
+                    active ? "opacity-100" : "opacity-0"
+                  }`}
+                />
+
+                <Icon
+                  size={18}
+                  strokeWidth={active ? 2.2 : 1.8}
+                  aria-hidden="true"
+                  className={
+                    active
+                      ? "text-[#0B1B3D]"
+                      : "text-slate-400 group-hover:text-[#0B1B3D]"
+                  }
+                />
+
+                <span className={active ? "font-semibold" : undefined}>
+                  {item.label}
+                </span>
+
+                {isQuest && (
+                  <span className="ml-auto rounded-md bg-amber-50 px-1.5 py-0.5 text-[10px] font-semibold text-amber-700">
+                    Quest
+                  </span>
+                )}
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
     </nav>
   );
 }
