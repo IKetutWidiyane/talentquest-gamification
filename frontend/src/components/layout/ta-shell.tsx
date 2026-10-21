@@ -12,6 +12,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 import TANavigation from "./navigation/ta-navigation";
+import UserProfileMenu from "./navigation/user-profile-menu";
 
 interface TAShellProps {
   children: ReactNode;
@@ -135,6 +136,7 @@ export default function TAShell({ children }: TAShellProps) {
           <div className="flex shrink-0 items-center gap-3">
             <span className="hidden rounded-full border border-amber-200 bg-amber-50 px-3 py-1.5 text-xs font-semibold text-amber-800 sm:inline-flex">
               TA Portal
+              
             </span>
 
             <button
@@ -145,6 +147,12 @@ export default function TAShell({ children }: TAShellProps) {
             >
               <Bell size={18} />
             </button>
+            <UserProfileMenu
+              name="TA Demo User"
+              email="ta@example.com"
+              role="Talent Acquisition"
+              profileHref="/ta/profile"
+            />
           </div>
         </header>
 

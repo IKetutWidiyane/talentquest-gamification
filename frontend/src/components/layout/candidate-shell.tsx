@@ -8,6 +8,7 @@ import { Bell, LogOut, Menu, Mountain, X } from "lucide-react";
 import CandidateNavigation, {
   candidateNavigationItems,
 } from "@/components/layout/navigation/candidate-navigation";
+import UserProfileMenu from "./navigation/user-profile-menu";
 
 interface CandidateShellProps {
   children: ReactNode;
@@ -187,6 +188,12 @@ export default function CandidateShell({ children }: CandidateShellProps) {
               <Bell size={18} />
               <span className="absolute right-2.5 top-2.5 h-2 w-2 rounded-full bg-[#D97706]" />
             </button>
+            <UserProfileMenu
+              name="Candidate Demo"
+              email="candidate@example.com"
+              role="Candidate"
+              profileHref="/candidate/profile"
+            />
           </div>
         </header>
 
