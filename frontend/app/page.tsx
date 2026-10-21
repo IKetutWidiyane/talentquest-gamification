@@ -13,8 +13,10 @@ import {
   Users,
 } from "lucide-react";
 
+import FeaturedJobs from "@/features/jobs/featured-jobs";
+
 /* -------------------------------------------------------------------------- */
-/*  Data                                                                      */
+/* Data                                                                       */
 /* -------------------------------------------------------------------------- */
 
 const highlights = [
@@ -85,7 +87,7 @@ const challenges = [
 ];
 
 /* -------------------------------------------------------------------------- */
-/*  Hero illustration: peta jalur dengan garis kontur (Eigerindo Style)       */
+/* Hero illustration: peta jalur dengan garis kontur                          */
 /* -------------------------------------------------------------------------- */
 
 const CONTOUR_PATH =
@@ -126,7 +128,7 @@ function TrailMap() {
         ))}
       </g>
 
-      {/* Jalur */}
+      {/* Jalur tantangan */}
       <path
         className="trail-draw"
         pathLength={1}
@@ -143,27 +145,35 @@ function TrailMap() {
         { x: 150, y: 270, n: "2" },
         { x: 280, y: 250, n: "3" },
         { x: 240, y: 170, n: "4" },
-      ].map((p) => (
-        <g key={p.n}>
-          <circle cx={p.x} cy={p.y} r="12" fill="#F8F9FA" />
+      ].map((point) => (
+        <g key={point.n}>
+          <circle cx={point.x} cy={point.y} r="12" fill="#F8F9FA" />
           <text
-            x={p.x}
-            y={p.y + 4.5}
+            x={point.x}
+            y={point.y + 4.5}
             textAnchor="middle"
             fontSize="12"
             fontWeight="800"
             fill="#0F172A"
           >
-            {p.n}
+            {point.n}
           </text>
         </g>
       ))}
 
       <g fontSize="11" fontWeight="600" fill="#F1F5F9">
-        <text x="68" y="354">Problem solving</text>
-        <text x="150" y="248" textAnchor="middle">Decision making</text>
-        <text x="296" y="254">Collaboration</text>
-        <text x="224" y="166" textAnchor="end">Adaptability</text>
+        <text x="68" y="354">
+          Problem solving
+        </text>
+        <text x="150" y="248" textAnchor="middle">
+          Decision making
+        </text>
+        <text x="296" y="254">
+          Collaboration
+        </text>
+        <text x="224" y="166" textAnchor="end">
+          Adaptability
+        </text>
       </g>
 
       {/* Puncak */}
@@ -177,7 +187,7 @@ function TrailMap() {
 }
 
 /* -------------------------------------------------------------------------- */
-/*  Page                                                                      */
+/* Page                                                                       */
 /* -------------------------------------------------------------------------- */
 
 const focusRing =
@@ -188,20 +198,36 @@ export default function HomePage() {
     <PublicLayout>
       {/* Animasi jalur */}
       <style>{`
-        .trail-draw { stroke-dasharray: 1; stroke-dashoffset: 0; }
-        @media (prefers-reduced-motion: no-preference) {
-          .trail-draw { animation: trail-draw 1.6s cubic-bezier(.4,0,.2,1) .2s both; }
+        .trail-draw {
+          stroke-dasharray: 1;
+          stroke-dashoffset: 0;
         }
-        @keyframes trail-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+
+        @media (prefers-reduced-motion: no-preference) {
+          .trail-draw {
+            animation: trail-draw 1.6s cubic-bezier(.4,0,.2,1) .2s both;
+          }
+        }
+
+        @keyframes trail-draw {
+          from {
+            stroke-dashoffset: 1;
+          }
+          to {
+            stroke-dashoffset: 0;
+          }
+        }
       `}</style>
 
-     {/* ------------------------------------------------------------------ */}
-      {/* Hero Section (Padding atas dibuat minimal agar benar-benar rapat)  */}
+      {/* ------------------------------------------------------------------ */}
+      {/* Hero Section                                                       */}
       {/* ------------------------------------------------------------------ */}
       <section className="relative overflow-hidden bg-[#F8F9FA] pt-0">
         <div className="mx-auto grid max-w-[1440px] items-center gap-12 px-4 pb-8 pt-2 sm:px-6 sm:pb-12 sm:pt-4 lg:grid-cols-12 lg:gap-8 lg:px-8 lg:pb-16 lg:pt-4">
-          {/* Kolom Teks */}
           <div className="lg:col-span-7 lg:pr-6">
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-amber-700">
+              EIGERINDO CAREERS
+            </p>
 
             <h1 className="mt-3 max-w-2xl text-4xl font-extrabold leading-[1.12] tracking-tight text-[#0B1B3D] sm:text-5xl lg:text-6xl">
               Temukan potensimu. Mulai petualangan kariermu.
@@ -209,8 +235,8 @@ export default function HomePage() {
 
             <p className="mt-4 max-w-xl text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">
               Jelajahi kesempatan berkarier bersama Eigerindo, ikuti tantangan
-              kompetensi profesional, dan wujudkan lompatan besar dalam perjalanan
-              industri ritel dan outdoor bersama kami.
+              kompetensi profesional, dan wujudkan lompatan besar dalam
+              perjalanan industri ritel dan outdoor bersama kami.
             </p>
 
             <div className="mt-6 flex flex-col gap-3.5 sm:flex-row">
@@ -230,21 +256,21 @@ export default function HomePage() {
               </Link>
             </div>
 
-            <div className="mt-8 flex items-center gap-6 border-t border-slate-200/80 pt-6 text-xs font-medium text-slate-500">
-              <span>✓ Kantor Pusat & Operasional</span>
+            <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-slate-200/80 pt-6 text-xs font-medium text-slate-500">
+              <span>✓ Kantor Pusat &amp; Operasional</span>
               <span>✓ Jalur Karier Transparan</span>
               <span>✓ Penilaian Berbasis Skenario</span>
             </div>
           </div>
 
-          {/* Kolom Ilustrasi Peta */}
+          {/* Ilustrasi peta */}
           <div className="lg:col-span-5">
-            <div className="relative shadow-xl rounded-2xl overflow-hidden border border-slate-200/60">
+            <div className="relative overflow-hidden rounded-2xl border border-slate-200/60 shadow-xl">
               <div className="relative aspect-[4/4.2] overflow-hidden bg-[#0B1B3D] sm:aspect-[4/3.8] lg:aspect-[4/4.2]">
                 <TrailMap />
 
-                <div className="absolute inset-x-0 top-0 p-6 sm:p-8 bg-gradient-to-b from-[#0B1B3D]/90 to-transparent">
-                  <p className="text-xs font-bold tracking-wider uppercase text-amber-500">
+                <div className="absolute inset-x-0 top-0 bg-gradient-to-b from-[#0B1B3D]/90 to-transparent p-6 sm:p-8">
+                  <p className="text-xs font-bold uppercase tracking-wider text-amber-500">
                     Eigerindo Talent Pathway
                   </p>
                   <h2 className="mt-1.5 max-w-xs text-2xl font-bold leading-tight text-white sm:text-3xl">
@@ -268,21 +294,25 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
       {/* ------------------------------------------------------------------ */}
-      {/* Mengapa EIGER Careers (Highlights)                                 */}
+      {/* Highlights                                                         */}
       {/* ------------------------------------------------------------------ */}
       <section className="border-t border-slate-200 bg-white">
         <div className="mx-auto max-w-[1440px] px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
           <div className="max-w-2xl">
-            <span className="text-xs font-bold tracking-widest text-amber-600 uppercase">
+            <span className="text-xs font-bold uppercase tracking-widest text-amber-600">
               VALUE PROPOSITION
             </span>
+
             <h2 className="mt-2 text-2xl font-bold tracking-tight text-[#0B1B3D] sm:text-3xl">
               Lebih dari sekadar mencari pekerjaan
             </h2>
+
             <p className="mt-3 text-base leading-7 text-slate-600">
-              Kenali peluang, tunjukkan kapabilitas terbaikmu, dan ikuti proses rekrutmen
-              di Eigerindo dengan pengalaman yang transparan serta terarah.
+              Kenali peluang, tunjukkan kapabilitas terbaikmu, dan ikuti proses
+              rekrutmen di Eigerindo dengan pengalaman yang transparan serta
+              terarah.
             </p>
           </div>
 
@@ -314,19 +344,31 @@ export default function HomePage() {
       </section>
 
       {/* ------------------------------------------------------------------ */}
-      {/* Alur Rekrutmen (Recruitment Steps)                                 */}
+      {/* Featured Jobs                                                      */}
       {/* ------------------------------------------------------------------ */}
       <section className="border-t border-slate-200 bg-[#F8F9FA]">
+        <div className="mx-auto max-w-[1440px] px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+          <FeaturedJobs />
+        </div>
+      </section>
+
+      {/* ------------------------------------------------------------------ */}
+      {/* Alur Rekrutmen                                                     */}
+      {/* ------------------------------------------------------------------ */}
+      <section className="border-t border-slate-200 bg-white">
         <div className="mx-auto max-w-[1440px] px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
           <div className="max-w-2xl">
-            <span className="text-xs font-bold tracking-widest text-amber-600 uppercase">
+            <span className="text-xs font-bold uppercase tracking-widest text-amber-600">
               RECRUITMENT PIPELINE
             </span>
+
             <h2 className="mt-2 text-2xl font-bold tracking-tight text-[#0B1B3D] sm:text-3xl">
               Cara kerja rekrutmen Eigerindo
             </h2>
+
             <p className="mt-3 text-base leading-7 text-slate-600">
-              Lima tahap yang terstruktur, memastikan kamu selalu tahu posisi dan status lamaranmu.
+              Lima tahap yang terstruktur, memastikan kamu selalu tahu posisi
+              dan status lamaranmu.
             </p>
           </div>
 
@@ -339,6 +381,7 @@ export default function HomePage() {
                     className="absolute left-12 right-0 top-5 hidden h-0.5 bg-slate-300 md:block"
                   />
                 )}
+
                 {index < recruitmentSteps.length - 1 && (
                   <span
                     aria-hidden="true"
@@ -367,20 +410,23 @@ export default function HomePage() {
       </section>
 
       {/* ------------------------------------------------------------------ */}
-      {/* Talent Quest Section                                               */}
+      {/* Talent Quest                                                       */}
       {/* ------------------------------------------------------------------ */}
       <section className="bg-[#0B1B3D] text-white">
         <div className="mx-auto grid max-w-[1440px] gap-12 px-4 py-16 sm:px-6 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16 lg:px-8 lg:py-24">
           <div>
-            <span className="text-xs font-bold tracking-widest text-amber-400 uppercase">
+            <span className="text-xs font-bold uppercase tracking-widest text-amber-400">
               GAMIFIED ASSESSMENT
             </span>
+
             <h2 className="mt-2 max-w-md text-2xl font-bold leading-tight tracking-tight sm:text-3xl">
               Talent Quest: Kenali cara berpikir dan bertindakmu
             </h2>
 
             <p className="mt-4 max-w-md text-base leading-7 text-slate-300">
-              Selesaikan empat tantangan berbasis skenario nyata di dunia kerja. Hasilnya memberikan pemetaan potensi kekuatan dirimu secara objektif.
+              Selesaikan empat tantangan berbasis skenario nyata di dunia
+              kerja. Hasilnya memberikan pemetaan potensi kekuatan dirimu
+              secara objektif.
             </p>
 
             <Link
@@ -397,11 +443,18 @@ export default function HomePage() {
               const Icon = item.icon;
 
               return (
-                <li key={item.title} className="rounded-xl border border-white/10 bg-[#142952]/60 p-6 backdrop-blur-sm transition-all hover:border-amber-500/50">
+                <li
+                  key={item.title}
+                  className="rounded-xl border border-white/10 bg-[#142952]/60 p-6 backdrop-blur-sm transition-all hover:border-amber-500/50"
+                >
                   <div className="flex size-10 items-center justify-center rounded-lg bg-white/10 text-amber-400">
                     <Icon size={20} strokeWidth={2} aria-hidden="true" />
                   </div>
-                  <h3 className="mt-4 text-base font-bold text-white">{item.title}</h3>
+
+                  <h3 className="mt-4 text-base font-bold text-white">
+                    {item.title}
+                  </h3>
+
                   <p className="mt-1.5 text-sm leading-6 text-slate-300">
                     {item.description}
                   </p>
@@ -418,8 +471,8 @@ export default function HomePage() {
       <section className="border-t border-slate-200 bg-white">
         <div className="mx-auto max-w-[1440px] px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
           <div className="flex flex-col items-start justify-between gap-8 rounded-2xl border border-slate-200 bg-[#F8F9FA] p-8 shadow-sm sm:p-12 lg:flex-row lg:items-center">
-            <div className="flex gap-6 items-center">
-              <span className="hidden size-14 shrink-0 items-center justify-center rounded-xl bg-amber-100 text-amber-800 sm:flex shadow-sm">
+            <div className="flex items-center gap-6">
+              <span className="hidden size-14 shrink-0 items-center justify-center rounded-xl bg-amber-100 text-amber-800 shadow-sm sm:flex">
                 <Handshake size={28} aria-hidden="true" />
               </span>
 
@@ -427,8 +480,10 @@ export default function HomePage() {
                 <h2 className="text-xl font-bold tracking-tight text-[#0B1B3D] sm:text-2xl">
                   Siap memulai langkah berkarier bersama Eigerindo?
                 </h2>
+
                 <p className="mt-2 max-w-xl text-sm leading-6 text-slate-600 sm:text-base">
-                  Buat akun, lengkapi profil profesionalmu, dan temukan posisi yang paling sesuai dengan passionmu.
+                  Buat akun, lengkapi profil profesionalmu, dan temukan posisi
+                  yang paling sesuai dengan passionmu.
                 </p>
               </div>
             </div>
