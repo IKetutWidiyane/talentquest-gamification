@@ -3,37 +3,25 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  LayoutDashboard,
-  Users,
-  BriefcaseBusiness,
-  ClipboardCheck,
-  Target,
-  UserCog,
-  Trophy,
-  ChartNoAxesCombined,
-} from "lucide-react";
 
-const navigationItems = [
-  { label: "Overview", href: "/ta", icon: LayoutDashboard },
-  { label: "Candidates", href: "/ta/candidates", icon: Users },
-  { label: "Jobs", href: "/ta/jobs", icon: BriefcaseBusiness },
-  { label: "Assessments", href: "/ta/assessments", icon: ClipboardCheck },
-  { label: "Competencies", href: "/ta/competencies", icon: Target },
-  { label: "Users", href: "/ta/users", icon: UserCog },
-  { label: "Talent Pool", href: "/ta/talent-pool", icon: Trophy },
-  { label: "Analytics", href: "/ta/analytics", icon: ChartNoAxesCombined },
-];
+import { roleNavigation } from "@/components/layout/navigation/role-navigation";
 
 interface TANavigationProps {
   onNavigate?: () => void;
 }
 
-export default function TANavigation({ onNavigate }: TANavigationProps) {
+export default function TANavigation({
+  onNavigate,
+}: TANavigationProps) {
   const pathname = usePathname();
+  const navigationItems = roleNavigation["Talent Acquisition"];
 
   function isActive(href: string) {
-    if (href === "/ta") return pathname === "/ta";
+    // Overview hanya aktif pada halaman utama TA.
+    if (href === "/ta") {
+      return pathname === "/ta";
+    }
+
     return pathname === href || pathname.startsWith(`${href}/`);
   }
 
@@ -43,36 +31,41 @@ export default function TANavigation({ onNavigate }: TANavigationProps) {
         Talent Acquisition
       </p>
 
-      {navigationItems.map((item) => {
-        const Icon = item.icon;
-        const active = isActive(item.href);
+      <ul className="space-y-1.5">
+        {navigationItems.map((item) => {
+          const Icon = item.icon;
+          const active = isActive(item.href);
 
-        return (
-          <Link
-            key={item.href}
-            href={item.href}
-            onClick={onNavigate}
-            aria-current={active ? "page" : undefined}
-            className={`group flex min-h-11 items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold transition-colors ${
-              active
-                ? "bg-[#0B1B3D] text-white shadow-sm"
-                : "text-slate-600 hover:bg-slate-100 hover:text-[#0B1B3D]"
-            }`}
-          >
-            <Icon
-              size={19}
-              strokeWidth={active ? 2.2 : 1.8}
-              aria-hidden="true"
-              className={
-                active
-                  ? "text-[#F59E0B]"
-                  : "text-slate-400 group-hover:text-[#0B1B3D]"
-              }
-            />
-            <span>{item.label}</span>
-          </Link>
-        );
-      })}
+          return (
+            <li key={item.href}>
+              <Link
+                href={item.href}
+                onClick={onNavigate}
+                aria-current={active ? "page" : undefined}
+                title={item.label}
+                className={`group flex min-h-11 items-center gap-3 rounded-xl px-3 py-3 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D97706] focus-visible:ring-offset-2 ${
+                  active
+                    ? "bg-[#0B1B3D] text-white shadow-sm"
+                    : "text-slate-600 hover:bg-slate-100 hover:text-[#0B1B3D]"
+                }`}
+              >
+                <Icon
+                  size={19}
+                  strokeWidth={active ? 2.2 : 1.8}
+                  aria-hidden="true"
+                  className={
+                    active
+                      ? "shrink-0 text-[#F59E0B]"
+                      : "shrink-0 text-slate-400 group-hover:text-[#0B1B3D]"
+                  }
+                />
+
+                <span>{item.label}</span>
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
     </nav>
   );
 }

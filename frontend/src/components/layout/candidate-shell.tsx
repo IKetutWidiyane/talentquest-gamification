@@ -1,3 +1,4 @@
+
 "use client";
 
 import Image from "next/image";
@@ -5,41 +6,53 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, type ReactNode } from "react";
 import { Bell, LogOut, Menu, Mountain, X } from "lucide-react";
-import CandidateNavigation, {
-  candidateNavigationItems,
-} from "@/components/layout/navigation/candidate-navigation";
-import UserProfileMenu from "./navigation/user-profile-menu";
+
+import { roleNavigation } from "@/components/layout/navigation/role-navigation";
+import CandidateNavigation from "@/components/layout/navigation/candidate-navigation";
+import UserProfileMenu from "@/components/layout/navigation/user-profile-menu";
 
 interface CandidateShellProps {
   children: ReactNode;
 }
 
-export default function CandidateShell({ children }: CandidateShellProps) {
+export default function CandidateShell({
+  children,
+}: CandidateShellProps) {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // Judul header mengikuti halaman aktif
+  // Sumber menu terpusat untuk role Candidate.
+  const candidateNavigationItems = roleNavigation.Candidate;
+
+  // Judul dan deskripsi header mengikuti halaman aktif.
   const currentItem = candidateNavigationItems.find(
-    (item) => pathname === item.href || pathname.startsWith(`${item.href}/`),
+    (item) =>
+      pathname === item.href ||
+      pathname.startsWith(`${item.href}/`),
   );
+
   const pageTitle = currentItem?.label ?? "Candidate Workspace";
+
   const pageDescription =
     currentItem?.description ?? "Your career journey starts here";
 
-  // Tutup drawer saat pindah halaman
+  // Tutup drawer saat berpindah halaman.
   useEffect(() => {
     setMobileMenuOpen(false);
   }, [pathname]);
 
-  // Escape menutup drawer + kunci scroll body saat drawer terbuka
+  // Escape menutup drawer dan scroll body dikunci saat drawer terbuka.
   useEffect(() => {
     if (!mobileMenuOpen) return;
 
     function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") setMobileMenuOpen(false);
+      if (event.key === "Escape") {
+        setMobileMenuOpen(false);
+      }
     }
 
     const previousOverflow = document.body.style.overflow;
+
     document.body.style.overflow = "hidden";
     window.addEventListener("keydown", handleKeyDown);
 
@@ -73,6 +86,7 @@ export default function CandidateShell({ children }: CandidateShellProps) {
       <aside
         id="candidate-sidebar"
         aria-label="Candidate sidebar"
+        aria-hidden={!mobileMenuOpen}
         className={`fixed inset-y-0 left-0 z-[70] flex w-[270px] flex-col border-r border-slate-200 bg-white transition-transform duration-200 lg:translate-x-0 ${
           mobileMenuOpen ? "translate-x-0" : "-translate-x-full"
         }`}
@@ -82,6 +96,7 @@ export default function CandidateShell({ children }: CandidateShellProps) {
           <Link
             href="/candidate/jobs"
             aria-label="EIGER Talent Quest"
+            tabIndex={mobileMenuOpen || undefined ? undefined : 0}
             className="flex min-w-0 items-center gap-3 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D97706]"
           >
             <Image
@@ -115,10 +130,12 @@ export default function CandidateShell({ children }: CandidateShellProps) {
 
         {/* Navigation */}
         <div className="flex-1 overflow-y-auto px-4 py-6">
-          <CandidateNavigation onNavigate={() => setMobileMenuOpen(false)} />
+          <CandidateNavigation
+            onNavigate={() => setMobileMenuOpen(false)}
+          />
         </div>
 
-        {/* Footer sidebar */}
+        {/* Sidebar footer */}
         <div className="shrink-0 border-t border-slate-200 p-4">
           <div className="mb-3 flex items-center gap-3 rounded-lg border border-slate-200 bg-slate-50 p-3">
             <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#0B1B3D] text-[#F59E0B]">
@@ -151,7 +168,7 @@ export default function CandidateShell({ children }: CandidateShellProps) {
       {/* Main column */}
       <div className="flex min-h-screen flex-col lg:pl-[270px]">
         {/* Header */}
-        <header className="sticky top-0 z-40 flex h-[72px] shrink-0 items-center justify-between gap-4 border-b border-slate-200 bg-white px-4 sm:px-6 lg:px-8">
+        <header className="sticky top-0 z-40 flex h-[72px] shrink-0 items-center justify-between gap-3 border-b border-slate-200 bg-white px-4 sm:gap-4 sm:px-6 lg:px-8">
           <div className="flex min-w-0 items-center gap-3">
             <button
               type="button"
@@ -174,7 +191,7 @@ export default function CandidateShell({ children }: CandidateShellProps) {
             </div>
           </div>
 
-          <div className="flex shrink-0 items-center gap-3">
+          <div className="flex shrink-0 items-center gap-2 sm:gap-3">
             <span className="hidden rounded-md border border-amber-200 bg-amber-50 px-2.5 py-1 text-xs font-semibold text-amber-800 sm:inline-flex">
               Candidate Portal
             </span>
@@ -183,11 +200,15 @@ export default function CandidateShell({ children }: CandidateShellProps) {
               type="button"
               aria-label="Notifikasi"
               title="Notifikasi akan tersedia pada tahap berikutnya"
-              className="relative flex h-10 w-10 items-center justify-center rounded-lg border border-slate-200 text-slate-600 transition-colors hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D97706]"
+              className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-slate-200 text-slate-600 transition-colors hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D97706]"
             >
               <Bell size={18} />
-              <span className="absolute right-2.5 top-2.5 h-2 w-2 rounded-full bg-[#D97706]" />
+              <span
+                aria-hidden="true"
+                className="absolute right-2.5 top-2.5 h-2 w-2 rounded-full bg-[#D97706]"
+              />
             </button>
+
             <UserProfileMenu
               name="Candidate Demo"
               email="candidate@example.com"
@@ -197,10 +218,11 @@ export default function CandidateShell({ children }: CandidateShellProps) {
           </div>
         </header>
 
-        {/* Content */}
+        {/* Main content */}
         <main
           id="candidate-main"
-          className="mx-auto w-full max-w-[1440px] flex-1 px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-10"
+          tabIndex={-1}
+          className="mx-auto w-full max-w-[1440px] flex-1 px-4 py-6 outline-none sm:px-6 sm:py-8 lg:px-8 lg:py-10"
         >
           {children}
         </main>
@@ -209,8 +231,8 @@ export default function CandidateShell({ children }: CandidateShellProps) {
         <footer className="shrink-0 border-t border-slate-200 bg-white px-4 py-5 sm:px-6 lg:px-8">
           <div className="flex flex-col gap-1.5 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between">
             <p>
-              <span className="font-bold text-[#0B1B3D]">EIGER</span> Talent
-              Quest
+              <span className="font-bold text-[#0B1B3D]">EIGER</span>{" "}
+              Talent Quest
             </p>
             <p>Explore your potential. Build your next adventure.</p>
           </div>
