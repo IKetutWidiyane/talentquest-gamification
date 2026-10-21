@@ -33,7 +33,7 @@ const statusStyles: Record<AssessmentStatus, string> = {
 };
 
 export default function AssessmentsPage() {
-  const [assessments, setAssessments] = useState(initialAssessments);
+  const [assessments, setAssessments] = useState<Assessment[]>(initialAssessments);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("All");
 
