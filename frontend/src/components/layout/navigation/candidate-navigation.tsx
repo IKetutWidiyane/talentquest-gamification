@@ -18,6 +18,10 @@ export default function CandidateNavigation({
   const navigationItems = roleNavigation.Candidate;
 
   function isActive(href: string) {
+    if (href === "/candidate") {
+      return pathname === "/candidate";
+    }
+
     return pathname === href || pathname.startsWith(`${href}/`);
   }
 

@@ -25,11 +25,15 @@ export default function CandidateShell({
   const candidateNavigationItems = roleNavigation.Candidate;
 
   // Judul dan deskripsi header mengikuti halaman aktif.
-  const currentItem = candidateNavigationItems.find(
-    (item) =>
-      pathname === item.href ||
-      pathname.startsWith(`${item.href}/`),
-  );
+ 
+  const currentItem = [...candidateNavigationItems]
+    .sort((a, b) => b.href.length - a.href.length)
+    .find(
+      (item) =>
+        pathname === item.href ||
+        (item.href !== "/candidate" &&
+          pathname.startsWith(`${item.href}/`)),
+    );
 
   const pageTitle = currentItem?.label ?? "Candidate Workspace";
 

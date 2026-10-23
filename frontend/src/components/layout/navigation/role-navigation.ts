@@ -25,6 +25,12 @@ export interface NavigationItem {
 export const roleNavigation: Record<AppRole, NavigationItem[]> = {
   Candidate: [
     {
+    label: "Overview",
+    href: "/candidate",
+    icon: LayoutDashboard,
+    description: "Your candidate dashboard and activity overview",
+    },
+    {
       label: "Find Jobs",
       href: "/candidate/jobs",
       icon: BriefcaseBusiness,
@@ -97,5 +103,5 @@ export const roleNavigation: Record<AppRole, NavigationItem[]> = {
 };
 
 export function getDashboardPath(role: AppRole): string {
-  return role === "Candidate" ? "/candidate/jobs" : "/ta";
+  return role === "Candidate" ? "/candidate" : "/ta";
 }
