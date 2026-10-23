@@ -1,30 +1,116 @@
+
 import Link from "next/link";
-import { notFound } from "next/navigation";
 import {
   ArrowLeft,
   ArrowRight,
   BriefcaseBusiness,
   CheckCircle2,
   MapPin,
+  RefreshCw,
 } from "lucide-react";
 
-import { jobs } from "@/features/jobs/job-data";
+import {
+  getJobById,
+  toStringArray,
+  type Job,
+} from "@/lib/api/jobs";
 import { PublicLayout } from "@/components/layout/public-layout";
 
 type JobDetailPageProps = {
   params: Promise<{ id: string }>;
 };
 
+function formatDate(date?: string | null) {
+  if (!date) return "Belum tersedia";
+
+  const parsedDate = new Date(date);
+
+  if (Number.isNaN(parsedDate.getTime())) {
+    return "Belum tersedia";
+  }
+
+  return parsedDate.toLocaleDateString("id-ID", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+}
+
+function JobDetailError({
+  id,
+  message,
+}: {
+  id: string;
+  message: string;
+}) {
+  return (
+    <PublicLayout>
+      <main className="flex min-h-[70vh] items-center justify-center bg-[#F8F9FA] px-4 py-16">
+        <div className="w-full max-w-lg rounded-xl border border-slate-200 bg-white p-8 text-center shadow-sm">
+          <div className="mx-auto flex size-12 items-center justify-center rounded-full bg-amber-50">
+            <RefreshCw
+              size={23}
+              className="text-amber-700"
+              aria-hidden="true"
+            />
+          </div>
+
+          <h1 className="mt-5 text-xl font-bold text-[#0B1B3D]">
+            Detail lowongan belum tersedia
+          </h1>
+
+          <p className="mt-3 text-sm leading-6 text-slate-600">
+            {message}
+          </p>
+
+          <div className="mt-6 flex flex-wrap justify-center gap-3">
+            <Link
+              href="/jobs"
+              className="inline-flex min-h-11 items-center gap-2 rounded-lg bg-[#0B1B3D] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#142952]"
+            >
+              <ArrowLeft size={16} aria-hidden="true" />
+              Kembali ke lowongan
+            </Link>
+
+            <Link
+              href={`/jobs/${encodeURIComponent(id)}`}
+              className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-slate-300 px-5 py-3 text-sm font-semibold text-[#0B1B3D] transition hover:bg-slate-50"
+            >
+              Coba lagi
+            </Link>
+          </div>
+        </div>
+      </main>
+    </PublicLayout>
+  );
+}
+
 export default async function JobDetailPage({
   params,
 }: JobDetailPageProps) {
   const { id } = await params;
-  const job = jobs.find((item) => item.id === id);
 
-  if (!job) {
-    notFound();
+  let job: Job;
+
+  try {
+    job = await getJobById(id);
+  } catch (error) {
+    const message =
+      error instanceof Error
+        ? error.message
+        : "Detail lowongan gagal dimuat.";
+
+    return <JobDetailError id={id} message={message} />;
   }
 
+  // Normalisasi tambahan sebagai pengaman sebelum render.
+  const responsibilities = toStringArray(job.responsibilities);
+  const qualifications = toStringArray(
+    job.qualifications ?? job.requirements,
+  );
+
+  const description = job.summary ?? job.description;
+  const workplace = job.workplace;
   const loginUrl = `/login?redirect=${encodeURIComponent(`/jobs/${job.id}`)}`;
 
   return (
@@ -42,30 +128,46 @@ export default async function JobDetailPage({
             </Link>
 
             <div className="mt-8">
-              <span className="inline-flex rounded-md bg-amber-500/15 px-3 py-1.5 text-xs font-semibold text-amber-300">
-                {job.category}
-              </span>
+              {job.category && (
+                <span className="inline-flex rounded-md bg-amber-500/15 px-3 py-1.5 text-xs font-semibold text-amber-300">
+                  {job.category}
+                </span>
+              )}
 
               <h1 className="mt-4 max-w-3xl text-3xl font-extrabold tracking-tight sm:text-4xl">
                 {job.title}
               </h1>
 
-              <p className="mt-3 text-base text-slate-300">
-                {job.department}
-              </p>
+              {job.department && (
+                <p className="mt-3 text-base text-slate-300">
+                  {job.department}
+                </p>
+              )}
 
               <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm text-slate-300">
-                <span className="inline-flex items-center gap-2">
-                  <MapPin size={17} className="text-amber-400" />
-                  {job.location}
-                </span>
+                {job.location && (
+                  <span className="inline-flex items-center gap-2">
+                    <MapPin
+                      size={17}
+                      className="text-amber-400"
+                      aria-hidden="true"
+                    />
+                    {job.location}
+                  </span>
+                )}
 
-                <span className="inline-flex items-center gap-2">
-                  <BriefcaseBusiness size={17} className="text-amber-400" />
-                  {job.employmentType}
-                </span>
+                {job.employmentType && (
+                  <span className="inline-flex items-center gap-2">
+                    <BriefcaseBusiness
+                      size={17}
+                      className="text-amber-400"
+                      aria-hidden="true"
+                    />
+                    {job.employmentType}
+                  </span>
+                )}
 
-                <span>{job.workplace}</span>
+                {workplace && <span>{workplace}</span>}
               </div>
             </div>
           </div>
@@ -79,8 +181,8 @@ export default async function JobDetailPage({
                 Tentang posisi
               </h2>
 
-              <p className="mt-4 text-sm leading-7 text-slate-600">
-                {job.summary}
+              <p className="mt-4 whitespace-pre-line text-sm leading-7 text-slate-600">
+                {description || "Deskripsi posisi belum tersedia."}
               </p>
             </article>
 
@@ -89,20 +191,29 @@ export default async function JobDetailPage({
                 Tanggung jawab
               </h2>
 
-              <ul className="mt-5 space-y-4">
-                {job.responsibilities.map((item) => (
-                  <li key={item} className="flex gap-3">
-                    <CheckCircle2
-                      size={18}
-                      className="mt-0.5 shrink-0 text-amber-600"
-                      aria-hidden="true"
-                    />
-                    <span className="text-sm leading-6 text-slate-600">
-                      {item}
-                    </span>
-                  </li>
-                ))}
-              </ul>
+              {responsibilities.length > 0 ? (
+                <ul className="mt-5 space-y-4">
+                  {responsibilities.map((item, index) => (
+                    <li
+                      key={`${index}-${item}`}
+                      className="flex gap-3"
+                    >
+                      <CheckCircle2
+                        size={18}
+                        className="mt-0.5 shrink-0 text-amber-600"
+                        aria-hidden="true"
+                      />
+                      <span className="text-sm leading-6 text-slate-600">
+                        {item}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="mt-4 text-sm leading-6 text-slate-500">
+                  Informasi tanggung jawab belum tersedia.
+                </p>
+              )}
             </article>
 
             <article className="rounded-xl border border-slate-200 bg-white p-6 sm:p-8">
@@ -110,20 +221,29 @@ export default async function JobDetailPage({
                 Kualifikasi
               </h2>
 
-              <ul className="mt-5 space-y-4">
-                {job.qualifications.map((item) => (
-                  <li key={item} className="flex gap-3">
-                    <CheckCircle2
-                      size={18}
-                      className="mt-0.5 shrink-0 text-amber-600"
-                      aria-hidden="true"
-                    />
-                    <span className="text-sm leading-6 text-slate-600">
-                      {item}
-                    </span>
-                  </li>
-                ))}
-              </ul>
+              {qualifications.length > 0 ? (
+                <ul className="mt-5 space-y-4">
+                  {qualifications.map((item, index) => (
+                    <li
+                      key={`${index}-${item}`}
+                      className="flex gap-3"
+                    >
+                      <CheckCircle2
+                        size={18}
+                        className="mt-0.5 shrink-0 text-amber-600"
+                        aria-hidden="true"
+                      />
+                      <span className="text-sm leading-6 text-slate-600">
+                        {item}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="mt-4 text-sm leading-6 text-slate-500">
+                  Informasi kualifikasi belum tersedia.
+                </p>
+              )}
             </article>
           </div>
 
@@ -163,19 +283,14 @@ export default async function JobDetailPage({
             <div className="mt-6 border-t border-slate-100 pt-5">
               <p className="text-xs text-slate-500">Departemen</p>
               <p className="mt-1 text-sm font-semibold text-[#0B1B3D]">
-                {job.department}
+                {job.department || "Belum ditentukan"}
               </p>
 
-              <p className="mt-4 text-xs text-slate-500">Tanggal publikasi</p>
+              <p className="mt-4 text-xs text-slate-500">
+                Tanggal publikasi
+              </p>
               <p className="mt-1 text-sm font-semibold text-[#0B1B3D]">
-                {new Date(`${job.postedAt}T00:00:00`).toLocaleDateString(
-                  "id-ID",
-                  {
-                    day: "numeric",
-                    month: "long",
-                    year: "numeric",
-                  },
-                )}
+                {formatDate(job.postedAt)}
               </p>
             </div>
           </aside>

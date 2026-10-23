@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -10,36 +10,67 @@ import {
   SlidersHorizontal,
 } from "lucide-react";
 
-import { jobs } from "@/features/jobs/job-data";
+import { getJobs, type Job } from "@/lib/api/jobs";
+import LoadingState from "@/components/ui/loading-state";
+import ErrorState from "@/components/ui/error-state";
+import { EmptyState } from "@/components/ui/empty-state";
 
 export default function JobListing() {
+  const [jobs, setJobs] = useState<Job[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
   const [keyword, setKeyword] = useState("");
   const [location, setLocation] = useState("all");
   const [category, setCategory] = useState("all");
   const [employmentType, setEmploymentType] = useState("all");
 
+  const loadJobs = useCallback(async () => {
+    setLoading(true);
+    setError("");
+
+    try {
+      const data = await getJobs();
+      setJobs(data);
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Lowongan gagal dimuat. Silakan coba lagi."
+      );
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    void loadJobs();
+  }, [loadJobs]);
+
   const locations = useMemo(
-    () => [...new Set(jobs.map((job) => job.location))].sort(),
-    [],
+    () => [...new Set(jobs.map((job) => job.location).filter(Boolean))] as string[],
+    [jobs],
   );
 
   const categories = useMemo(
-    () => [...new Set(jobs.map((job) => job.category))].sort(),
-    [],
+    () => [...new Set(jobs.map((job) => job.category).filter(Boolean))] as string[],
+    [jobs],
   );
 
   const filteredJobs = useMemo(() => {
     const normalizedKeyword = keyword.trim().toLowerCase();
 
     return jobs.filter((job) => {
+      const summaryText = (job as any).summary || (job as any).description || "";
       const searchableText = [
         job.title,
         job.department,
         job.location,
         job.category,
-        job.summary,
+        summaryText,
         job.employmentType,
       ]
+        .filter(Boolean)
         .join(" ")
         .toLowerCase();
 
@@ -63,13 +94,25 @@ export default function JobListing() {
         matchesEmploymentType
       );
     });
-  }, [keyword, location, category, employmentType]);
+  }, [jobs, keyword, location, category, employmentType]);
 
   function resetFilters() {
     setKeyword("");
     setLocation("all");
     setCategory("all");
     setEmploymentType("all");
+  }
+
+  if (loading) {
+    return <LoadingState message="Sedang memuat lowongan EIGER..." />;
+  }
+
+  if (error) {
+    return <ErrorState message={error} onRetry={() => void loadJobs()} />;
+  }
+
+  if (jobs.length === 0) {
+    return <EmptyState title="Tidak ada lowongan tersedia" />;
   }
 
   return (
@@ -92,7 +135,7 @@ export default function JobListing() {
 
           <div className="mt-8 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-slate-200">
             <BriefcaseBusiness size={16} className="text-amber-400" />
-            {jobs.length} lowongan dalam data demo
+            {jobs.length} lowongan tersedia 
           </div>
         </div>
       </section>
@@ -202,7 +245,7 @@ export default function JobListing() {
               <span className="font-semibold text-[#0B1B3D]">
                 {filteredJobs.length}
               </span>{" "}
-              dari {jobs.length} lowongan demo
+              dari {jobs.length} lowongan 
             </p>
 
             <button
@@ -230,50 +273,54 @@ export default function JobListing() {
 
         {filteredJobs.length > 0 ? (
           <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-            {filteredJobs.map((job) => (
-              <article
-                key={job.id}
-                className="group flex h-full flex-col rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:-translate-y-1 hover:border-amber-300 hover:shadow-lg"
-              >
-                <div className="flex items-start justify-between gap-3">
-                  <span className="inline-flex items-center rounded-md bg-amber-50 px-3 py-1.5 text-xs font-semibold text-amber-800">
-                    {job.category}
-                  </span>
-
-                  <span className="rounded-md bg-slate-100 px-2.5 py-1.5 text-xs font-medium text-slate-600">
-                    {job.employmentType}
-                  </span>
-                </div>
-
-                <h3 className="mt-5 text-lg font-bold leading-snug text-[#0B1B3D] transition-colors group-hover:text-amber-700">
-                  {job.title}
-                </h3>
-
-                <p className="mt-1 text-sm font-medium text-slate-500">
-                  {job.department}
-                </p>
-
-                <p className="mt-4 line-clamp-3 flex-1 text-sm leading-6 text-slate-600">
-                  {job.summary}
-                </p>
-
-                <div className="mt-5 flex flex-wrap gap-x-4 gap-y-2 border-t border-slate-100 pt-4 text-xs text-slate-500">
-                  <span className="inline-flex items-center gap-1.5">
-                    <MapPin size={14} aria-hidden="true" />
-                    {job.location}
-                  </span>
-                  <span>{job.workplace}</span>
-                </div>
-
-                <Link
-                  href={`/jobs/${job.id}`}
-                  className="mt-6 inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-[#0B1B3D] px-4 py-3 text-sm font-semibold text-[#0B1B3D] transition hover:bg-[#0B1B3D] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600"
+            {filteredJobs.map((job) => {
+              const summaryText = (job as any).summary || (job as any).description;
+              const workplaceText = (job as any).workplace || "";
+              return (
+                <article
+                  key={job.id}
+                  className="group flex h-full flex-col rounded-xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:-translate-y-1 hover:border-amber-300 hover:shadow-lg"
                 >
-                  Lihat detail
-                  <ArrowRight size={16} aria-hidden="true" />
-                </Link>
-              </article>
-            ))}
+                  <div className="flex items-start justify-between gap-3">
+                    <span className="inline-flex items-center rounded-md bg-amber-50 px-3 py-1.5 text-xs font-semibold text-amber-800">
+                      {job.category}
+                    </span>
+
+                    <span className="rounded-md bg-slate-100 px-2.5 py-1.5 text-xs font-medium text-slate-600">
+                      {job.employmentType}
+                    </span>
+                  </div>
+
+                  <h3 className="mt-5 text-lg font-bold leading-snug text-[#0B1B3D] transition-colors group-hover:text-amber-700">
+                    {job.title}
+                  </h3>
+
+                  <p className="mt-1 text-sm font-medium text-slate-500">
+                    {job.department}
+                  </p>
+
+                  <p className="mt-4 line-clamp-3 flex-1 text-sm leading-6 text-slate-600">
+                    {summaryText}
+                  </p>
+
+                  <div className="mt-5 flex flex-wrap gap-x-4 gap-y-2 border-t border-slate-100 pt-4 text-xs text-slate-500">
+                    <span className="inline-flex items-center gap-1.5">
+                      <MapPin size={14} aria-hidden="true" />
+                      {job.location}
+                    </span>
+                    {workplaceText && <span>{workplaceText}</span>}
+                  </div>
+
+                  <Link
+                    href={`/jobs/${job.id}`}
+                    className="mt-6 inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-[#0B1B3D] px-4 py-3 text-sm font-semibold text-[#0B1B3D] transition hover:bg-[#0B1B3D] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600"
+                  >
+                    Lihat detail
+                    <ArrowRight size={16} aria-hidden="true" />
+                  </Link>
+                </article>
+              );
+            })}
           </div>
         ) : (
           <div className="rounded-xl border border-dashed border-slate-300 bg-white px-6 py-16 text-center">
