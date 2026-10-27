@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState } from "react";
-import { List, X } from "@phosphor-icons/react";
+import { ListIcon, XIcon } from "@phosphor-icons/react";
 
 // ========================================
 // CUSTOM LOGO CONFIGURATION
@@ -87,7 +87,7 @@ export function PublicNavbar() {
           onClick={() => setMobileOpen((previous) => !previous)}
           className="inline-flex size-10 items-center justify-center rounded-lg text-[#0B1B3D] transition-colors hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-amber-600 md:hidden"
         >
-          {mobileOpen ? <X size={22} /> : <List size={22} />}
+          {mobileOpen ? <XIcon size={22} /> : <ListIcon size={22} />}
         </button>
       </div>
 

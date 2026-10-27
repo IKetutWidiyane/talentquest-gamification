@@ -3,8 +3,8 @@
 
 import { useState } from "react";
 import {
-  TrendUp, Users, Briefcase, Clock, CheckCircle,
-  UserCheck, ClipboardText, ArrowUpRight, Download,
+  TrendUpIcon, UsersIcon, BriefcaseIcon, ClockIcon, CheckCircleIcon,
+  UserCheckIcon, ClipboardTextIcon, ArrowUpRightIcon, DownloadIcon,
 } from "@phosphor-icons/react";
 
 const periods = ["7 days", "30 days", "90 days"] as const;
@@ -63,10 +63,10 @@ export default function AnalyticsPage() {
   const growth = Math.round(((data.candidates - data.previousCandidates) / data.previousCandidates) * 100);
 
   const stats = [
-    { label: "Total Applicants", value: data.candidates.toLocaleString("en-US"), change: `+${growth}%`, icon: Users, note: "vs. previous period" },
-    { label: "Open Positions", value: data.jobs, change: "Active", icon: Briefcase, note: "positions in demo data" },
-    { label: "Candidates Hired", value: data.hired, change: "Hired", icon: UserCheck, note: "within selected period" },
-    { label: "Time to Hire", value: `${data.days} days`, change: "Average", icon: Clock, note: "illustrative demo metric" },
+    { label: "Total Applicants", value: data.candidates.toLocaleString("en-US"), change: `+${growth}%`, icon: UsersIcon, note: "vs. previous period" },
+    { label: "Open Positions", value: data.jobs, change: "Active", icon: BriefcaseIcon, note: "positions in demo data" },
+    { label: "Candidates Hired", value: data.hired, change: "Hired", icon: UserCheckIcon, note: "within selected period" },
+    { label: "Time to Hire", value: `${data.days} days`, change: "Average", icon: ClockIcon, note: "illustrative demo metric" },
   ];
 
   function exportDemoReport() {
@@ -109,7 +109,7 @@ export default function AnalyticsPage() {
             ))}
           </div>
           <button onClick={exportDemoReport} className="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 hover:bg-slate-50">
-            <Download size={16} /> Export CSV
+            <DownloadIcon size={16} /> Export CSV
           </button>
         </div>
       </div>
@@ -123,7 +123,7 @@ export default function AnalyticsPage() {
         {stats.map(({ label, value, change, icon: Icon, note }) => (
           <div key={label} className="rounded-2xl border border-slate-200 bg-white p-5">
             <div className="flex items-center justify-between"><p className="text-sm text-slate-500">{label}</p><span className="rounded-xl bg-amber-50 p-2 text-amber-600"><Icon size={19} /></span></div>
-            <div className="mt-4 flex items-end justify-between gap-2"><p className="text-3xl font-bold text-slate-900">{value}</p><span className="mb-1 inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-700"><TrendUp size={13} />{change}</span></div>
+            <div className="mt-4 flex items-end justify-between gap-2"><p className="text-3xl font-bold text-slate-900">{value}</p><span className="mb-1 inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-700"><TrendUpIcon size={13} />{change}</span></div>
             <p className="mt-2 text-xs text-slate-400">{note}</p>
           </div>
         ))}
@@ -133,7 +133,7 @@ export default function AnalyticsPage() {
         <section className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-6">
           <div className="mb-6 flex items-start justify-between">
             <div><h2 className="font-bold text-slate-900">Recruitment Funnel</h2><p className="mt-1 text-sm text-slate-500">Candidate progression by hiring stage</p></div>
-            <span className="rounded-xl bg-slate-100 p-2 text-slate-600"><TrendUp size={19} /></span>
+            <span className="rounded-xl bg-slate-100 p-2 text-slate-600"><TrendUpIcon size={19} /></span>
           </div>
           <div className="space-y-5">
             {data.funnel.map((item) => (
@@ -143,13 +143,13 @@ export default function AnalyticsPage() {
               </div>
             ))}
           </div>
-          <div className="mt-6 flex items-center gap-2 rounded-xl bg-slate-50 p-3 text-xs text-slate-500"><ClipboardText size={15} /> Funnel values show relative progression, not actual counts.</div>
+          <div className="mt-6 flex items-center gap-2 rounded-xl bg-slate-50 p-3 text-xs text-slate-500"><ClipboardTextIcon size={15} /> Funnel values show relative progression, not actual counts.</div>
         </section>
 
         <section className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-6">
           <div className="mb-6 flex items-start justify-between">
             <div><h2 className="font-bold text-slate-900">Candidate Sources</h2><p className="mt-1 text-sm text-slate-500">Where applicants discover opportunities</p></div>
-            <span className="rounded-xl bg-amber-50 p-2 text-amber-600"><Users size={19} /></span>
+            <span className="rounded-xl bg-amber-50 p-2 text-amber-600"><UsersIcon size={19} /></span>
           </div>
           <div className="space-y-5">
             {data.sources.map((item) => (
@@ -160,7 +160,7 @@ export default function AnalyticsPage() {
             ))}
           </div>
           <div className="mt-6 rounded-xl border border-slate-100 p-4">
-            <div className="flex items-center gap-2 text-sm font-semibold text-slate-800"><ArrowUpRight size={17} className="text-emerald-600" /> Career website</div>
+            <div className="flex items-center gap-2 text-sm font-semibold text-slate-800"><ArrowUpRightIcon size={17} className="text-emerald-600" /> Career website</div>
             <p className="mt-1 text-sm text-slate-500">Largest illustrative source of applicants in this demo.</p>
           </div>
         </section>
@@ -169,7 +169,7 @@ export default function AnalyticsPage() {
       <section className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-6">
         <div className="mb-5 flex items-center justify-between gap-3">
           <div><h2 className="font-bold text-slate-900">Hiring Performance Summary</h2><p className="mt-1 text-sm text-slate-500">Selected reporting period: {period}</p></div>
-          <span className="rounded-xl bg-emerald-50 p-2 text-emerald-700"><CheckCircle size={19} /></span>
+          <span className="rounded-xl bg-emerald-50 p-2 text-emerald-700"><CheckCircleIcon size={19} /></span>
         </div>
         <div className="grid gap-4 sm:grid-cols-3">
           <div className="rounded-xl bg-slate-50 p-4"><p className="text-sm text-slate-500">Applicant-to-Hire Ratio</p><p className="mt-2 text-2xl font-bold text-slate-900">{data.hired ? `1:${Math.round(data.candidates / data.hired)}` : "—"}</p></div>

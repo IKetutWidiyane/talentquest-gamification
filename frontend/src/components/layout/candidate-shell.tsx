@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, type ReactNode } from "react";
-import { Bell, List, Mountains, SignOut, X } from "@phosphor-icons/react";
+import { BellIcon, ListIcon, MountainsIcon, SignOutIcon, XIcon } from "@phosphor-icons/react";
 
 import { roleNavigation } from "@/components/layout/navigation/role-navigation";
 import CandidateNavigation from "@/components/layout/navigation/candidate-navigation";
@@ -128,7 +128,7 @@ export default function CandidateShell({
             aria-label="Tutup sidebar"
             className="flex h-9 w-9 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D97706] lg:hidden"
           >
-            <X size={18} />
+            <XIcon size={18} />
           </button>
         </div>
 
@@ -143,7 +143,7 @@ export default function CandidateShell({
         <div className="shrink-0 border-t border-slate-200 p-4">
           <div className="mb-3 flex items-center gap-3 rounded-lg border border-slate-200 bg-slate-50 p-3">
             <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#0B1B3D] text-[#F59E0B]">
-              <Mountains size={18} />
+              <MountainsIcon size={18} />
             </div>
 
             <div className="min-w-0">
@@ -162,7 +162,7 @@ export default function CandidateShell({
             title="Logout akan diaktifkan saat integrasi autentikasi"
             className="flex h-10 w-full cursor-not-allowed items-center gap-3 rounded-lg px-3 text-sm font-medium text-slate-400"
           >
-            <SignOut size={17} />
+            <SignOutIcon size={17} />
             <span>Logout</span>
             <span className="ml-auto text-[10px]">Soon</span>
           </button>
@@ -182,7 +182,7 @@ export default function CandidateShell({
               aria-controls="candidate-sidebar"
               className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-slate-200 text-[#0B1B3D] hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D97706] lg:hidden"
             >
-              <List size={20} />
+              <ListIcon size={20} />
             </button>
 
             <div className="min-w-0">
@@ -206,7 +206,7 @@ export default function CandidateShell({
               title="Notifikasi akan tersedia pada tahap berikutnya"
               className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-slate-200 text-slate-600 transition-colors hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D97706]"
             >
-              <Bell size={18} />
+              <BellIcon size={18} />
               <span
                 aria-hidden="true"
                 className="absolute right-2.5 top-2.5 h-2 w-2 rounded-full bg-[#D97706]"

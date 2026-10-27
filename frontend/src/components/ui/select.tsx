@@ -2,7 +2,7 @@
 
 import { useId } from "react";
 import type { SelectHTMLAttributes } from "react";
-import { CaretDown } from "@phosphor-icons/react";
+import { CaretDownIcon } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
 
 export interface SelectProps
@@ -87,7 +87,7 @@ export function Select({
           {children}
         </select>
 
-        <CaretDown
+        <CaretDownIcon
           aria-hidden="true"
           size={16}
           className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-muted"

@@ -2,12 +2,12 @@
 
 import { useMemo, useState } from "react";
 import {
-  MagnifyingGlass,
-  Users,
-  Star,
-  Briefcase,
-  MapPin,
-  BookmarkSimple,
+  MagnifyingGlassIcon,
+  UsersIcon,
+  StarIcon,
+  BriefcaseIcon,
+  MapPinIcon,
+  BookmarkSimpleIcon,
 } from "@phosphor-icons/react";
 
 type Talent = {
@@ -123,16 +123,16 @@ export default function TalentPoolPage() {
   }
 
   const stats = [
-    { label: "Total Talents", value: talent.length, icon: Users },
+    { label: "Total Talents", value: talent.length, icon: UsersIcon },
     {
       label: "Shortlisted",
       value: shortlistedCount,
-      icon: BookmarkSimple,
+      icon: BookmarkSimpleIcon,
     },
     {
       label: "Average Assessment",
       value: `${averageScore}%`,
-      icon: Star,
+      icon: StarIcon,
     },
   ];
 
@@ -183,7 +183,7 @@ export default function TalentPoolPage() {
             </div>
 
             <label className="relative block">
-              <MagnifyingGlass
+              <MagnifyingGlassIcon
                 className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
                 size={17}
               />
@@ -221,7 +221,7 @@ export default function TalentPoolPage() {
                   : "border border-slate-200 text-slate-600 hover:bg-slate-50"
               }`}
             >
-              <BookmarkSimple
+              <BookmarkSimpleIcon
                 size={17}
                 weight={shortlistOnly ? "fill" : "regular"}
               />
@@ -271,7 +271,7 @@ export default function TalentPoolPage() {
                       : "border-slate-200 text-slate-400 hover:bg-slate-50"
                   }`}
                 >
-                  <BookmarkSimple
+                  <BookmarkSimpleIcon
                     size={18}
                     weight={item.shortlisted ? "fill" : "regular"}
                   />
@@ -279,12 +279,12 @@ export default function TalentPoolPage() {
               </div>
 
               <div className="mt-5 flex items-center gap-2 text-sm text-slate-600">
-                <Briefcase size={16} className="shrink-0 text-slate-400" />
+                <BriefcaseIcon size={16} className="shrink-0 text-slate-400" />
                 {item.position}
               </div>
 
               <div className="mt-2 flex items-center gap-2 text-sm text-slate-500">
-                <MapPin size={16} className="shrink-0 text-slate-400" />
+                <MapPinIcon size={16} className="shrink-0 text-slate-400" />
                 {item.location}
               </div>
 
@@ -326,7 +326,7 @@ export default function TalentPoolPage() {
 
           {filtered.length === 0 && (
             <div className="py-10 text-center md:col-span-2 xl:col-span-3">
-              <Users
+              <UsersIcon
                 size={30}
                 className="mx-auto mb-3 text-slate-300"
                 weight="duotone"

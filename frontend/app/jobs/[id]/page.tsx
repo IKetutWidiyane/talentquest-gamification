@@ -1,13 +1,13 @@
 
 import Link from "next/link";
 import {
-  ArrowLeft,
-  ArrowRight,
-  Briefcase,
-  CheckCircle,
-  MapPin,
-  ArrowClockwise,
-} from "@phosphor-icons/react/dist/ssr";
+  ArrowLeftIcon,
+  ArrowRightIcon,
+  BriefcaseIcon,
+  CheckCircleIcon,
+  MapPinIcon,
+  ArrowClockwiseIcon,
+} from "@phosphor-icons/react";
 
 import {
   getJobById,
@@ -48,7 +48,7 @@ function JobDetailError({
       <main className="flex min-h-[70vh] items-center justify-center bg-[#F8F9FA] px-4 py-16">
         <div className="w-full max-w-lg rounded-xl border border-slate-200 bg-white p-8 text-center shadow-sm">
           <div className="mx-auto flex size-12 items-center justify-center rounded-full bg-amber-50">
-            <ArrowClockwise
+            <ArrowClockwiseIcon
               size={23}
               className="text-amber-700"
               aria-hidden="true"
@@ -68,7 +68,7 @@ function JobDetailError({
               href="/jobs"
               className="inline-flex min-h-11 items-center gap-2 rounded-lg bg-[#0B1B3D] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#142952]"
             >
-              <ArrowLeft size={16} aria-hidden="true" />
+              <ArrowLeftIcon size={16} aria-hidden="true" />
               Kembali ke lowongan
             </Link>
 
@@ -123,7 +123,7 @@ export default async function JobDetailPage({
               href="/jobs"
               className="inline-flex items-center gap-2 text-sm font-medium text-slate-300 transition hover:text-white"
             >
-              <ArrowLeft size={16} aria-hidden="true" />
+              <ArrowLeftIcon size={16} aria-hidden="true" />
               Kembali ke lowongan
             </Link>
 
@@ -147,7 +147,7 @@ export default async function JobDetailPage({
               <div className="mt-6 flex flex-wrap gap-x-6 gap-y-3 text-sm text-slate-300">
                 {job.location && (
                   <span className="inline-flex items-center gap-2">
-                    <MapPin
+                    <MapPinIcon
                       size={17}
                       className="text-amber-400"
                       aria-hidden="true"
@@ -158,7 +158,7 @@ export default async function JobDetailPage({
 
                 {job.employmentType && (
                   <span className="inline-flex items-center gap-2">
-                    <Briefcase
+                    <BriefcaseIcon
                       size={17}
                       className="text-amber-400"
                       aria-hidden="true"
@@ -198,7 +198,7 @@ export default async function JobDetailPage({
                       key={`${index}-${item}`}
                       className="flex gap-3"
                     >
-                      <CheckCircle
+                      <CheckCircleIcon
                         size={18}
                         className="mt-0.5 shrink-0 text-amber-600"
                         aria-hidden="true"
@@ -228,7 +228,7 @@ export default async function JobDetailPage({
                       key={`${index}-${item}`}
                       className="flex gap-3"
                     >
-                      <CheckCircle
+                      <CheckCircleIcon
                         size={18}
                         className="mt-0.5 shrink-0 text-amber-600"
                         aria-hidden="true"
@@ -267,7 +267,7 @@ export default async function JobDetailPage({
               className="mt-6 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-lg bg-[#0B1B3D] px-5 py-3 text-sm font-semibold text-white transition hover:bg-[#142952] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600"
             >
               Masuk untuk melamar
-              <ArrowRight size={17} aria-hidden="true" />
+              <ArrowRightIcon size={17} aria-hidden="true" />
             </Link>
 
             <p className="mt-4 text-center text-xs leading-5 text-slate-500">

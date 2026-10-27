@@ -1,6 +1,6 @@
 
 import type { Icon } from "@phosphor-icons/react";
-import { HardHat } from "@phosphor-icons/react/dist/ssr";
+import { HardHatIcon } from "@phosphor-icons/react";
 
 interface CandidatePagePlaceholderProps {
   eyebrow: string;
@@ -42,7 +42,7 @@ export default function CandidatePagePlaceholder({
 
         <div className="flex min-h-[280px] flex-col items-center justify-center px-5 py-12 text-center sm:min-h-[340px]">
           <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-[#F1F5F9] text-[#0B1B3D]">
-            <HardHat size={27} aria-hidden="true" />
+            <HardHatIcon size={27} aria-hidden="true" />
           </div>
 
           <h2 className="text-lg font-bold text-[#0B1B3D]">

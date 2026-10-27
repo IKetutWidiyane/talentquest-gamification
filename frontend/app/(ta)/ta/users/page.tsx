@@ -2,14 +2,14 @@
 
 import { useMemo, useState } from "react";
 import {
-  MagnifyingGlass,
-  UserPlus,
-  Users,
-  ShieldCheck,
-  UserCircle,
-  Envelope,
-  ToggleLeft,
-  ToggleRight,
+  MagnifyingGlassIcon,
+  UserPlusIcon,
+  UsersIcon,
+  ShieldCheckIcon,
+  UserCircleIcon,
+  EnvelopeIcon,
+  ToggleLeftIcon,
+  ToggleRightIcon,
 } from "@phosphor-icons/react";
 
 type UserRole = "Talent Acquisition" | "Candidate";
@@ -94,21 +94,21 @@ export default function UsersPage() {
   }
 
   const stats = [
-    { label: "Total Users", value: users.length, icon: Users },
+    { label: "Total Users", value: users.length, icon: UsersIcon },
     {
       label: "Active Accounts",
       value: activeCount,
-      icon: ShieldCheck,
+      icon: ShieldCheckIcon,
     },
     {
       label: "Talent Acquisition",
       value: taCount,
-      icon: UserCircle,
+      icon: UserCircleIcon,
     },
     {
       label: "Candidates",
       value: candidateCount,
-      icon: Users,
+      icon: UsersIcon,
     },
   ];
 
@@ -136,7 +136,7 @@ export default function UsersPage() {
           }
           className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#0B1B3D] px-4 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
         >
-          <UserPlus size={18} weight="bold" />
+          <UserPlusIcon size={18} weight="bold" />
           Invite User
         </button>
       </header>
@@ -171,7 +171,7 @@ export default function UsersPage() {
 
           <div className="flex flex-col gap-2 sm:flex-row">
             <label className="relative block">
-              <MagnifyingGlass
+              <MagnifyingGlassIcon
                 className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
                 size={17}
               />
@@ -219,7 +219,7 @@ export default function UsersPage() {
                     {user.name}
                   </h3>
                   <p className="mt-1 flex items-center gap-1.5 truncate text-sm text-slate-500">
-                    <Envelope size={15} className="shrink-0" />
+                    <EnvelopeIcon size={15} className="shrink-0" />
                     {user.email}
                   </p>
                 </div>
@@ -254,13 +254,13 @@ export default function UsersPage() {
                   className="rounded-lg border border-slate-200 p-2 text-slate-500 transition hover:bg-slate-100"
                 >
                   {user.active ? (
-                    <ToggleRight
+                    <ToggleRightIcon
                       size={22}
                       weight="duotone"
                       className="text-emerald-600"
                     />
                   ) : (
-                    <ToggleLeft size={22} />
+                    <ToggleLeftIcon size={22} />
                   )}
                 </button>
               </div>
@@ -269,7 +269,7 @@ export default function UsersPage() {
 
           {filtered.length === 0 && (
             <div className="p-10 text-center">
-              <Users
+              <UsersIcon
                 size={30}
                 className="mx-auto mb-3 text-slate-300"
                 weight="duotone"

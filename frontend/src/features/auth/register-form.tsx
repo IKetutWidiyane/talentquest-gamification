@@ -2,7 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
-import { Eye, EyeSlash } from "@phosphor-icons/react";
+import { EyeIcon, EyeSlashIcon } from "@phosphor-icons/react";
 
 export default function RegisterForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -128,9 +128,9 @@ export default function RegisterForm() {
             className="absolute right-3 top-1/2 -translate-y-1/2 rounded-lg p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-700"
           >
             {showPassword ? (
-              <EyeSlash aria-hidden="true" className="h-4 w-4" />
+              <EyeSlashIcon aria-hidden="true" className="h-4 w-4" />
             ) : (
-              <Eye aria-hidden="true" className="h-4 w-4" />
+              <EyeIcon aria-hidden="true" className="h-4 w-4" />
             )}
           </button>
         </div>
@@ -174,9 +174,9 @@ export default function RegisterForm() {
             className="absolute right-3 top-1/2 -translate-y-1/2 rounded-lg p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-700"
           >
             {showConfirmPassword ? (
-              <EyeSlash aria-hidden="true" className="h-4 w-4" />
+              <EyeSlashIcon aria-hidden="true" className="h-4 w-4" />
             ) : (
-              <Eye aria-hidden="true" className="h-4 w-4" />
+              <EyeIcon aria-hidden="true" className="h-4 w-4" />
             )}
           </button>
         </div>

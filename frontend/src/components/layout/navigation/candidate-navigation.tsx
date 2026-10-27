@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Trophy } from "@phosphor-icons/react";
+import { TrophyIcon } from "@phosphor-icons/react";
 
 import { roleNavigation } from "@/components/layout/navigation/role-navigation";
 
@@ -74,7 +74,7 @@ export default function CandidateNavigation({
 
                 {isQuest && (
                   <span className="ml-auto inline-flex items-center gap-1 rounded-md bg-amber-50 px-1.5 py-0.5 text-[10px] font-semibold text-amber-700">
-                    <Trophy size={11} aria-hidden="true" />
+                    <TrophyIcon size={11} aria-hidden="true" />
                     Quest
                   </span>
                 )}

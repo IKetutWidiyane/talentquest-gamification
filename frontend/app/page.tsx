@@ -1,17 +1,17 @@
 import { PublicLayout } from "@/components/layout/public-layout";
 import Link from "next/link";
 import {
-  ArrowRight,
-  Brain,
-  Compass,
-  Flag,
-  Handshake,
-  ArrowClockwise,
-  Path,
-  Target,
-  TrendUp,
-  Users,
-} from "@phosphor-icons/react/dist/ssr";
+  ArrowRightIcon,
+  BrainIcon,
+  CompassIcon,
+  FlagIcon,
+  HandshakeIcon,
+  ArrowClockwiseIcon,
+  PathIcon,
+  TargetIcon,
+  TrendUpIcon,
+  UsersIcon,
+} from "@phosphor-icons/react";
 
 import FeaturedJobs from "@/features/jobs/featured-jobs";
 
@@ -21,19 +21,19 @@ import FeaturedJobs from "@/features/jobs/featured-jobs";
 
 const highlights = [
   {
-    icon: Compass,
+    icon: CompassIcon,
     title: "Jelajahi peluang",
     description:
       "Temukan posisi yang sesuai dengan kemampuan dan minatmu, dari kantor pusat hingga lini produksi.",
   },
   {
-    icon: Target,
+    icon: TargetIcon,
     title: "Kenali potensimu",
     description:
       "Ikuti Talent Quest untuk menunjukkan cara kamu berpikir, beradaptasi, dan mengambil keputusan.",
   },
   {
-    icon: TrendUp,
+    icon: TrendUpIcon,
     title: "Kembangkan kariermu",
     description:
       "Pantau setiap tahap lamaran dari satu tempat, tanpa perlu menebak sudah sampai mana prosesnya.",
@@ -65,22 +65,22 @@ const recruitmentSteps = [
 
 const challenges = [
   {
-    icon: Brain,
+    icon: BrainIcon,
     title: "Problem solving",
     description: "Menguraikan masalah dan memilih solusi yang efektif.",
   },
   {
-    icon: Path,
+    icon: PathIcon,
     title: "Decision making",
     description: "Mengambil keputusan dengan informasi yang terbatas.",
   },
   {
-    icon: Users,
+    icon: UsersIcon,
     title: "Collaboration",
     description: "Bekerja bersama saat kepentingan tidak selalu sama.",
   },
   {
-    icon: ArrowClockwise,
+    icon: ArrowClockwiseIcon,
     title: "Adaptability",
     description: "Menyesuaikan langkah ketika keadaan berubah.",
   },
@@ -245,7 +245,7 @@ export default function HomePage() {
                 className={`inline-flex min-h-12 items-center justify-center gap-2 rounded-lg bg-[#0B1B3D] px-7 py-3.5 text-sm font-semibold text-white shadow-md transition-all hover:bg-[#142952] ${focusRing}`}
               >
                 Jelajahi lowongan
-                <ArrowRight size={17} aria-hidden="true" />
+                <ArrowRightIcon size={17} aria-hidden="true" />
               </Link>
 
               <Link
@@ -282,7 +282,7 @@ export default function HomePage() {
                   <span className="text-xs font-semibold tracking-wide text-slate-300">
                     EIGER Talent Quest Assessment
                   </span>
-                  <Flag
+                  <FlagIcon
                     size={20}
                     strokeWidth={2}
                     className="text-amber-500"
@@ -434,7 +434,7 @@ export default function HomePage() {
               className="mt-8 inline-flex min-h-12 items-center justify-center gap-2 rounded-lg bg-amber-600 px-7 py-3.5 text-sm font-semibold text-white shadow-lg transition-all hover:bg-amber-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
             >
               Pelajari Talent Quest
-              <ArrowRight size={17} aria-hidden="true" />
+              <ArrowRightIcon size={17} aria-hidden="true" />
             </Link>
           </div>
 
@@ -473,7 +473,7 @@ export default function HomePage() {
           <div className="flex flex-col items-start justify-between gap-8 rounded-2xl border border-slate-200 bg-[#F8F9FA] p-8 shadow-sm sm:p-12 lg:flex-row lg:items-center">
             <div className="flex items-center gap-6">
               <span className="hidden size-14 shrink-0 items-center justify-center rounded-xl bg-amber-100 text-amber-800 shadow-sm sm:flex">
-                <Handshake size={28} aria-hidden="true" />
+                <HandshakeIcon size={28} aria-hidden="true" />
               </span>
 
               <div>
@@ -494,7 +494,7 @@ export default function HomePage() {
                 className={`inline-flex min-h-12 items-center justify-center gap-2 rounded-lg bg-[#0B1B3D] px-7 py-3.5 text-sm font-semibold text-white shadow-md transition-all hover:bg-[#142952] ${focusRing}`}
               >
                 Jelajahi lowongan
-                <ArrowRight size={17} aria-hidden="true" />
+                <ArrowRightIcon size={17} aria-hidden="true" />
               </Link>
 
               <Link

@@ -4,14 +4,14 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import {
-  MagnifyingGlass,
-  SlidersHorizontal,
-  Users,
-  UserCheck,
-  Clock,
-  Trophy,
-  ArrowUpRight,
-  MapPin,
+  MagnifyingGlassIcon,
+  SlidersHorizontalIcon,
+  UsersIcon,
+  UserCheckIcon,
+  ClockIcon,
+  TrophyIcon,
+  ArrowUpRightIcon,
+  MapPinIcon,
 } from "@phosphor-icons/react";
 import type { Icon } from "@phosphor-icons/react";
 
@@ -167,7 +167,7 @@ export default function TACandidatesPage() {
         </div>
 
         <span className="inline-flex w-fit items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-medium text-slate-500">
-          <Users size={15} />
+          <UsersIcon size={15} />
           Candidate Directory
         </span>
       </div>
@@ -178,25 +178,25 @@ export default function TACandidatesPage() {
           label="Total Candidates"
           value={totalCandidates}
           helper="Kandidat dalam data demo"
-          icon={Users}
+          icon={UsersIcon}
         />
         <StatCard
           label="Active Pipeline"
           value={activeCandidates}
           helper="New, screening, dan interview"
-          icon={UserCheck}
+          icon={UserCheckIcon}
         />
         <StatCard
           label="In Interview"
           value={interviewCandidates}
           helper="Sedang tahap interview"
-          icon={Clock}
+          icon={ClockIcon}
         />
         <StatCard
           label="Average Assessment"
           value={`${averageScore}%`}
           helper="Kandidat yang memiliki skor"
-          icon={Trophy}
+          icon={TrophyIcon}
         />
       </div>
 
@@ -214,7 +214,7 @@ export default function TACandidatesPage() {
 
           <div className="flex flex-col gap-2 sm:flex-row">
             <label className="flex min-w-0 items-center gap-2 rounded-xl border border-slate-200 px-3 py-2.5 focus-within:border-amber-400 focus-within:ring-2 focus-within:ring-amber-100 sm:w-64">
-              <MagnifyingGlass
+              <MagnifyingGlassIcon
                 size={16}
                 className="shrink-0 text-slate-400"
                 aria-hidden="true"
@@ -230,7 +230,7 @@ export default function TACandidatesPage() {
             </label>
 
             <label className="flex items-center gap-2 rounded-xl border border-slate-200 px-3 py-2.5">
-              <SlidersHorizontal
+              <SlidersHorizontalIcon
                 size={16}
                 className="shrink-0 text-slate-400"
                 aria-hidden="true"
@@ -296,7 +296,7 @@ export default function TACandidatesPage() {
                       {candidate.position}
                     </p>
                     <p className="mt-1 flex items-center gap-1 text-xs text-slate-400">
-                      <MapPin size={12} />
+                      <MapPinIcon size={12} />
                       {candidate.location}
                     </p>
                   </td>
@@ -332,7 +332,7 @@ export default function TACandidatesPage() {
                       className="inline-flex items-center gap-1 rounded-lg border border-slate-200 px-3 py-2 text-xs font-semibold text-[#0B1B3D] transition hover:border-amber-300 hover:bg-amber-50"
                     >
                       Details
-                      <ArrowUpRight size={14} />
+                      <ArrowUpRightIcon size={14} />
                     </Link>
                   </td>
                 </tr>
@@ -372,7 +372,7 @@ export default function TACandidatesPage() {
                   {candidate.position}
                 </p>
                 <p className="mt-1 flex items-center gap-1 text-xs text-slate-500">
-                  <MapPin size={13} />
+                  <MapPinIcon size={13} />
                   {candidate.location}
                 </p>
                 <div className="mt-3 flex items-center justify-between gap-3">
@@ -392,7 +392,7 @@ export default function TACandidatesPage() {
                 className="flex w-full items-center justify-center gap-2 rounded-lg border border-slate-200 px-3 py-2.5 text-sm font-semibold text-[#0B1B3D] hover:bg-amber-50"
               >
                 View candidate
-                <ArrowUpRight size={15} />
+                <ArrowUpRightIcon size={15} />
               </Link>
             </article>
           ))}
@@ -477,7 +477,7 @@ function StatusBadge({ status }: { status: CandidateStatus }) {
 function EmptyState() {
   return (
     <div className="px-5 py-12 text-center">
-      <Users className="mx-auto text-slate-300" size={32} />
+      <UsersIcon className="mx-auto text-slate-300" size={32} />
       <h4 className="mt-3 font-semibold text-[#0B1B3D]">
         No candidates found
       </h4>

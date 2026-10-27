@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import type { HTMLAttributes, ReactNode } from "react";
-import { X } from "@phosphor-icons/react";
+import { XIcon } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
 
 export interface DialogProps {
@@ -80,7 +80,7 @@ export function Dialog({
             aria-label="Tutup dialog"
             className="rounded-[6px] p-1.5 text-muted hover:bg-background hover:text-foreground focus-visible:outline-2 focus-visible:outline-primary-accent"
           >
-            <X size={18} aria-hidden="true" />
+            <XIcon size={18} aria-hidden="true" />
           </button>
         )}
       </div>

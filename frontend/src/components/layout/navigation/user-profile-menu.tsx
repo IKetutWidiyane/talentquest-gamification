@@ -5,10 +5,10 @@ import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  CaretDown,
-  SignOut,
-  User,
-  Gear,
+  CaretDownIcon,
+  SignOutIcon,
+  UserIcon,
+  GearIcon,
 } from "@phosphor-icons/react";
 
 interface UserProfileMenuProps {
@@ -87,7 +87,7 @@ export default function UserProfileMenu({
           </span>
         </span>
 
-        <CaretDown
+        <CaretDownIcon
           size={16}
           className={`hidden text-slate-400 transition-transform sm:block ${
             open ? "rotate-180" : ""
@@ -119,7 +119,7 @@ export default function UserProfileMenu({
               onClick={() => setOpen(false)}
               className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-slate-600 transition hover:bg-slate-50 hover:text-[#0B1B3D]"
             >
-              <User size={17} />
+              <UserIcon size={17} />
               My Profile
             </Link>
 
@@ -130,7 +130,7 @@ export default function UserProfileMenu({
               className="flex w-full cursor-not-allowed items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-slate-400"
               title="Pengaturan akan tersedia pada tahap berikutnya"
             >
-              <Gear size={17} />
+              <GearIcon size={17} />
               Settings
               <span className="ml-auto text-[10px]">Soon</span>
             </button>
@@ -148,7 +148,7 @@ export default function UserProfileMenu({
               title={!onLogout ? "Menunggu integrasi autentikasi" : "Logout"}
               className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm text-red-600 transition hover:bg-red-50 disabled:cursor-not-allowed disabled:text-slate-400 disabled:hover:bg-transparent"
             >
-              <SignOut size={17} />
+              <SignOutIcon size={17} />
               Logout
               {!onLogout && (
                 <span className="ml-auto text-[10px]">Soon</span>

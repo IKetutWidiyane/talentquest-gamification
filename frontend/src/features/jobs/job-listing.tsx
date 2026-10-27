@@ -3,11 +3,11 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import {
-  ArrowRight,
-  Briefcase,
-  MapPin,
-  MagnifyingGlass,
-  SlidersHorizontal,
+  ArrowRightIcon,
+  BriefcaseIcon,
+  MapPinIcon,
+  MagnifyingGlassIcon,
+  SlidersHorizontalIcon,
 } from "@phosphor-icons/react";
 
 import { getJobs, type Job } from "@/lib/api/jobs";
@@ -134,7 +134,7 @@ export default function JobListing() {
           </p>
 
           <div className="mt-8 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-slate-200">
-            <Briefcase size={16} className="text-amber-400" />
+            <BriefcaseIcon size={16} className="text-amber-400" />
             {jobs.length} lowongan tersedia 
           </div>
         </div>
@@ -153,7 +153,7 @@ export default function JobListing() {
               </label>
 
               <div className="flex h-12 items-center gap-3 rounded-lg border border-slate-300 bg-white px-4 transition focus-within:border-amber-600 focus-within:ring-2 focus-within:ring-amber-100">
-                <MagnifyingGlass size={18} className="shrink-0 text-slate-400" />
+                <MagnifyingGlassIcon size={18} className="shrink-0 text-slate-400" />
 
                 <input
                   id="job-keyword"
@@ -237,7 +237,7 @@ export default function JobListing() {
 
           <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
             <p className="text-sm text-slate-500">
-              <SlidersHorizontal
+              <SlidersHorizontalIcon
                 size={15}
                 className="mr-1.5 inline-block"
               />
@@ -305,7 +305,7 @@ export default function JobListing() {
 
                   <div className="mt-5 flex flex-wrap gap-x-4 gap-y-2 border-t border-slate-100 pt-4 text-xs text-slate-500">
                     <span className="inline-flex items-center gap-1.5">
-                      <MapPin size={14} aria-hidden="true" />
+                      <MapPinIcon size={14} aria-hidden="true" />
                       {job.location}
                     </span>
                     {workplaceText && <span>{workplaceText}</span>}
@@ -316,7 +316,7 @@ export default function JobListing() {
                     className="mt-6 inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-[#0B1B3D] px-4 py-3 text-sm font-semibold text-[#0B1B3D] transition hover:bg-[#0B1B3D] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-600"
                   >
                     Lihat detail
-                    <ArrowRight size={16} aria-hidden="true" />
+                    <ArrowRightIcon size={16} aria-hidden="true" />
                   </Link>
                 </article>
               );
@@ -324,7 +324,7 @@ export default function JobListing() {
           </div>
         ) : (
           <div className="rounded-xl border border-dashed border-slate-300 bg-white px-6 py-16 text-center">
-            <MagnifyingGlass
+            <MagnifyingGlassIcon
               size={28}
               className="mx-auto text-slate-400"
               aria-hidden="true"

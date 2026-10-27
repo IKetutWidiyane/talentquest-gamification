@@ -1,15 +1,15 @@
 
 import {
-  SquaresFour,
-  Users,
-  Briefcase,
-  ClipboardText,
-} from "@phosphor-icons/react/dist/ssr";
+  SquaresFourIcon,
+  UsersIcon,
+  BriefcaseIcon,
+  ClipboardTextIcon,
+} from "@phosphor-icons/react";
 
 const overviewCards = [
-  { label: "Total Candidates", icon: Users },
-  { label: "Active Jobs", icon: Briefcase },
-  { label: "Assessments", icon: ClipboardText },
+  { label: "Total Candidates", icon: UsersIcon },
+  { label: "Active Jobs", icon: BriefcaseIcon },
+  { label: "Assessments", icon: ClipboardTextIcon },
 ];
 
 export default function TAOverviewPage() {
@@ -48,7 +48,7 @@ export default function TAOverviewPage() {
 
       <div className="rounded-2xl border border-slate-200 bg-white p-6">
         <div className="flex items-center gap-3">
-          <SquaresFour className="text-[#D97706]" size={22} />
+          <SquaresFourIcon className="text-[#D97706]" size={22} />
           <h2 className="font-bold text-[#0B1B3D]">
             Recruitment Overview
           </h2>

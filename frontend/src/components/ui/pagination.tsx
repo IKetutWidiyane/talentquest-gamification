@@ -1,6 +1,6 @@
 "use client";
 
-import { CaretLeft, CaretRight } from "@phosphor-icons/react";
+import { CaretLeftIcon, CaretRightIcon } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
@@ -57,7 +57,7 @@ export function Pagination({
           disabled={currentPage <= 1}
           onClick={() => onPageChange(currentPage - 1)}
         >
-          <CaretLeft size={16} aria-hidden="true" />
+          <CaretLeftIcon size={16} aria-hidden="true" />
           <span className="hidden sm:inline">Sebelumnya</span>
         </Button>
 
@@ -120,7 +120,7 @@ export function Pagination({
           onClick={() => onPageChange(currentPage + 1)}
         >
           <span className="hidden sm:inline">Berikutnya</span>
-          <CaretRight size={16} aria-hidden="true" />
+          <CaretRightIcon size={16} aria-hidden="true" />
         </Button>
       </div>
     </nav>

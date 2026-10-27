@@ -1,16 +1,16 @@
 
 import {
-  Briefcase,
-  ClipboardText,
-  FileText,
-  SquaresFour,
-  Users,
-  User,
-  Trophy,
-  ChartLineUp,
-  Gear,
-  Target,
-} from "@phosphor-icons/react/dist/ssr";
+  BriefcaseIcon,
+  ClipboardTextIcon,
+  FileTextIcon,
+  SquaresFourIcon,
+  UsersIcon,
+  UserIcon,
+  TrophyIcon,
+  ChartLineUpIcon,
+  GearIcon,
+  TargetIcon,
+} from "@phosphor-icons/react";
 import type { Icon } from "@phosphor-icons/react";
 
 export type AppRole = "Candidate" | "Talent Acquisition";
@@ -27,29 +27,29 @@ export const roleNavigation: Record<AppRole, NavigationItem[]> = {
     {
     label: "Overview",
     href: "/candidate",
-    icon: SquaresFour,
+    icon: SquaresFourIcon,
     description: "Your candidate dashboard and activity overview",
     },
     {
       label: "Find Jobs",
       href: "/candidate/jobs",
-      icon: Briefcase,
+      icon: BriefcaseIcon,
       description: "Discover and apply for your dream job",
     },
     {
       label: "Talent Quest",
       href: "/candidate/talent-quest",
-      icon: Trophy,
+      icon: TrophyIcon,
     },
     {
       label: "My Applications",
       href: "/candidate/applications",
-      icon: FileText,
+      icon: FileTextIcon,
     },
     {
       label: "My Profile",
       href: "/candidate/profile",
-      icon: User,
+      icon: UserIcon,
     },
   ],
 
@@ -57,47 +57,47 @@ export const roleNavigation: Record<AppRole, NavigationItem[]> = {
     {
       label: "Overview",
       href: "/ta",
-      icon: SquaresFour,
+      icon: SquaresFourIcon,
     },
     {
       label: "Candidates",
       href: "/ta/candidates",
-      icon: Users,
+      icon: UsersIcon,
     },
     {
       label: "Job Management",
       href: "/ta/jobs",
-      icon: Briefcase,
+      icon: BriefcaseIcon,
     },
     {
       label: "Assessments",
       href: "/ta/assessments",
-      icon: ClipboardText,
+      icon: ClipboardTextIcon,
     },
     {
       label: "Competencies",
       href: "/ta/competencies",
-      icon: Target,
+      icon: TargetIcon,
     },
     {
       label: "User Management",
       href: "/ta/users",
-      icon: User,
+      icon: UserIcon,
     },
     {
       label: "Talent Pool",
       href: "/ta/talent-pool",
-      icon: Trophy,
+      icon: TrophyIcon,
     },
     {
       label: "Analytics",
       href: "/ta/analytics",
-      icon: ChartLineUp,
+      icon: ChartLineUpIcon,
     },
     {
       label: "Settings",
       href: "/ta/settings",
-      icon: Gear,
+      icon: GearIcon,
     },
   ],
 };

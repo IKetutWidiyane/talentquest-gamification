@@ -2,7 +2,7 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 import type { ReactNode } from "react";
-import { CaretDown } from "@phosphor-icons/react";
+import { CaretDownIcon } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
 
 export interface DropdownMenuItem {
@@ -81,7 +81,7 @@ export function DropdownMenu({
         {trigger ?? (
           <>
             Menu
-            <CaretDown size={16} aria-hidden="true" />
+            <CaretDownIcon size={16} aria-hidden="true" />
           </>
         )}
       </button>

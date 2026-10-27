@@ -3,14 +3,14 @@
 import { useState } from "react";
 import Link from "next/link";
 import {
-  ArrowLeft,
-  FloppyDisk,
-  UserCircle,
-  Envelope,
-  Phone,
-  MapPin,
-  CalendarBlank,
-  IdentificationCard,
+  ArrowLeftIcon,
+  FloppyDiskIcon,
+  UserCircleIcon,
+  EnvelopeIcon,
+  PhoneIcon,
+  MapPinIcon,
+  CalendarBlankIcon,
+  IdentificationCardIcon,
 } from "@phosphor-icons/react";
 
 type ProfileForm = {
@@ -71,7 +71,7 @@ export default function EditCandidateProfilePage() {
           href="/candidate/profile"
           className="mb-4 inline-flex items-center gap-2 text-sm font-medium text-slate-500 transition hover:text-[#0B1B3D]"
         >
-          <ArrowLeft size={17} />
+          <ArrowLeftIcon size={17} />
           Kembali ke Profil
         </Link>
 
@@ -91,7 +91,7 @@ export default function EditCandidateProfilePage() {
         <section className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7">
           <div className="mb-6 flex items-center gap-3">
             <span className="rounded-xl bg-amber-50 p-3 text-amber-600">
-              <UserCircle size={23} weight="duotone" />
+              <UserCircleIcon size={23} weight="duotone" />
             </span>
             <div>
               <h2 className="font-bold text-slate-900">
@@ -118,7 +118,7 @@ export default function EditCandidateProfilePage() {
             <label className="text-sm font-medium text-slate-700">
               Email <span className="text-red-500">*</span>
               <span className="relative block">
-                <Envelope
+                <EnvelopeIcon
                   size={17}
                   className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
                 />
@@ -136,7 +136,7 @@ export default function EditCandidateProfilePage() {
             <label className="text-sm font-medium text-slate-700">
               Nomor telepon
               <span className="relative block">
-                <Phone
+                <PhoneIcon
                   size={17}
                   className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
                 />
@@ -153,7 +153,7 @@ export default function EditCandidateProfilePage() {
             <label className="text-sm font-medium text-slate-700">
               Tanggal lahir
               <span className="relative block">
-                <CalendarBlank
+                <CalendarBlankIcon
                   size={17}
                   className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
                 />
@@ -183,7 +183,7 @@ export default function EditCandidateProfilePage() {
             <label className="text-sm font-medium text-slate-700">
               Kota domisili
               <span className="relative block">
-                <MapPin
+                <MapPinIcon
                   size={17}
                   className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400"
                 />
@@ -255,7 +255,7 @@ export default function EditCandidateProfilePage() {
             type="submit"
             className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#0B1B3D] px-5 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
           >
-            <FloppyDisk size={18} weight="bold" />
+            <FloppyDiskIcon size={18} weight="bold" />
             Simpan Perubahan
           </button>
         </div>

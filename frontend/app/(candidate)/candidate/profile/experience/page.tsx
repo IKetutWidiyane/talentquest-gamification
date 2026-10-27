@@ -3,11 +3,11 @@
 import { useState } from "react";
 import Link from "next/link";
 import {
-  ArrowLeft,
-  Plus,
-  Trash,
-  GraduationCap,
-  Briefcase,
+  ArrowLeftIcon,
+  PlusIcon,
+  TrashIcon,
+  GraduationCapIcon,
+  BriefcaseIcon,
 } from "@phosphor-icons/react";
 
 type Education = {
@@ -102,7 +102,7 @@ export default function CandidateExperiencePage() {
           href="/candidate/profile"
           className="mb-4 inline-flex items-center gap-2 text-sm font-medium text-slate-500 hover:text-[#0B1B3D]"
         >
-          <ArrowLeft size={17} />
+          <ArrowLeftIcon size={17} />
           Kembali ke Profil
         </Link>
         <p className="mb-1 text-sm font-medium text-amber-600">
@@ -125,7 +125,7 @@ export default function CandidateExperiencePage() {
       <section className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7">
         <div className="mb-6 flex items-center gap-3">
           <span className="rounded-xl bg-amber-50 p-3 text-amber-600">
-            <GraduationCap size={24} weight="duotone" />
+            <GraduationCapIcon size={24} weight="duotone" />
           </span>
           <div>
             <h2 className="font-bold text-slate-900">Education</h2>
@@ -219,7 +219,7 @@ export default function CandidateExperiencePage() {
               type="submit"
               className="inline-flex items-center gap-2 rounded-xl bg-[#0B1B3D] px-4 py-3 text-sm font-semibold text-white hover:bg-slate-800"
             >
-              <Plus size={18} weight="bold" />
+              <PlusIcon size={18} weight="bold" />
               Tambah Pendidikan
             </button>
           </div>
@@ -248,7 +248,7 @@ export default function CandidateExperiencePage() {
                 aria-label={`Hapus pendidikan ${item.institution}`}
                 className="rounded-lg p-2 text-slate-400 hover:bg-red-50 hover:text-red-600"
               >
-                <Trash size={18} />
+                <TrashIcon size={18} />
               </button>
             </article>
           ))}
@@ -264,7 +264,7 @@ export default function CandidateExperiencePage() {
       <section className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7">
         <div className="mb-6 flex items-center gap-3">
           <span className="rounded-xl bg-amber-50 p-3 text-amber-600">
-            <Briefcase size={24} weight="duotone" />
+            <BriefcaseIcon size={24} weight="duotone" />
           </span>
           <div>
             <h2 className="font-bold text-slate-900">Work Experience</h2>
@@ -361,7 +361,7 @@ export default function CandidateExperiencePage() {
               type="submit"
               className="inline-flex items-center gap-2 rounded-xl bg-[#0B1B3D] px-4 py-3 text-sm font-semibold text-white hover:bg-slate-800"
             >
-              <Plus size={18} weight="bold" />
+              <PlusIcon size={18} weight="bold" />
               Tambah Pengalaman
             </button>
           </div>
@@ -395,7 +395,7 @@ export default function CandidateExperiencePage() {
                 aria-label={`Hapus pengalaman ${item.position}`}
                 className="rounded-lg p-2 text-slate-400 hover:bg-red-50 hover:text-red-600"
               >
-                <Trash size={18} />
+                <TrashIcon size={18} />
               </button>
             </article>
           ))}

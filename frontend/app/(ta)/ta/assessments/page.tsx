@@ -3,8 +3,8 @@
 
 import { useMemo, useState } from "react";
 import {
-  ClipboardText, MagnifyingGlass, Funnel, Clock, Users, Plus,
-  CheckCircle, CircleDashed, Eye, DotsThree,
+  ClipboardTextIcon, MagnifyingGlassIcon, FunnelIcon, ClockIcon, UsersIcon, PlusIcon,
+  CheckCircleIcon, CircleDashedIcon, EyeIcon, DotsThreeIcon,
 } from "@phosphor-icons/react";
 
 type AssessmentStatus = "Active" | "Draft" | "Completed";
@@ -54,10 +54,10 @@ export default function AssessmentsPage() {
   }
 
   const stats = [
-    { label: "Total Assessments", value: assessments.length, icon: ClipboardText },
-    { label: "Active Assessments", value: activeCount, icon: CheckCircle },
-    { label: "Candidates Assigned", value: totalCandidates, icon: Users },
-    { label: "Completed Attempts", value: totalCompleted, icon: CircleDashed },
+    { label: "Total Assessments", value: assessments.length, icon: ClipboardTextIcon },
+    { label: "Active Assessments", value: activeCount, icon: CheckCircleIcon },
+    { label: "Candidates Assigned", value: totalCandidates, icon: UsersIcon },
+    { label: "Completed Attempts", value: totalCompleted, icon: CircleDashedIcon },
   ];
 
   return (
@@ -72,7 +72,7 @@ export default function AssessmentsPage() {
           onClick={() => alert("Demo: form Create Assessment dapat dihubungkan ke backend pada tahap berikutnya.")}
           className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#0B1B3D] px-4 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
         >
-          <Plus size={17} /> Create Assessment
+          <PlusIcon size={17} /> Create Assessment
         </button>
       </div>
 
@@ -96,12 +96,12 @@ export default function AssessmentsPage() {
           </div>
           <div className="flex flex-col gap-2 sm:flex-row">
             <div className="relative">
-              <MagnifyingGlass className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={17} />
+              <MagnifyingGlassIcon className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={17} />
               <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search assessments..."
                 className="w-full rounded-xl border border-slate-200 py-2.5 pl-9 pr-3 text-sm outline-none focus:border-amber-500 sm:w-60" />
             </div>
             <div className="relative">
-              <Funnel className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
+              <FunnelIcon className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" size={16} />
               <select value={filter} onChange={(e) => setFilter(e.target.value)}
                 className="w-full appearance-none rounded-xl border border-slate-200 bg-white py-2.5 pl-9 pr-8 text-sm outline-none focus:border-amber-500 sm:w-40">
                 {["All", "Active", "Draft", "Completed"].map((item) => <option key={item}>{item}</option>)}
@@ -116,13 +116,13 @@ export default function AssessmentsPage() {
             return (
               <div key={item.id} className="flex flex-col gap-4 p-5 transition hover:bg-slate-50/70 lg:flex-row lg:items-center">
                 <div className="flex min-w-0 flex-1 items-start gap-3">
-                  <div className="rounded-xl bg-slate-100 p-3 text-[#0B1B3D]"><ClipboardText size={21} /></div>
+                  <div className="rounded-xl bg-slate-100 p-3 text-[#0B1B3D]"><ClipboardTextIcon size={21} /></div>
                   <div className="min-w-0">
                     <h3 className="font-semibold text-slate-900">{item.title}</h3>
                     <p className="mt-1 text-sm text-slate-500">{item.type}</p>
                     <div className="mt-3 flex flex-wrap gap-3 text-xs text-slate-500">
-                      <span className="flex items-center gap-1"><Users size={14} /> {item.candidates} candidates</span>
-                      <span className="flex items-center gap-1"><Clock size={14} /> {item.duration}</span>
+                      <span className="flex items-center gap-1"><UsersIcon size={14} /> {item.candidates} candidates</span>
+                      <span className="flex items-center gap-1"><ClockIcon size={14} /> {item.duration}</span>
                     </div>
                   </div>
                 </div>
@@ -142,7 +142,7 @@ export default function AssessmentsPage() {
                   <span className={`rounded-full px-3 py-1.5 text-xs font-semibold ${statusStyles[item.status]}`}>{item.status}</span>
                   <button onClick={() => toggleStatus(item.id)} title="Toggle active/draft"
                     className="rounded-lg border border-slate-200 p-2 text-slate-500 hover:bg-slate-100" aria-label={`Toggle ${item.title}`}>
-                    {item.status === "Active" ? <DotsThree size={18} /> : <Eye size={18} />}
+                    {item.status === "Active" ? <DotsThreeIcon size={18} /> : <EyeIcon size={18} />}
                   </button>
                 </div>
               </div>

@@ -5,11 +5,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState, type ReactNode } from "react";
 import {
-  Bell,
-  List,
-  X,
-  SignOut,
-  ShieldCheck,
+  BellIcon,
+  ListIcon,
+  XIcon,
+  SignOutIcon,
+  ShieldCheckIcon,
 } from "@phosphor-icons/react";
 import TANavigation from "./navigation/ta-navigation";
 import UserProfileMenu from "./navigation/user-profile-menu";
@@ -72,7 +72,7 @@ export default function TAShell({ children }: TAShellProps) {
             aria-label="Tutup sidebar"
             className="ml-auto rounded-lg p-2 text-slate-500 hover:bg-slate-100 lg:hidden"
           >
-            <X size={19} />
+            <XIcon size={19} />
           </button>
         </div>
 
@@ -83,7 +83,7 @@ export default function TAShell({ children }: TAShellProps) {
         <div className="border-t border-slate-100 p-4">
           <div className="mb-3 flex items-center gap-3 rounded-xl bg-slate-50 p-3">
             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#0B1B3D] text-[#F59E0B]">
-              <ShieldCheck size={20} />
+              <ShieldCheckIcon size={20} />
             </div>
             <div className="min-w-0">
               <p className="truncate text-xs font-bold text-[#0B1B3D]">
@@ -101,7 +101,7 @@ export default function TAShell({ children }: TAShellProps) {
             title="Logout diaktifkan setelah integrasi autentikasi"
             className="flex w-full cursor-not-allowed items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-400"
           >
-            <SignOut size={17} />
+            <SignOutIcon size={17} />
             <span>Logout</span>
             <span className="ml-auto text-[9px]">Soon</span>
           </button>
@@ -120,7 +120,7 @@ export default function TAShell({ children }: TAShellProps) {
               aria-controls="ta-sidebar"
               className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-slate-200 text-[#0B1B3D] hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D97706] lg:hidden"
             >
-              <List size={20} />
+              <ListIcon size={20} />
             </button>
 
             <div className="min-w-0">
@@ -145,7 +145,7 @@ export default function TAShell({ children }: TAShellProps) {
               title="Notifikasi akan tersedia pada tahap berikutnya"
               className="relative flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 text-slate-600 transition-colors hover:bg-slate-50"
             >
-              <Bell size={18} />
+              <BellIcon size={18} />
             </button>
             <UserProfileMenu
               name="TA Demo User"

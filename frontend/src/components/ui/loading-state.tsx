@@ -1,4 +1,4 @@
-import { CircleNotch } from "@phosphor-icons/react/dist/ssr";
+import { CircleNotchIcon } from "@phosphor-icons/react";
 
 type LoadingStateProps = {
   message?: string;
@@ -13,7 +13,7 @@ export default function LoadingState({
       aria-live="polite"
       className="flex min-h-56 flex-col items-center justify-center gap-3 rounded-2xl border border-slate-200 bg-white p-8 text-center"
     >
-      <CircleNotch
+      <CircleNotchIcon
         aria-hidden="true"
         className="h-8 w-8 animate-spin text-amber-600"
       />

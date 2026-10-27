@@ -1,14 +1,14 @@
 
 import Link from "next/link";
 import {
-  Briefcase,
-  Plus,
-  MagnifyingGlass,
-  SlidersHorizontal,
-  MapPin,
-  Clock,
-  Users,
-} from "@phosphor-icons/react/dist/ssr";
+  BriefcaseIcon,
+  PlusIcon,
+  MagnifyingGlassIcon,
+  SlidersHorizontalIcon,
+  MapPinIcon,
+  ClockIcon,
+  UsersIcon,
+} from "@phosphor-icons/react";
 
 const jobs = [
   {
@@ -71,7 +71,7 @@ export default function TAJobsPage() {
           title="Form pembuatan lowongan akan dibuat pada tahap berikutnya"
           className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#0B1B3D] px-4 py-3 text-sm font-semibold text-white opacity-70"
         >
-          <Plus size={17} />
+          <PlusIcon size={17} />
           Create Job
           <span className="text-xs text-amber-300">Soon</span>
         </button>
@@ -81,7 +81,7 @@ export default function TAJobsPage() {
         <div className="rounded-2xl border border-slate-200 bg-white p-5">
           <div className="flex items-center justify-between">
             <p className="text-sm text-slate-500">Total Jobs</p>
-            <Briefcase size={19} className="text-amber-600" />
+            <BriefcaseIcon size={19} className="text-amber-600" />
           </div>
           <p className="mt-3 text-3xl font-bold text-[#0B1B3D]">
             {jobs.length}
@@ -125,7 +125,7 @@ export default function TAJobsPage() {
 
           <div className="flex flex-col gap-2 sm:flex-row">
             <label className="flex items-center gap-2 rounded-lg border border-slate-200 px-3 py-2">
-              <MagnifyingGlass size={16} className="text-slate-400" />
+              <MagnifyingGlassIcon size={16} className="text-slate-400" />
               <input
                 type="search"
                 placeholder="Search jobs..."
@@ -141,7 +141,7 @@ export default function TAJobsPage() {
               title="Filter akan diaktifkan pada tahap berikutnya"
               className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-400"
             >
-              <SlidersHorizontal size={16} />
+              <SlidersHorizontalIcon size={16} />
               Filter
             </button>
           </div>
@@ -155,7 +155,7 @@ export default function TAJobsPage() {
             >
               <div className="flex min-w-0 gap-3">
                 <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-amber-50 text-amber-700">
-                  <Briefcase size={21} />
+                  <BriefcaseIcon size={21} />
                 </div>
 
                 <div className="min-w-0">
@@ -176,15 +176,15 @@ export default function TAJobsPage() {
 
                   <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2 text-xs text-slate-500">
                     <span className="inline-flex items-center gap-1.5">
-                      <MapPin size={14} />
+                      <MapPinIcon size={14} />
                       {job.location}
                     </span>
                     <span className="inline-flex items-center gap-1.5">
-                      <Clock size={14} />
+                      <ClockIcon size={14} />
                       {job.type}
                     </span>
                     <span className="inline-flex items-center gap-1.5">
-                      <Users size={14} />
+                      <UsersIcon size={14} />
                       {job.applicants} applicants
                     </span>
                   </div>

@@ -1,11 +1,11 @@
 
 import Link from "next/link";
 import {
-  ArrowRight,
-  ArrowUpRight,
-  Briefcase,
-  MapPin,
-} from "@phosphor-icons/react/dist/ssr";
+  ArrowRightIcon,
+  ArrowUpRightIcon,
+  BriefcaseIcon,
+  MapPinIcon,
+} from "@phosphor-icons/react";
 
 type FeaturedJob = {
   id: string;
@@ -81,7 +81,7 @@ export default function FeaturedJobs() {
             className="inline-flex w-fit items-center gap-2 rounded-full border border-[#0B1B3D]/15 px-5 py-3 text-sm font-semibold text-[#0B1B3D] transition hover:border-amber-500 hover:bg-amber-50"
           >
             Lihat semua lowongan
-            <ArrowRight size={16} />
+            <ArrowRightIcon size={16} />
           </Link>
         </div>
 
@@ -93,7 +93,7 @@ export default function FeaturedJobs() {
             >
               <div className="mb-6 flex items-start justify-between gap-3">
                 <div className="flex size-12 items-center justify-center rounded-xl bg-[#0B1B3D] text-amber-400">
-                  <Briefcase size={23} />
+                  <BriefcaseIcon size={23} />
                 </div>
 
                 {job.featured && (
@@ -117,12 +117,12 @@ export default function FeaturedJobs() {
 
               <div className="mt-6 space-y-3 border-t border-slate-100 pt-5">
                 <div className="flex items-center gap-2 text-sm text-slate-600">
-                  <MapPin size={16} className="shrink-0 text-slate-400" />
+                  <MapPinIcon size={16} className="shrink-0 text-slate-400" />
                   <span>{job.location}</span>
                 </div>
 
                 <div className="flex items-center gap-2 text-sm text-slate-600">
-                  <Briefcase
+                  <BriefcaseIcon
                     size={16}
                     className="shrink-0 text-slate-400"
                   />
@@ -136,7 +136,7 @@ export default function FeaturedJobs() {
                 className="mt-7 inline-flex items-center justify-between rounded-xl border border-slate-200 px-4 py-3 text-sm font-semibold text-[#0B1B3D] transition hover:border-[#0B1B3D] hover:bg-[#0B1B3D] hover:text-white"
               >
                 Lihat detail
-                <ArrowUpRight size={17} />
+                <ArrowUpRightIcon size={17} />
               </Link>
             </article>
           ))}

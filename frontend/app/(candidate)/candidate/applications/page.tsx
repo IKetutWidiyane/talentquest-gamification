@@ -1,5 +1,5 @@
 
-import { ClipboardText } from "@phosphor-icons/react/dist/ssr";
+import { ClipboardTextIcon } from "@phosphor-icons/react";
 import CandidatePagePlaceholder from "@/components/layout/candidate-page-placeholder";
 
 export default function CandidateApplicationsPage() {
@@ -8,7 +8,7 @@ export default function CandidateApplicationsPage() {
       eyebrow="Your career journey"
       title="My Applications"
       description="Pantau daftar lamaran dan perkembangan proses rekrutmen kamu."
-      icon={ClipboardText}
+      icon={ClipboardTextIcon}
     />
   );
 }

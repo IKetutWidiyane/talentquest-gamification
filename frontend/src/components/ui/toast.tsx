@@ -1,7 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { CheckCircle, Info, Warning, X, XCircle } from "@phosphor-icons/react";
+import { CheckCircleIcon, InfoIcon, WarningIcon, XIcon, XCircleIcon } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
 
 export type ToastVariant = "success" | "error" | "warning" | "info";
@@ -24,10 +24,10 @@ const variantStyles: Record<ToastVariant, string> = {
 };
 
 const icons = {
-  success: CheckCircle,
-  error: XCircle,
-  warning: Warning,
-  info: Info,
+  success: CheckCircleIcon,
+  error: XCircleIcon,
+  warning: WarningIcon,
+  info: InfoIcon,
 };
 
 export function Toast({
@@ -72,7 +72,7 @@ export function Toast({
         aria-label="Tutup notifikasi"
         className="shrink-0 rounded-[4px] p-1 opacity-75 hover:bg-black/5 hover:opacity-100 focus-visible:outline-2 focus-visible:outline-current"
       >
-        <X size={16} aria-hidden="true" />
+        <XIcon size={16} aria-hidden="true" />
       </button>
     </div>
   );
