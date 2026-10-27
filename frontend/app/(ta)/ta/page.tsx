@@ -1,15 +1,15 @@
 
 import {
-  LayoutDashboard,
+  SquaresFour,
   Users,
-  BriefcaseBusiness,
-  ClipboardCheck,
-} from "lucide-react";
+  Briefcase,
+  ClipboardText,
+} from "@phosphor-icons/react/dist/ssr";
 
 const overviewCards = [
   { label: "Total Candidates", icon: Users },
-  { label: "Active Jobs", icon: BriefcaseBusiness },
-  { label: "Assessments", icon: ClipboardCheck },
+  { label: "Active Jobs", icon: Briefcase },
+  { label: "Assessments", icon: ClipboardText },
 ];
 
 export default function TAOverviewPage() {
@@ -48,7 +48,7 @@ export default function TAOverviewPage() {
 
       <div className="rounded-2xl border border-slate-200 bg-white p-6">
         <div className="flex items-center gap-3">
-          <LayoutDashboard className="text-[#D97706]" size={22} />
+          <SquaresFour className="text-[#D97706]" size={22} />
           <h2 className="font-bold text-[#0B1B3D]">
             Recruitment Overview
           </h2>

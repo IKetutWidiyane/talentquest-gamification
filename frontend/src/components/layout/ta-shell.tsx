@@ -6,11 +6,11 @@ import Link from "next/link";
 import { useState, type ReactNode } from "react";
 import {
   Bell,
-  Menu,
+  List,
   X,
-  LogOut,
+  SignOut,
   ShieldCheck,
-} from "lucide-react";
+} from "@phosphor-icons/react";
 import TANavigation from "./navigation/ta-navigation";
 import UserProfileMenu from "./navigation/user-profile-menu";
 
@@ -101,7 +101,7 @@ export default function TAShell({ children }: TAShellProps) {
             title="Logout diaktifkan setelah integrasi autentikasi"
             className="flex w-full cursor-not-allowed items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-400"
           >
-            <LogOut size={17} />
+            <SignOut size={17} />
             <span>Logout</span>
             <span className="ml-auto text-[9px]">Soon</span>
           </button>
@@ -120,7 +120,7 @@ export default function TAShell({ children }: TAShellProps) {
               aria-controls="ta-sidebar"
               className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-slate-200 text-[#0B1B3D] hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D97706] lg:hidden"
             >
-              <Menu size={20} />
+              <List size={20} />
             </button>
 
             <div className="min-w-0">

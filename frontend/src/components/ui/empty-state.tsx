@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { FileSearch } from "lucide-react";
+import { FileMagnifyingGlass } from "@phosphor-icons/react/dist/ssr";
 import { cn } from "@/lib/utils";
 
 export interface EmptyStateProps {
@@ -27,7 +27,7 @@ export function EmptyState({
       )}
     >
       <div className="mb-4 flex size-12 items-center justify-center rounded-full bg-background text-primary-accent">
-        {icon ?? <FileSearch size={22} aria-hidden="true" />}
+        {icon ?? <FileMagnifyingGlass size={22} aria-hidden="true" />}
       </div>
 
       <h3 className="text-base font-semibold text-foreground">{title}</h3>

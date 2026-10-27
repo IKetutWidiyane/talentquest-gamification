@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, type ReactNode } from "react";
-import { Bell, LogOut, Menu, Mountain, X } from "lucide-react";
+import { Bell, List, Mountains, SignOut, X } from "@phosphor-icons/react";
 
 import { roleNavigation } from "@/components/layout/navigation/role-navigation";
 import CandidateNavigation from "@/components/layout/navigation/candidate-navigation";
@@ -143,7 +143,7 @@ export default function CandidateShell({
         <div className="shrink-0 border-t border-slate-200 p-4">
           <div className="mb-3 flex items-center gap-3 rounded-lg border border-slate-200 bg-slate-50 p-3">
             <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#0B1B3D] text-[#F59E0B]">
-              <Mountain size={18} />
+              <Mountains size={18} />
             </div>
 
             <div className="min-w-0">
@@ -162,7 +162,7 @@ export default function CandidateShell({
             title="Logout akan diaktifkan saat integrasi autentikasi"
             className="flex h-10 w-full cursor-not-allowed items-center gap-3 rounded-lg px-3 text-sm font-medium text-slate-400"
           >
-            <LogOut size={17} />
+            <SignOut size={17} />
             <span>Logout</span>
             <span className="ml-auto text-[10px]">Soon</span>
           </button>
@@ -182,7 +182,7 @@ export default function CandidateShell({
               aria-controls="candidate-sidebar"
               className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-slate-200 text-[#0B1B3D] hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D97706] lg:hidden"
             >
-              <Menu size={20} />
+              <List size={20} />
             </button>
 
             <div className="min-w-0">

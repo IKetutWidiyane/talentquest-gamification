@@ -2,21 +2,22 @@
 import Link from "next/link";
 import {
   ArrowRight,
-  BriefcaseBusiness,
-  CalendarDays,
-  CheckCircle2,
-  ChevronRight,
-  CircleUserRound,
-  Clock3,
+  Briefcase,
+  Calendar,
+  CheckCircle,
+  CaretRight,
+  UserCircle,
+  Clock,
   FileText,
   GraduationCap,
-  Mail,
+  Envelope,
   MapPin,
   Pencil,
   Phone,
   ShieldCheck,
-  UserRound,
-} from "lucide-react";
+  User,
+} from "@phosphor-icons/react/dist/ssr";
+import type { Icon } from "@phosphor-icons/react";
 
 const candidate = {
   name: "Candidate Demo",
@@ -42,7 +43,7 @@ const profileSections = [
   {
     title: "Pengalaman",
     description: "Pengalaman kerja, organisasi, atau magang.",
-    icon: BriefcaseBusiness,
+    icon: Briefcase,
     status: "Belum dilengkapi",
     href: "/candidate/profile",
   },
@@ -60,7 +61,7 @@ function InfoItem({
   label,
   value,
 }: {
-  icon: typeof UserRound;
+  icon: Icon;
   label: string;
   value: string;
 }) {
@@ -116,7 +117,7 @@ export default function CandidateProfilePage() {
         <div className="p-5 sm:p-7 lg:p-8">
           <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
             <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-[#0B1B3D] text-amber-400 sm:h-24 sm:w-24">
-              <CircleUserRound size={48} strokeWidth={1.5} />
+              <UserCircle size={48} strokeWidth={1.5} />
             </div>
 
             <div className="min-w-0 flex-1">
@@ -126,7 +127,7 @@ export default function CandidateProfilePage() {
                 </h3>
 
                 <span className="inline-flex items-center gap-1 rounded-full border border-amber-200 bg-amber-50 px-2.5 py-1 text-[11px] font-semibold text-amber-800">
-                  <Clock3 size={12} />
+                  <Clock size={12} />
                   Profil Demo
                 </span>
               </div>
@@ -137,7 +138,7 @@ export default function CandidateProfilePage() {
 
               <div className="mt-4 flex flex-col gap-2 text-sm text-slate-600 sm:flex-row sm:flex-wrap sm:gap-x-5">
                 <span className="inline-flex items-center gap-2 break-all">
-                  <Mail size={15} className="shrink-0 text-slate-400" />
+                  <Envelope size={15} className="shrink-0 text-slate-400" />
                   {candidate.email}
                 </span>
 
@@ -149,7 +150,7 @@ export default function CandidateProfilePage() {
             </div>
 
             <div className="hidden shrink-0 rounded-xl bg-amber-50 p-4 text-[#92400E] lg:block">
-              <UserRound size={27} />
+              <User size={27} />
               <p className="mt-2 text-xs font-bold">Candidate Portal</p>
               <p className="mt-1 text-[11px]">EIGER Talent Quest</p>
             </div>
@@ -181,13 +182,13 @@ export default function CandidateProfilePage() {
 
         <div className="grid grid-cols-1 gap-x-8 gap-y-6 p-5 sm:grid-cols-2 sm:p-6 lg:grid-cols-3">
           <InfoItem
-            icon={UserRound}
+            icon={User}
             label="Nama Lengkap"
             value={candidate.name}
           />
 
           <InfoItem
-            icon={Mail}
+            icon={Envelope}
             label="Alamat Email"
             value={candidate.email}
           />
@@ -199,13 +200,13 @@ export default function CandidateProfilePage() {
           />
 
           <InfoItem
-            icon={CalendarDays}
+            icon={Calendar}
             label="Tanggal Lahir"
             value={candidate.birthDate}
           />
 
           <InfoItem
-            icon={UserRound}
+            icon={User}
             label="Jenis Kelamin"
             value={candidate.gender}
           />
@@ -243,7 +244,7 @@ export default function CandidateProfilePage() {
                 className="inline-flex items-center gap-1 text-sm font-semibold text-[#B45309] hover:text-[#92400E]"
               >
                 Perbarui
-                <ChevronRight size={15} />
+                <CaretRight size={15} />
               </Link>
             </div>
 
@@ -299,7 +300,7 @@ export default function CandidateProfilePage() {
                 </p>
 
                 <div className="mt-4 flex items-center gap-1 text-xs font-medium text-slate-400">
-                  <CheckCircle2 size={14} />
+                  <CheckCircle size={14} />
                   Menunggu pengisian data
                 </div>
               </article>

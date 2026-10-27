@@ -2,7 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
-import { Eye, EyeOff, LockKeyhole, Mail } from "lucide-react";
+import { Envelope, Eye, EyeSlash, LockKey } from "@phosphor-icons/react";
 
 export default function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
@@ -28,7 +28,7 @@ export default function LoginForm() {
         </label>
 
         <div className="relative">
-          <Mail
+          <Envelope
             aria-hidden="true"
             className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400"
           />
@@ -68,7 +68,7 @@ export default function LoginForm() {
         </div>
 
         <div className="relative">
-          <LockKeyhole
+          <LockKey
             aria-hidden="true"
             className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400"
           />
@@ -96,7 +96,7 @@ export default function LoginForm() {
             className="absolute right-3 top-1/2 -translate-y-1/2 rounded-lg p-2 text-slate-400 transition hover:bg-slate-100 hover:text-slate-700"
           >
             {showPassword ? (
-              <EyeOff aria-hidden="true" className="h-4 w-4" />
+              <EyeSlash aria-hidden="true" className="h-4 w-4" />
             ) : (
               <Eye aria-hidden="true" className="h-4 w-4" />
             )}

@@ -1,5 +1,5 @@
 
-import { ClipboardList } from "lucide-react";
+import { ClipboardText } from "@phosphor-icons/react/dist/ssr";
 import CandidatePagePlaceholder from "@/components/layout/candidate-page-placeholder";
 
 export default function CandidateApplicationsPage() {
@@ -8,7 +8,7 @@ export default function CandidateApplicationsPage() {
       eyebrow="Your career journey"
       title="My Applications"
       description="Pantau daftar lamaran dan perkembangan proses rekrutmen kamu."
-      icon={ClipboardList}
+      icon={ClipboardText}
     />
   );
 }

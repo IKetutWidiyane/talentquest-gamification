@@ -1,14 +1,14 @@
 
 import Link from "next/link";
 import {
-  BriefcaseBusiness,
+  Briefcase,
   Plus,
-  Search,
+  MagnifyingGlass,
   SlidersHorizontal,
   MapPin,
-  Clock3,
+  Clock,
   Users,
-} from "lucide-react";
+} from "@phosphor-icons/react/dist/ssr";
 
 const jobs = [
   {
@@ -81,7 +81,7 @@ export default function TAJobsPage() {
         <div className="rounded-2xl border border-slate-200 bg-white p-5">
           <div className="flex items-center justify-between">
             <p className="text-sm text-slate-500">Total Jobs</p>
-            <BriefcaseBusiness size={19} className="text-amber-600" />
+            <Briefcase size={19} className="text-amber-600" />
           </div>
           <p className="mt-3 text-3xl font-bold text-[#0B1B3D]">
             {jobs.length}
@@ -125,7 +125,7 @@ export default function TAJobsPage() {
 
           <div className="flex flex-col gap-2 sm:flex-row">
             <label className="flex items-center gap-2 rounded-lg border border-slate-200 px-3 py-2">
-              <Search size={16} className="text-slate-400" />
+              <MagnifyingGlass size={16} className="text-slate-400" />
               <input
                 type="search"
                 placeholder="Search jobs..."
@@ -155,7 +155,7 @@ export default function TAJobsPage() {
             >
               <div className="flex min-w-0 gap-3">
                 <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-amber-50 text-amber-700">
-                  <BriefcaseBusiness size={21} />
+                  <Briefcase size={21} />
                 </div>
 
                 <div className="min-w-0">
@@ -180,7 +180,7 @@ export default function TAJobsPage() {
                       {job.location}
                     </span>
                     <span className="inline-flex items-center gap-1.5">
-                      <Clock3 size={14} />
+                      <Clock size={14} />
                       {job.type}
                     </span>
                     <span className="inline-flex items-center gap-1.5">

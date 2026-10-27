@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import type { HTMLAttributes, ReactNode } from "react";
-import { X } from "lucide-react";
+import { X } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
 
 export interface DialogProps {

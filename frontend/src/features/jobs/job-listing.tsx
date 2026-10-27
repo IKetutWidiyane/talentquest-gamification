@@ -4,11 +4,11 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import {
   ArrowRight,
-  BriefcaseBusiness,
+  Briefcase,
   MapPin,
-  Search,
+  MagnifyingGlass,
   SlidersHorizontal,
-} from "lucide-react";
+} from "@phosphor-icons/react";
 
 import { getJobs, type Job } from "@/lib/api/jobs";
 import LoadingState from "@/components/ui/loading-state";
@@ -134,7 +134,7 @@ export default function JobListing() {
           </p>
 
           <div className="mt-8 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-slate-200">
-            <BriefcaseBusiness size={16} className="text-amber-400" />
+            <Briefcase size={16} className="text-amber-400" />
             {jobs.length} lowongan tersedia 
           </div>
         </div>
@@ -153,7 +153,7 @@ export default function JobListing() {
               </label>
 
               <div className="flex h-12 items-center gap-3 rounded-lg border border-slate-300 bg-white px-4 transition focus-within:border-amber-600 focus-within:ring-2 focus-within:ring-amber-100">
-                <Search size={18} className="shrink-0 text-slate-400" />
+                <MagnifyingGlass size={18} className="shrink-0 text-slate-400" />
 
                 <input
                   id="job-keyword"
@@ -324,7 +324,7 @@ export default function JobListing() {
           </div>
         ) : (
           <div className="rounded-xl border border-dashed border-slate-300 bg-white px-6 py-16 text-center">
-            <Search
+            <MagnifyingGlass
               size={28}
               className="mx-auto text-slate-400"
               aria-hidden="true"

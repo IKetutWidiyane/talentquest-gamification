@@ -1,7 +1,7 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { CheckCircle2, Info, TriangleAlert, X, XCircle } from "lucide-react";
+import { CheckCircle, Info, Warning, X, XCircle } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
 
 export type ToastVariant = "success" | "error" | "warning" | "info";
@@ -24,9 +24,9 @@ const variantStyles: Record<ToastVariant, string> = {
 };
 
 const icons = {
-  success: CheckCircle2,
+  success: CheckCircle,
   error: XCircle,
-  warning: TriangleAlert,
+  warning: Warning,
   info: Info,
 };
 

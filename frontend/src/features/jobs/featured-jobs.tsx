@@ -3,9 +3,9 @@ import Link from "next/link";
 import {
   ArrowRight,
   ArrowUpRight,
-  BriefcaseBusiness,
+  Briefcase,
   MapPin,
-} from "lucide-react";
+} from "@phosphor-icons/react/dist/ssr";
 
 type FeaturedJob = {
   id: string;
@@ -93,7 +93,7 @@ export default function FeaturedJobs() {
             >
               <div className="mb-6 flex items-start justify-between gap-3">
                 <div className="flex size-12 items-center justify-center rounded-xl bg-[#0B1B3D] text-amber-400">
-                  <BriefcaseBusiness size={23} />
+                  <Briefcase size={23} />
                 </div>
 
                 {job.featured && (
@@ -122,7 +122,7 @@ export default function FeaturedJobs() {
                 </div>
 
                 <div className="flex items-center gap-2 text-sm text-slate-600">
-                  <BriefcaseBusiness
+                  <Briefcase
                     size={16}
                     className="shrink-0 text-slate-400"
                   />

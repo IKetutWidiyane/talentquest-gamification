@@ -1,5 +1,5 @@
 
-import { Trophy } from "lucide-react";
+import { Trophy } from "@phosphor-icons/react/dist/ssr";
 import CandidatePagePlaceholder from "@/components/layout/candidate-page-placeholder";
 
 export default function CandidateTalentQuestPage() {

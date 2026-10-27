@@ -6,12 +6,12 @@ import {
   Compass,
   Flag,
   Handshake,
-  RefreshCw,
-  Route,
+  ArrowClockwise,
+  Path,
   Target,
-  TrendingUp,
+  TrendUp,
   Users,
-} from "lucide-react";
+} from "@phosphor-icons/react/dist/ssr";
 
 import FeaturedJobs from "@/features/jobs/featured-jobs";
 
@@ -33,7 +33,7 @@ const highlights = [
       "Ikuti Talent Quest untuk menunjukkan cara kamu berpikir, beradaptasi, dan mengambil keputusan.",
   },
   {
-    icon: TrendingUp,
+    icon: TrendUp,
     title: "Kembangkan kariermu",
     description:
       "Pantau setiap tahap lamaran dari satu tempat, tanpa perlu menebak sudah sampai mana prosesnya.",
@@ -70,7 +70,7 @@ const challenges = [
     description: "Menguraikan masalah dan memilih solusi yang efektif.",
   },
   {
-    icon: Route,
+    icon: Path,
     title: "Decision making",
     description: "Mengambil keputusan dengan informasi yang terbatas.",
   },
@@ -80,7 +80,7 @@ const challenges = [
     description: "Bekerja bersama saat kepentingan tidak selalu sama.",
   },
   {
-    icon: RefreshCw,
+    icon: ArrowClockwise,
     title: "Adaptability",
     description: "Menyesuaikan langkah ketika keadaan berubah.",
   },

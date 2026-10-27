@@ -2,34 +2,34 @@
 import Link from "next/link";
 import {
   ArrowRight,
-  BriefcaseBusiness,
-  CheckCircle2,
-  Clock3,
+  Briefcase,
+  CheckCircle,
+  Clock,
   FileText,
-  Mountain,
-  Sparkles,
+  Mountains,
+  Sparkle,
   Target,
-  UserRound,
-} from "lucide-react";
+  User,
+} from "@phosphor-icons/react/dist/ssr";
 
 const overviewItems = [
   {
     label: "Total Lamaran",
     value: "—",
     description: "Semua lamaran yang telah dikirim",
-    icon: BriefcaseBusiness,
+    icon: Briefcase,
   },
   {
     label: "Dalam Proses",
     value: "—",
     description: "Lamaran yang sedang ditinjau",
-    icon: Clock3,
+    icon: Clock,
   },
   {
     label: "Assessment Selesai",
     value: "—",
     description: "Talent Quest yang telah dikerjakan",
-    icon: CheckCircle2,
+    icon: CheckCircle,
   },
 ];
 
@@ -38,13 +38,13 @@ const quickActions = [
     title: "Jelajahi Lowongan",
     description: "Temukan peluang karier yang sesuai.",
     href: "/candidate/jobs",
-    icon: BriefcaseBusiness,
+    icon: Briefcase,
   },
   {
     title: "Lengkapi Profil",
     description: "Perbarui informasi diri dan pengalaman.",
     href: "/candidate/profile",
-    icon: UserRound,
+    icon: User,
   },
   {
     title: "Talent Quest",
@@ -93,7 +93,7 @@ export default function CandidateDashboardPage() {
               href="/candidate/profile"
               className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-white/20 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-300"
             >
-              <UserRound size={16} />
+              <User size={16} />
               Lihat Profil
             </Link>
           </div>
@@ -212,7 +212,7 @@ export default function CandidateDashboardPage() {
 
           <div className="flex flex-1 flex-col p-5 sm:p-6">
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#0B1B3D] text-amber-400">
-              <Mountain size={24} />
+              <Mountains size={24} />
             </div>
 
             <p className="mt-5 text-xs font-bold uppercase tracking-[0.16em] text-[#D97706]">

@@ -3,11 +3,11 @@ import Link from "next/link";
 import {
   ArrowLeft,
   ArrowRight,
-  BriefcaseBusiness,
-  CheckCircle2,
+  Briefcase,
+  CheckCircle,
   MapPin,
-  RefreshCw,
-} from "lucide-react";
+  ArrowClockwise,
+} from "@phosphor-icons/react/dist/ssr";
 
 import {
   getJobById,
@@ -48,7 +48,7 @@ function JobDetailError({
       <main className="flex min-h-[70vh] items-center justify-center bg-[#F8F9FA] px-4 py-16">
         <div className="w-full max-w-lg rounded-xl border border-slate-200 bg-white p-8 text-center shadow-sm">
           <div className="mx-auto flex size-12 items-center justify-center rounded-full bg-amber-50">
-            <RefreshCw
+            <ArrowClockwise
               size={23}
               className="text-amber-700"
               aria-hidden="true"
@@ -158,7 +158,7 @@ export default async function JobDetailPage({
 
                 {job.employmentType && (
                   <span className="inline-flex items-center gap-2">
-                    <BriefcaseBusiness
+                    <Briefcase
                       size={17}
                       className="text-amber-400"
                       aria-hidden="true"
@@ -198,7 +198,7 @@ export default async function JobDetailPage({
                       key={`${index}-${item}`}
                       className="flex gap-3"
                     >
-                      <CheckCircle2
+                      <CheckCircle
                         size={18}
                         className="mt-0.5 shrink-0 text-amber-600"
                         aria-hidden="true"
@@ -228,7 +228,7 @@ export default async function JobDetailPage({
                       key={`${index}-${item}`}
                       className="flex gap-3"
                     >
-                      <CheckCircle2
+                      <CheckCircle
                         size={18}
                         className="mt-0.5 shrink-0 text-amber-600"
                         aria-hidden="true"

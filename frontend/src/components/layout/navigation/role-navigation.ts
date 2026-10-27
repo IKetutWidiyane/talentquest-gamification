@@ -1,24 +1,24 @@
 
 import {
-  BriefcaseBusiness,
-  ClipboardCheck,
+  Briefcase,
+  ClipboardText,
   FileText,
-  LayoutDashboard,
+  SquaresFour,
   Users,
-  UserRound,
+  User,
   Trophy,
-  ChartNoAxesCombined,
-  Settings,
+  ChartLineUp,
+  Gear,
   Target,
-} from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+} from "@phosphor-icons/react/dist/ssr";
+import type { Icon } from "@phosphor-icons/react";
 
 export type AppRole = "Candidate" | "Talent Acquisition";
 
 export interface NavigationItem {
   label: string;
   href: string;
-  icon: LucideIcon;
+  icon: Icon;
   description?: string;
 }
 
@@ -27,13 +27,13 @@ export const roleNavigation: Record<AppRole, NavigationItem[]> = {
     {
     label: "Overview",
     href: "/candidate",
-    icon: LayoutDashboard,
+    icon: SquaresFour,
     description: "Your candidate dashboard and activity overview",
     },
     {
       label: "Find Jobs",
       href: "/candidate/jobs",
-      icon: BriefcaseBusiness,
+      icon: Briefcase,
       description: "Discover and apply for your dream job",
     },
     {
@@ -49,7 +49,7 @@ export const roleNavigation: Record<AppRole, NavigationItem[]> = {
     {
       label: "My Profile",
       href: "/candidate/profile",
-      icon: UserRound,
+      icon: User,
     },
   ],
 
@@ -57,7 +57,7 @@ export const roleNavigation: Record<AppRole, NavigationItem[]> = {
     {
       label: "Overview",
       href: "/ta",
-      icon: LayoutDashboard,
+      icon: SquaresFour,
     },
     {
       label: "Candidates",
@@ -67,12 +67,12 @@ export const roleNavigation: Record<AppRole, NavigationItem[]> = {
     {
       label: "Job Management",
       href: "/ta/jobs",
-      icon: BriefcaseBusiness,
+      icon: Briefcase,
     },
     {
       label: "Assessments",
       href: "/ta/assessments",
-      icon: ClipboardCheck,
+      icon: ClipboardText,
     },
     {
       label: "Competencies",
@@ -82,7 +82,7 @@ export const roleNavigation: Record<AppRole, NavigationItem[]> = {
     {
       label: "User Management",
       href: "/ta/users",
-      icon: UserRound,
+      icon: User,
     },
     {
       label: "Talent Pool",
@@ -92,12 +92,12 @@ export const roleNavigation: Record<AppRole, NavigationItem[]> = {
     {
       label: "Analytics",
       href: "/ta/analytics",
-      icon: ChartNoAxesCombined,
+      icon: ChartLineUp,
     },
     {
       label: "Settings",
       href: "/ta/settings",
-      icon: Settings,
+      icon: Gear,
     },
   ],
 };

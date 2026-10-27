@@ -3,7 +3,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Trophy } from "lucide-react";
+import { Trophy } from "@phosphor-icons/react";
 
 import { roleNavigation } from "@/components/layout/navigation/role-navigation";
 
@@ -59,7 +59,7 @@ export default function CandidateNavigation({
 
                 <Icon
                   size={18}
-                  strokeWidth={active ? 2.2 : 1.8}
+                  weight={active ? "bold" : "regular"}
                   aria-hidden="true"
                   className={
                     active

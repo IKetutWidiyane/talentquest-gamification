@@ -4,15 +4,16 @@
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import {
-  Search,
+  MagnifyingGlass,
   SlidersHorizontal,
   Users,
   UserCheck,
-  Clock3,
+  Clock,
   Trophy,
   ArrowUpRight,
   MapPin,
-} from "lucide-react";
+} from "@phosphor-icons/react";
+import type { Icon } from "@phosphor-icons/react";
 
 type CandidateStatus =
   | "New"
@@ -189,7 +190,7 @@ export default function TACandidatesPage() {
           label="In Interview"
           value={interviewCandidates}
           helper="Sedang tahap interview"
-          icon={Clock3}
+          icon={Clock}
         />
         <StatCard
           label="Average Assessment"
@@ -213,7 +214,7 @@ export default function TACandidatesPage() {
 
           <div className="flex flex-col gap-2 sm:flex-row">
             <label className="flex min-w-0 items-center gap-2 rounded-xl border border-slate-200 px-3 py-2.5 focus-within:border-amber-400 focus-within:ring-2 focus-within:ring-amber-100 sm:w-64">
-              <Search
+              <MagnifyingGlass
                 size={16}
                 className="shrink-0 text-slate-400"
                 aria-hidden="true"
@@ -426,7 +427,7 @@ function StatCard({
   label: string;
   value: string | number;
   helper: string;
-  icon: typeof Users;
+  icon: Icon;
 }) {
   return (
     <div className="rounded-2xl border border-slate-200 bg-white p-5">

@@ -2,7 +2,7 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 import type { ReactNode } from "react";
-import { ChevronDown } from "lucide-react";
+import { CaretDown } from "@phosphor-icons/react";
 import { cn } from "@/lib/utils";
 
 export interface DropdownMenuItem {
@@ -81,7 +81,7 @@ export function DropdownMenu({
         {trigger ?? (
           <>
             Menu
-            <ChevronDown size={16} aria-hidden="true" />
+            <CaretDown size={16} aria-hidden="true" />
           </>
         )}
       </button>
