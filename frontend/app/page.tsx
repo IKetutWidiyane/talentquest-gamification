@@ -1,3 +1,5 @@
+"use client";
+
 import { PublicLayout } from "@/components/layout/public-layout";
 import Link from "next/link";
 import {
