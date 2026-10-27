@@ -1,4 +1,3 @@
-
 import Link from "next/link";
 import {
   ArrowRight,
@@ -35,29 +34,29 @@ const candidate = {
 const profileSections = [
   {
     title: "Pendidikan",
-    description: "Riwayat pendidikan formal kamu.",
+    description: "Tambahkan riwayat pendidikan formal kamu.",
     icon: GraduationCap,
-    status: "Belum dilengkapi",
-    href: "/candidate/profile",
+    href: "/candidate/profile/experience",
+    action: "Kelola Pendidikan & Pengalaman",
   },
   {
     title: "Pengalaman",
-    description: "Pengalaman kerja, organisasi, atau magang.",
+    description: "Tambahkan pengalaman kerja, organisasi, atau magang.",
     icon: Briefcase,
-    status: "Belum dilengkapi",
-    href: "/candidate/profile",
+    href: "/candidate/profile/experience",
+    action: "Kelola Pengalaman",
   },
   {
     title: "Kompetensi",
-    description: "Keahlian dan kompetensi yang kamu miliki.",
+    description: "Tambahkan keahlian dan tingkat penguasaanmu.",
     icon: ShieldCheck,
-    status: "Belum dilengkapi",
-    href: "/candidate/profile",
+    href: "/candidate/profile/skills",
+    action: "Kelola Kompetensi",
   },
 ];
 
 function InfoItem({
-  icon: Icon,
+  icon: IconComponent,
   label,
   value,
 }: {
@@ -65,15 +64,22 @@ function InfoItem({
   label: string;
   value: string;
 }) {
+  const isEmpty =
+    value === "Belum ditambahkan" || value.trim().length === 0;
+
   return (
     <div className="flex min-w-0 items-start gap-3">
       <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-slate-50 text-[#0B1B3D]">
-        <Icon size={18} aria-hidden="true" />
+        <IconComponent size={18} aria-hidden="true" />
       </div>
 
       <div className="min-w-0 flex-1">
         <p className="text-xs font-medium text-slate-500">{label}</p>
-        <p className="mt-1 break-words text-sm font-semibold text-[#0B1B3D]">
+        <p
+          className={`mt-1 break-words text-sm font-semibold ${
+            isEmpty ? "text-slate-400" : "text-[#0B1B3D]"
+          }`}
+        >
           {value}
         </p>
       </div>
@@ -117,7 +123,7 @@ export default function CandidateProfilePage() {
         <div className="p-5 sm:p-7 lg:p-8">
           <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
             <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-[#0B1B3D] text-amber-400 sm:h-24 sm:w-24">
-              <UserCircle size={48} strokeWidth={1.5} />
+              <UserCircle size={48} weight="light" />
             </div>
 
             <div className="min-w-0 flex-1">
@@ -150,7 +156,7 @@ export default function CandidateProfilePage() {
             </div>
 
             <div className="hidden shrink-0 rounded-xl bg-amber-50 p-4 text-[#92400E] lg:block">
-              <User size={27} />
+              <User size={27} weight="duotone" />
               <p className="mt-2 text-xs font-bold">Candidate Portal</p>
               <p className="mt-1 text-[11px]">EIGER Talent Quest</p>
             </div>
@@ -181,41 +187,12 @@ export default function CandidateProfilePage() {
         </div>
 
         <div className="grid grid-cols-1 gap-x-8 gap-y-6 p-5 sm:grid-cols-2 sm:p-6 lg:grid-cols-3">
-          <InfoItem
-            icon={User}
-            label="Nama Lengkap"
-            value={candidate.name}
-          />
-
-          <InfoItem
-            icon={Envelope}
-            label="Alamat Email"
-            value={candidate.email}
-          />
-
-          <InfoItem
-            icon={Phone}
-            label="Nomor Telepon"
-            value={candidate.phone}
-          />
-
-          <InfoItem
-            icon={Calendar}
-            label="Tanggal Lahir"
-            value={candidate.birthDate}
-          />
-
-          <InfoItem
-            icon={User}
-            label="Jenis Kelamin"
-            value={candidate.gender}
-          />
-
-          <InfoItem
-            icon={MapPin}
-            label="Domisili"
-            value={candidate.location}
-          />
+          <InfoItem icon={User} label="Nama Lengkap" value={candidate.name} />
+          <InfoItem icon={Envelope} label="Alamat Email" value={candidate.email} />
+          <InfoItem icon={Phone} label="Nomor Telepon" value={candidate.phone} />
+          <InfoItem icon={Calendar} label="Tanggal Lahir" value={candidate.birthDate} />
+          <InfoItem icon={User} label="Jenis Kelamin" value={candidate.gender} />
+          <InfoItem icon={MapPin} label="Domisili" value={candidate.location} />
         </div>
 
         <div className="border-t border-slate-100 px-5 py-5 sm:px-6">
@@ -255,7 +232,7 @@ export default function CandidateProfilePage() {
         </div>
       </section>
 
-      {/* Profile development sections */}
+      {/* Education, experience and competencies */}
       <section className="space-y-4">
         <div>
           <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#D97706]">
@@ -274,7 +251,7 @@ export default function CandidateProfilePage() {
 
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-3">
           {profileSections.map((section) => {
-            const Icon = section.icon;
+            const IconComponent = section.icon;
 
             return (
               <article
@@ -283,11 +260,11 @@ export default function CandidateProfilePage() {
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-slate-50 text-[#0B1B3D]">
-                    <Icon size={21} />
+                    <IconComponent size={21} />
                   </div>
 
-                  <span className="rounded-full bg-slate-100 px-2.5 py-1 text-[10px] font-semibold text-slate-500">
-                    {section.status}
+                  <span className="rounded-full bg-amber-50 px-2.5 py-1 text-[10px] font-semibold text-amber-800">
+                    Perlu dilengkapi
                   </span>
                 </div>
 
@@ -299,10 +276,13 @@ export default function CandidateProfilePage() {
                   {section.description}
                 </p>
 
-                <div className="mt-4 flex items-center gap-1 text-xs font-medium text-slate-400">
-                  <CheckCircle size={14} />
-                  Menunggu pengisian data
-                </div>
+                <Link
+                  href={section.href}
+                  className="mt-4 inline-flex min-h-10 w-full items-center justify-between gap-2 rounded-lg border border-slate-200 px-3 py-2 text-sm font-semibold text-[#0B1B3D] transition hover:border-amber-300 hover:bg-amber-50"
+                >
+                  {section.action}
+                  <ArrowRight size={16} />
+                </Link>
               </article>
             );
           })}
