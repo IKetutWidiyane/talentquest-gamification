@@ -5,12 +5,12 @@ import Link from "next/link";
 import {
   ArrowLeftIcon,
   PlusIcon,
-  Trash,
-  Brain,
-  Code,
-  Users,
-  Target,
-  ShieldCheck,
+  TrashIcon,
+  BrainIcon,
+  CodeIcon,
+  UsersIcon,
+  TargetIcon,
+  ShieldCheckIcon,
 } from "@phosphor-icons/react";
 
 type SkillCategory = "Technical" | "Core" | "Leadership";
@@ -104,10 +104,10 @@ export default function CandidateSkillsPage() {
   }
 
   const stats = [
-    { label: "Total Skills", value: skills.length, icon: Target },
-    { label: "Technical Skills", value: technicalCount, icon: Code },
-    { label: "Core Skills", value: coreCount, icon: Brain },
-    { label: "Leadership Skills", value: leadershipCount, icon: Users },
+    { label: "Total Skills", value: skills.length, icon: TargetIcon },
+    { label: "Technical Skills", value: technicalCount, icon: CodeIcon },
+    { label: "Core Skills", value: coreCount, icon: BrainIcon },
+    { label: "Leadership Skills", value: leadershipCount, icon: UsersIcon },
   ];
 
   return (
@@ -163,7 +163,7 @@ export default function CandidateSkillsPage() {
       <section className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7">
         <div className="mb-6 flex items-center gap-3">
           <span className="rounded-xl bg-amber-50 p-3 text-amber-600">
-            <ShieldCheck size={23} weight="duotone" />
+            <ShieldCheckIcon size={23} weight="duotone" />
           </span>
           <div>
             <h2 className="font-bold text-slate-900">Add a Skill</h2>
@@ -257,11 +257,11 @@ export default function CandidateSkillsPage() {
               <div className="flex min-w-0 items-start gap-3">
                 <span className="rounded-xl bg-slate-100 p-3 text-[#0B1B3D]">
                   {skill.category === "Technical" ? (
-                    <Code size={21} weight="duotone" />
+                    <CodeIcon size={21} weight="duotone" />
                   ) : skill.category === "Core" ? (
-                    <Brain size={21} weight="duotone" />
+                    <BrainIcon size={21} weight="duotone" />
                   ) : (
-                    <Users size={21} weight="duotone" />
+                    <UsersIcon size={21} weight="duotone" />
                   )}
                 </span>
 
@@ -288,7 +288,7 @@ export default function CandidateSkillsPage() {
                 aria-label={`Remove ${skill.name}`}
                 className="inline-flex items-center justify-center gap-2 self-start rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-500 transition hover:border-red-200 hover:bg-red-50 hover:text-red-600 sm:self-center"
               >
-                <Trash size={16} />
+                <TrashIcon size={16} />
                 Remove
               </button>
             </article>
@@ -296,7 +296,7 @@ export default function CandidateSkillsPage() {
 
           {filteredSkills.length === 0 && (
             <div className="p-10 text-center">
-              <Brain
+              <BrainIcon
                 size={30}
                 className="mx-auto mb-3 text-slate-300"
                 weight="duotone"
