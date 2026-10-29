@@ -7,7 +7,7 @@ import {
   CheckCircleIcon,
   MapPinIcon,
   ArrowClockwiseIcon,
-} from "@phosphor-icons/react";
+} from "@phosphor-icons/react/dist/ssr";
 
 import {
   getJobById,
