@@ -1,5 +1,5 @@
 
-import { BriefcaseIcon } from "@phosphor-icons/react";
+import { BriefcaseIcon } from "@phosphor-icons/react/dist/ssr";
 import CandidatePagePlaceholder from "@/components/layout/candidate-page-placeholder";
 
 export default function CandidateJobsPage() {

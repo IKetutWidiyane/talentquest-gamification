@@ -1,12 +1,13 @@
+import type { ComponentProps } from "react";
+import { HardHatIcon } from "@phosphor-icons/react/dist/ssr";
 
-import type { Icon } from "@phosphor-icons/react";
-import { HardHatIcon } from "@phosphor-icons/react";
+type PlaceholderIcon = typeof HardHatIcon;
 
 interface CandidatePagePlaceholderProps {
   eyebrow: string;
   title: string;
   description: string;
-  icon: Icon;
+  icon: PlaceholderIcon;
 }
 
 export default function CandidatePagePlaceholder({

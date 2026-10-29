@@ -3,7 +3,6 @@ import {
   ArrowRightIcon,
   BriefcaseIcon,
   CalendarIcon,
-  CheckCircleIcon,
   CaretRightIcon,
   UserCircleIcon,
   ClockIcon,
@@ -15,8 +14,17 @@ import {
   PhoneIcon,
   ShieldCheckIcon,
   UserIcon,
-  type Icon,
-} from "@phosphor-icons/react";
+} from "@phosphor-icons/react/dist/ssr";
+
+type ProfileIcon = typeof UserIcon;
+
+interface ProfileSection {
+  title: string;
+  description: string;
+  icon: ProfileIcon;
+  href: string;
+  action: string;
+}
 
 const candidate = {
   name: "Candidate Demo",
@@ -31,7 +39,7 @@ const candidate = {
   address: "Belum ditambahkan",
 };
 
-const profileSections = [
+const profileSections: ProfileSection[] = [
   {
     title: "Pendidikan",
     description: "Tambahkan riwayat pendidikan formal kamu.",
@@ -55,15 +63,13 @@ const profileSections = [
   },
 ];
 
-function InfoItem({
-  icon: IconComponent,
-  label,
-  value,
-}: {
-  icon: Icon;
+interface InfoItemProps {
+  icon: ProfileIcon;
   label: string;
   value: string;
-}) {
+}
+
+function InfoItem({ icon: IconComponent, label, value }: InfoItemProps) {
   const isEmpty =
     value === "Belum ditambahkan" || value.trim().length === 0;
 
@@ -111,7 +117,7 @@ export default function CandidateProfilePage() {
           href="/candidate/profile/edit"
           className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-[#0B1B3D] px-4 py-3 text-sm font-semibold text-white transition hover:bg-[#152B55] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D97706] focus-visible:ring-offset-2"
         >
-          <PencilIcon size={16} />
+          <PencilIcon size={16} aria-hidden="true" />
           Edit Profil
         </Link>
       </section>
@@ -123,7 +129,7 @@ export default function CandidateProfilePage() {
         <div className="p-5 sm:p-7 lg:p-8">
           <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
             <div className="flex h-20 w-20 shrink-0 items-center justify-center rounded-2xl bg-[#0B1B3D] text-amber-400 sm:h-24 sm:w-24">
-              <UserCircleIcon size={48} weight="light" />
+              <UserCircleIcon size={48} weight="light" aria-hidden="true" />
             </div>
 
             <div className="min-w-0 flex-1">
@@ -133,7 +139,7 @@ export default function CandidateProfilePage() {
                 </h3>
 
                 <span className="inline-flex items-center gap-1 rounded-full border border-amber-200 bg-amber-50 px-2.5 py-1 text-[11px] font-semibold text-amber-800">
-                  <ClockIcon size={12} />
+                  <ClockIcon size={12} aria-hidden="true" />
                   Profil Demo
                 </span>
               </div>
@@ -144,19 +150,19 @@ export default function CandidateProfilePage() {
 
               <div className="mt-4 flex flex-col gap-2 text-sm text-slate-600 sm:flex-row sm:flex-wrap sm:gap-x-5">
                 <span className="inline-flex items-center gap-2 break-all">
-                  <EnvelopeIcon size={15} className="shrink-0 text-slate-400" />
+                  <EnvelopeIcon size={15} className="shrink-0 text-slate-400" aria-hidden="true" />
                   {candidate.email}
                 </span>
 
                 <span className="inline-flex items-center gap-2">
-                  <MapPinIcon size={15} className="shrink-0 text-slate-400" />
+                  <MapPinIcon size={15} className="shrink-0 text-slate-400" aria-hidden="true" />
                   {candidate.location}
                 </span>
               </div>
             </div>
 
             <div className="hidden shrink-0 rounded-xl bg-amber-50 p-4 text-[#92400E] lg:block">
-              <UserIcon size={27} weight="duotone" />
+              <UserIcon size={27} weight="duotone" aria-hidden="true" />
               <p className="mt-2 text-xs font-bold">Candidate Portal</p>
               <p className="mt-1 text-[11px]">EIGER Talent Quest</p>
             </div>
@@ -181,7 +187,7 @@ export default function CandidateProfilePage() {
             aria-label="Edit informasi pribadi"
             className="inline-flex min-h-10 items-center justify-center gap-2 self-start rounded-lg border border-slate-200 px-3 py-2 text-sm font-semibold text-[#0B1B3D] transition hover:border-amber-300 hover:bg-amber-50 sm:self-auto"
           >
-            <PencilIcon size={15} />
+            <PencilIcon size={15} aria-hidden="true" />
             Edit
           </Link>
         </div>
@@ -207,7 +213,7 @@ export default function CandidateProfilePage() {
       <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
         <div className="flex items-start gap-3">
           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-amber-50 text-[#B45309]">
-            <FileTextIcon size={20} />
+            <FileTextIcon size={20} aria-hidden="true" />
           </div>
 
           <div className="min-w-0 flex-1">
@@ -221,7 +227,7 @@ export default function CandidateProfilePage() {
                 className="inline-flex items-center gap-1 text-sm font-semibold text-[#B45309] hover:text-[#92400E]"
               >
                 Perbarui
-                <CaretRightIcon size={15} />
+                <CaretRightIcon size={15} aria-hidden="true" />
               </Link>
             </div>
 
@@ -260,7 +266,7 @@ export default function CandidateProfilePage() {
               >
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-slate-50 text-[#0B1B3D]">
-                    <IconComponent size={21} />
+                    <IconComponent size={21} aria-hidden="true" />
                   </div>
 
                   <span className="rounded-full bg-amber-50 px-2.5 py-1 text-[10px] font-semibold text-amber-800">
@@ -281,7 +287,7 @@ export default function CandidateProfilePage() {
                   className="mt-4 inline-flex min-h-10 w-full items-center justify-between gap-2 rounded-lg border border-slate-200 px-3 py-2 text-sm font-semibold text-[#0B1B3D] transition hover:border-amber-300 hover:bg-amber-50"
                 >
                   {section.action}
-                  <ArrowRightIcon size={16} />
+                  <ArrowRightIcon size={16} aria-hidden="true" />
                 </Link>
               </article>
             );
@@ -305,7 +311,7 @@ export default function CandidateProfilePage() {
           className="inline-flex min-h-11 shrink-0 items-center justify-center gap-2 rounded-lg bg-[#D97706] px-5 py-3 text-sm font-bold text-white transition hover:bg-[#B45309] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0B1B3D] focus-visible:ring-offset-2"
         >
           Lengkapi Profil
-          <ArrowRightIcon size={16} />
+          <ArrowRightIcon size={16} aria-hidden="true" />
         </Link>
       </section>
     </div>

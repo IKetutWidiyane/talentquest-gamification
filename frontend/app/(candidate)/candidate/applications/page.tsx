@@ -1,5 +1,5 @@
 
-import { ClipboardTextIcon } from "@phosphor-icons/react";
+import { ClipboardTextIcon } from "@phosphor-icons/react/dist/ssr";
 import CandidatePagePlaceholder from "@/components/layout/candidate-page-placeholder";
 
 export default function CandidateApplicationsPage() {

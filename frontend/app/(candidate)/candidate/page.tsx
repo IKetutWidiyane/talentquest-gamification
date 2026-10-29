@@ -1,4 +1,3 @@
-
 import Link from "next/link";
 import {
   ArrowRightIcon,
@@ -7,12 +6,27 @@ import {
   ClockIcon,
   FileTextIcon,
   MountainsIcon,
-  SparkleIcon,
   TargetIcon,
   UserIcon,
-} from "@phosphor-icons/react";
+} from "@phosphor-icons/react/dist/ssr";
 
-const overviewItems = [
+type DashboardIcon = typeof BriefcaseIcon;
+
+interface OverviewItem {
+  label: string;
+  value: string;
+  description: string;
+  icon: DashboardIcon;
+}
+
+interface QuickAction {
+  title: string;
+  description: string;
+  href: string;
+  icon: DashboardIcon;
+}
+
+const overviewItems: OverviewItem[] = [
   {
     label: "Total Lamaran",
     value: "—",
@@ -33,7 +47,7 @@ const overviewItems = [
   },
 ];
 
-const quickActions = [
+const quickActions: QuickAction[] = [
   {
     title: "Jelajahi Lowongan",
     description: "Temukan peluang karier yang sesuai.",
@@ -69,8 +83,6 @@ export default function CandidateDashboardPage() {
         />
 
         <div className="relative max-w-2xl">
-          
-
           <h2 className="text-2xl font-extrabold tracking-tight sm:text-3xl lg:text-4xl">
             Selamat datang di perjalanan kariermu!
           </h2>
@@ -86,14 +98,14 @@ export default function CandidateDashboardPage() {
               className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-[#D97706] px-5 py-3 text-sm font-bold text-white transition hover:bg-[#B45309] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-300 focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B1B3D]"
             >
               Jelajahi Lowongan
-              <ArrowRightIcon size={16} />
+              <ArrowRightIcon size={16} aria-hidden="true" />
             </Link>
 
             <Link
               href="/candidate/profile"
               className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg border border-white/20 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-300"
             >
-              <UserIcon size={16} />
+              <UserIcon size={16} aria-hidden="true" />
               Lihat Profil
             </Link>
           </div>
@@ -178,13 +190,13 @@ export default function CandidateDashboardPage() {
               className="inline-flex items-center gap-1 text-sm font-semibold text-[#B45309] hover:text-[#92400E] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D97706]"
             >
               Semua Lamaran
-              <ArrowRightIcon size={15} />
+              <ArrowRightIcon size={15} aria-hidden="true" />
             </Link>
           </div>
 
           <div className="mt-6 flex min-h-52 flex-col items-center justify-center rounded-xl border border-dashed border-slate-200 bg-slate-50/70 px-5 py-8 text-center">
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-white text-slate-400 shadow-sm">
-              <FileTextIcon size={23} />
+              <FileTextIcon size={23} aria-hidden="true" />
             </div>
 
             <h3 className="mt-4 text-sm font-bold text-[#0B1B3D]">
@@ -201,7 +213,7 @@ export default function CandidateDashboardPage() {
               className="mt-4 inline-flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-[#0B1B3D] transition hover:border-amber-400 hover:bg-amber-50"
             >
               Cari Lowongan
-              <ArrowRightIcon size={15} />
+              <ArrowRightIcon size={15} aria-hidden="true" />
             </Link>
           </div>
         </section>
@@ -212,7 +224,7 @@ export default function CandidateDashboardPage() {
 
           <div className="flex flex-1 flex-col p-5 sm:p-6">
             <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#0B1B3D] text-amber-400">
-              <MountainsIcon size={24} />
+              <MountainsIcon size={24} aria-hidden="true" />
             </div>
 
             <p className="mt-5 text-xs font-bold uppercase tracking-[0.16em] text-[#D97706]">
@@ -230,7 +242,7 @@ export default function CandidateDashboardPage() {
 
             <div className="mt-5 rounded-xl border border-amber-100 bg-amber-50/70 p-4">
               <div className="flex items-center gap-2 text-sm font-semibold text-[#92400E]">
-                <TargetIcon size={17} />
+                <TargetIcon size={17} aria-hidden="true" />
                 Progres Assessment
               </div>
               <p className="mt-2 text-xs leading-5 text-amber-900/75">
@@ -244,7 +256,7 @@ export default function CandidateDashboardPage() {
               className="mt-5 inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-[#0B1B3D] px-4 py-3 text-sm font-semibold text-white transition hover:bg-[#152B55] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D97706] focus-visible:ring-offset-2"
             >
               Buka Talent Quest
-              <ArrowRightIcon size={16} />
+              <ArrowRightIcon size={16} aria-hidden="true" />
             </Link>
           </div>
         </section>
@@ -275,7 +287,7 @@ export default function CandidateDashboardPage() {
                 className="group flex items-start gap-4 rounded-xl border border-slate-200 bg-white p-5 shadow-sm transition hover:-translate-y-0.5 hover:border-amber-300 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D97706]"
               >
                 <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-slate-100 text-[#0B1B3D] transition group-hover:bg-amber-50 group-hover:text-[#B45309]">
-                  <Icon size={21} />
+                  <Icon size={21} aria-hidden="true" />
                 </div>
 
                 <div className="min-w-0 flex-1">
@@ -289,6 +301,7 @@ export default function CandidateDashboardPage() {
 
                 <ArrowRightIcon
                   size={17}
+                  aria-hidden="true"
                   className="mt-1 shrink-0 text-slate-400 transition group-hover:translate-x-1 group-hover:text-[#D97706]"
                 />
               </Link>

@@ -4,7 +4,7 @@ import {
   UsersIcon,
   BriefcaseIcon,
   ClipboardTextIcon,
-} from "@phosphor-icons/react";
+} from "@phosphor-icons/react/dist/ssr";
 
 const overviewCards = [
   { label: "Total Candidates", icon: UsersIcon },
