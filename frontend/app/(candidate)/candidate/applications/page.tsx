@@ -12,7 +12,7 @@ import {
 import {
   mockApplications,
   getApplicationStatusStyle,
-} from "@/lib/mock-applications";
+} from "@/lib/mock-application";
 
 function formatDate(date: string) {
   return new Date(date).toLocaleDateString("id-ID", {
