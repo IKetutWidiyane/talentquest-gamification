@@ -1,4 +1,3 @@
-
 import {
   BriefcaseIcon,
   ClipboardTextIcon,
@@ -8,7 +7,6 @@ import {
   UserIcon,
   TrophyIcon,
   ChartLineUpIcon,
-  GearIcon,
   TargetIcon,
 } from "@phosphor-icons/react";
 import type { Icon } from "@phosphor-icons/react";
@@ -25,10 +23,10 @@ export interface NavigationItem {
 export const roleNavigation: Record<AppRole, NavigationItem[]> = {
   Candidate: [
     {
-    label: "Overview",
-    href: "/candidate",
-    icon: SquaresFourIcon,
-    description: "Your candidate dashboard and activity overview",
+      label: "Overview",
+      href: "/candidate",
+      icon: SquaresFourIcon,
+      description: "Your candidate dashboard and activity overview",
     },
     {
       label: "Find Jobs",
@@ -99,11 +97,6 @@ export const roleNavigation: Record<AppRole, NavigationItem[]> = {
       label: "Analytics",
       href: "/ta/analytics",
       icon: ChartLineUpIcon,
-    },
-    {
-      label: "Settings",
-      href: "/ta/settings",
-      icon: GearIcon,
     },
   ],
 };

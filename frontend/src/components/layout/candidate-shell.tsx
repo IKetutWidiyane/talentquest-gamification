@@ -1,4 +1,3 @@
-
 "use client";
 
 import Image from "next/image";
@@ -10,6 +9,7 @@ import { BellIcon, ListIcon, MountainsIcon, SignOutIcon, XIcon } from "@phosphor
 import { roleNavigation } from "@/components/layout/navigation/role-navigation";
 import CandidateNavigation from "@/components/layout/navigation/candidate-navigation";
 import UserProfileMenu from "@/components/layout/navigation/user-profile-menu";
+import { useAuth } from "@/contexts/auth-context";
 
 interface CandidateShellProps {
   children: ReactNode;
@@ -20,12 +20,16 @@ export default function CandidateShell({
 }: CandidateShellProps) {
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { user, logout } = useAuth();
+
+  const candidateName = user?.candidateProfile
+    ? `${user.candidateProfile.firstName || ""} ${user.candidateProfile.lastName || ""}`.trim() || user.email
+    : user?.email || "Candidate";
 
   // Sumber menu terpusat untuk role Candidate.
   const candidateNavigationItems = roleNavigation.Candidate;
 
   // Judul dan deskripsi header mengikuti halaman aktif.
- 
   const currentItem = [...candidateNavigationItems]
     .sort((a, b) => b.href.length - a.href.length)
     .find(
@@ -100,7 +104,7 @@ export default function CandidateShell({
           <Link
             href="/candidate/jobs"
             aria-label="EIGER Talent Quest"
-            tabIndex={mobileMenuOpen || undefined ? undefined : 0}
+            tabIndex={mobileMenuOpen ? undefined : 0}
             className="flex min-w-0 items-center gap-3 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#D97706]"
           >
             <Image
@@ -158,13 +162,12 @@ export default function CandidateShell({
 
           <button
             type="button"
-            disabled
-            title="Logout akan diaktifkan saat integrasi autentikasi"
-            className="flex h-10 w-full cursor-not-allowed items-center gap-3 rounded-lg px-3 text-sm font-medium text-slate-400"
+            onClick={logout}
+            title="Logout dari akun kandidat"
+            className="flex h-10 w-full items-center gap-3 rounded-lg px-3 text-sm font-medium text-slate-600 transition hover:bg-red-50 hover:text-red-600"
           >
             <SignOutIcon size={17} />
             <span>Logout</span>
-            <span className="ml-auto text-[10px]">Soon</span>
           </button>
         </div>
       </aside>
@@ -214,10 +217,11 @@ export default function CandidateShell({
             </button>
 
             <UserProfileMenu
-              name="Candidate Demo"
-              email="candidate@example.com"
+              name={candidateName}
+              email={user?.email || "candidate@example.com"}
               role="Candidate"
               profileHref="/candidate/profile"
+              onLogout={logout}
             />
           </div>
         </header>

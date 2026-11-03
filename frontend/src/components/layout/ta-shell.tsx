@@ -1,4 +1,3 @@
-
 "use client";
 
 import Image from "next/image";
@@ -13,6 +12,7 @@ import {
 } from "@phosphor-icons/react";
 import TANavigation from "./navigation/ta-navigation";
 import UserProfileMenu from "./navigation/user-profile-menu";
+import { useAuth } from "@/contexts/auth-context";
 
 interface TAShellProps {
   children: ReactNode;
@@ -20,6 +20,11 @@ interface TAShellProps {
 
 export default function TAShell({ children }: TAShellProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { user, logout } = useAuth();
+
+  const taDisplayName = user?.email
+    ? user.email.split("@")[0].replace(/[._-]/g, " ")
+    : "TA User";
 
   return (
     <div className="min-h-screen bg-[#F8F9FA] text-slate-900">
@@ -97,13 +102,12 @@ export default function TAShell({ children }: TAShellProps) {
 
           <button
             type="button"
-            disabled
-            title="Logout diaktifkan setelah integrasi autentikasi"
-            className="flex w-full cursor-not-allowed items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-400"
+            onClick={logout}
+            title="Logout dari workspace TA"
+            className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-600 transition hover:bg-red-50 hover:text-red-600"
           >
             <SignOutIcon size={17} />
             <span>Logout</span>
-            <span className="ml-auto text-[9px]">Soon</span>
           </button>
         </div>
       </aside>
@@ -136,7 +140,6 @@ export default function TAShell({ children }: TAShellProps) {
           <div className="flex shrink-0 items-center gap-3">
             <span className="hidden rounded-full border border-amber-200 bg-amber-50 px-3 py-1.5 text-xs font-semibold text-amber-800 sm:inline-flex">
               TA Portal
-              
             </span>
 
             <button
@@ -148,10 +151,11 @@ export default function TAShell({ children }: TAShellProps) {
               <BellIcon size={18} />
             </button>
             <UserProfileMenu
-              name="TA Demo User"
-              email="ta@example.com"
+              name={taDisplayName}
+              email={user?.email || "ta@eiger-talentquest.test"}
               role="Talent Acquisition"
-              profileHref="/ta/profile"
+              profileHref="/ta/users"
+              onLogout={logout}
             />
           </div>
         </header>

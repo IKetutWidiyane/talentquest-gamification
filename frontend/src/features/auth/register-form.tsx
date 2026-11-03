@@ -2,9 +2,14 @@
 
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { EyeIcon, EyeSlashIcon } from "@phosphor-icons/react";
+import { useAuth } from "@/contexts/auth-context";
 
 export default function RegisterForm() {
+  const router = useRouter();
+  const { register } = useAuth();
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [name, setName] = useState("");
@@ -12,14 +17,14 @@ export default function RegisterForm() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
-  const [message, setMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setError("");
-    setMessage("");
 
-    if (name.trim().length < 2) {
+    const trimmedName = name.trim();
+    if (trimmedName.length < 2) {
       setError("Nama lengkap minimal 2 karakter.");
       return;
     }
@@ -34,13 +39,38 @@ export default function RegisterForm() {
       return;
     }
 
-    setMessage(
-      "Validasi berhasil. Registrasi belum dapat diproses sampai endpoint backend dihubungkan."
-    );
+    setIsLoading(true);
+
+    try {
+      const nameParts = trimmedName.split(/\s+/);
+      const firstName = nameParts[0];
+      const lastName = nameParts.length > 1 ? nameParts.slice(1).join(" ") : undefined;
+
+      await register({
+        email: email.trim(),
+        password,
+        firstName,
+        lastName,
+      });
+
+      router.push("/candidate");
+    } catch (err) {
+      if (err instanceof Error) {
+        if (err.message.includes("already registered") || err.message.includes("EMAIL_ALREADY_EXISTS")) {
+          setError("Email ini sudah terdaftar. Silakan masuk atau gunakan email lain.");
+        } else {
+          setError(err.message);
+        }
+      } else {
+        setError("Gagal mendaftar. Silakan coba beberapa saat lagi.");
+      }
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   const inputClassName =
-    "w-full rounded-xl border border-slate-200 bg-white px-4 py-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-amber-500 focus:ring-4 focus:ring-amber-500/10";
+    "w-full rounded-xl border border-slate-200 bg-white px-4 py-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-amber-500 focus:ring-4 focus:ring-amber-500/10 disabled:opacity-60";
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
@@ -59,12 +89,12 @@ export default function RegisterForm() {
           autoComplete="name"
           placeholder="Masukkan nama lengkap"
           required
+          disabled={isLoading}
           minLength={2}
           value={name}
           onChange={(event) => {
             setName(event.target.value);
             setError("");
-            setMessage("");
           }}
           className={inputClassName}
         />
@@ -85,11 +115,11 @@ export default function RegisterForm() {
           autoComplete="email"
           placeholder="nama@email.com"
           required
+          disabled={isLoading}
           value={email}
           onChange={(event) => {
             setEmail(event.target.value);
             setError("");
-            setMessage("");
           }}
           className={inputClassName}
         />
@@ -111,12 +141,12 @@ export default function RegisterForm() {
             autoComplete="new-password"
             placeholder="Minimal 8 karakter"
             required
+            disabled={isLoading}
             minLength={8}
             value={password}
             onChange={(event) => {
               setPassword(event.target.value);
               setError("");
-              setMessage("");
             }}
             className={`${inputClassName} pr-12`}
           />
@@ -152,11 +182,11 @@ export default function RegisterForm() {
             autoComplete="new-password"
             placeholder="Masukkan ulang password"
             required
+            disabled={isLoading}
             value={confirmPassword}
             onChange={(event) => {
               setConfirmPassword(event.target.value);
               setError("");
-              setMessage("");
             }}
             className={`${inputClassName} pr-12`}
           />
@@ -183,28 +213,20 @@ export default function RegisterForm() {
       </div>
 
       {error && (
-        <p
+        <div
           role="alert"
           className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm leading-6 text-red-700"
         >
           {error}
-        </p>
-      )}
-
-      {message && (
-        <p
-          role="status"
-          className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm leading-6 text-amber-800"
-        >
-          {message}
-        </p>
+        </div>
       )}
 
       <button
         type="submit"
-        className="flex w-full items-center justify-center rounded-xl bg-amber-500 px-5 py-3.5 text-sm font-bold text-[#0B1B3D] transition hover:bg-amber-400 focus:outline-none focus:ring-4 focus:ring-amber-500/25"
+        disabled={isLoading}
+        className="flex w-full items-center justify-center rounded-xl bg-amber-500 px-5 py-3.5 text-sm font-bold text-[#0B1B3D] transition hover:bg-amber-400 focus:outline-none focus:ring-4 focus:ring-amber-500/25 disabled:cursor-not-allowed disabled:opacity-70"
       >
-        Buat akun
+        {isLoading ? "Mendaftarkan..." : "Buat akun"}
       </button>
 
       <p className="text-center text-sm text-slate-500">

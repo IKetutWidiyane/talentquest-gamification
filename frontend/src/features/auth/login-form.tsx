@@ -2,19 +2,54 @@
 
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
-import { EnvelopeIcon, EyeIcon, EyeSlashIcon, LockKeyIcon } from "@phosphor-icons/react";
+import { useRouter, useSearchParams } from "next/navigation";
+import {
+  EnvelopeIcon,
+  EyeIcon,
+  EyeSlashIcon,
+  LockKeyIcon,
+} from "@phosphor-icons/react";
+import { useAuth } from "@/contexts/auth-context";
 
 export default function LoginForm() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const { login } = useAuth();
+
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setMessage(
-      "Form login sudah siap. Autentikasi backend perlu dihubungkan sebelum kamu dapat masuk."
-    );
+    setError("");
+    setIsLoading(true);
+
+    try {
+      const user = await login({
+        email: email.trim(),
+        password,
+      });
+
+      const redirectUrl = searchParams.get("redirect");
+      if (redirectUrl && redirectUrl.startsWith("/")) {
+        router.push(redirectUrl);
+      } else if (user.role === "CANDIDATE") {
+        router.push("/candidate");
+      } else {
+        router.push("/ta");
+      }
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Gagal masuk. Silakan periksa kembali email dan password.");
+      }
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
@@ -40,12 +75,13 @@ export default function LoginForm() {
             autoComplete="email"
             placeholder="nama@email.com"
             required
+            disabled={isLoading}
             value={email}
             onChange={(event) => {
               setEmail(event.target.value);
-              setMessage("");
+              setError("");
             }}
-            className="w-full rounded-xl border border-slate-200 bg-white py-3.5 pl-12 pr-4 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-amber-500 focus:ring-4 focus:ring-amber-500/10"
+            className="w-full rounded-xl border border-slate-200 bg-white py-3.5 pl-12 pr-4 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-amber-500 focus:ring-4 focus:ring-amber-500/10 disabled:opacity-60"
           />
         </div>
       </div>
@@ -80,12 +116,13 @@ export default function LoginForm() {
             autoComplete="current-password"
             placeholder="Masukkan password"
             required
+            disabled={isLoading}
             value={password}
             onChange={(event) => {
               setPassword(event.target.value);
-              setMessage("");
+              setError("");
             }}
-            className="w-full rounded-xl border border-slate-200 bg-white py-3.5 pl-12 pr-12 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-amber-500 focus:ring-4 focus:ring-amber-500/10"
+            className="w-full rounded-xl border border-slate-200 bg-white py-3.5 pl-12 pr-12 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-amber-500 focus:ring-4 focus:ring-amber-500/10 disabled:opacity-60"
           />
 
           <button
@@ -104,20 +141,21 @@ export default function LoginForm() {
         </div>
       </div>
 
-      {message && (
-        <p
-          role="status"
-          className="rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm leading-6 text-amber-800"
+      {error && (
+        <div
+          role="alert"
+          className="rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700"
         >
-          {message}
-        </p>
+          {error}
+        </div>
       )}
 
       <button
         type="submit"
-        className="flex w-full items-center justify-center rounded-xl bg-amber-500 px-5 py-3.5 text-sm font-bold text-[#0B1B3D] transition hover:bg-amber-400 focus:outline-none focus:ring-4 focus:ring-amber-500/25"
+        disabled={isLoading}
+        className="flex w-full items-center justify-center rounded-xl bg-amber-500 px-5 py-3.5 text-sm font-bold text-[#0B1B3D] transition hover:bg-amber-400 focus:outline-none focus:ring-4 focus:ring-amber-500/25 disabled:cursor-not-allowed disabled:opacity-70"
       >
-        Masuk
+        {isLoading ? "Memproses..." : "Masuk"}
       </button>
 
       <p className="text-center text-sm text-slate-500">
