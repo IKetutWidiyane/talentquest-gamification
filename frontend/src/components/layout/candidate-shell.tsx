@@ -44,11 +44,6 @@ export default function CandidateShell({
   const pageDescription =
     currentItem?.description ?? "Your career journey starts here";
 
-  // Tutup drawer saat berpindah halaman.
-  useEffect(() => {
-    setMobileMenuOpen(false);
-  }, [pathname]);
-
   // Escape menutup drawer dan scroll body dikunci saat drawer terbuka.
   useEffect(() => {
     if (!mobileMenuOpen) return;

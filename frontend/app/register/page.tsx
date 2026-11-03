@@ -1,7 +1,42 @@
+"use client";
+
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/contexts/auth-context";
 import { PublicLayout } from "@/components/layout/public-layout";
 import RegisterForm from "@/features/auth/register-form";
 
 export default function RegisterPage() {
+  const { isAuthenticated, role, isLoading } = useAuth();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!isLoading && isAuthenticated) {
+      if (role === "CANDIDATE") {
+        router.replace("/candidate");
+      } else if (role === "TALENT_ACQUISITION") {
+        router.replace("/ta");
+      }
+    }
+  }, [isLoading, isAuthenticated, role, router]);
+
+  if (isLoading) {
+    return (
+      <PublicLayout>
+        <div className="flex min-h-[calc(100vh-80px)] items-center justify-center bg-[#F8F7F4]">
+          <div className="flex flex-col items-center gap-3">
+            <div className="h-8 w-8 animate-spin rounded-full border-4 border-[#0B1B3D]/20 border-t-[#0B1B3D]" />
+            <p className="text-xs font-semibold text-[#0B1B3D]">Memeriksa sesi...</p>
+          </div>
+        </div>
+      </PublicLayout>
+    );
+  }
+
+  if (isAuthenticated) {
+    return null;
+  }
+
   return (
     <PublicLayout>
       <main className="flex min-h-[calc(100vh-80px)] items-center justify-center bg-[#F8F7F4] px-4 py-12 sm:px-6">
