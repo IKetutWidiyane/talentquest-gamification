@@ -42,6 +42,12 @@ export const roleNavigation: Record<AppRole, NavigationItem[]> = {
       icon: TrophyIcon,
     },
     {
+      label: "Competency Progress",
+      href: "/candidate/competency-progress",
+      icon: TargetIcon,
+      description: "View your Talent Quest competency results",
+    },
+    {
       label: "My Applications",
       href: "/candidate/applications",
       icon: FileTextIcon,
